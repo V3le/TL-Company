@@ -1,0 +1,19 @@
+{
+  "name": "tl-web",
+  "version": "1.0.0",
+  "description": "TL Web Project",
+  "scripts": {
+    "start": "cd public && npx live-server --port=8000 --open=/",
+    "start:php": "cd public && php -S localhost:8000",
+    "start:simple": "cd public && npx http-server -p 8000 -o"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "http-server": "^14.1.1"
+  }
+}
+
+

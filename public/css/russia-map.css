@@ -1,0 +1,202 @@
+/* Russia Map Section */
+.russia-map {
+    padding: 80px 20px;
+    background: transparent;
+}
+
+.russia-map .section-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.map-search {
+    margin-bottom: 30px;
+}
+
+.search-input {
+    width: 100%;
+    max-width: 600px;
+    padding: 15px 20px;
+    font-size: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: #3498db;
+}
+
+.cities-filter {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.city-btn {
+    padding: 12px 25px;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    border-radius: 25px;
+    background: #e0f7f4;
+    color: #2c3e50;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.city-btn:hover {
+    background: #ff0000;
+}
+
+.city-btn.active {
+    background: #46c0c0;
+    color: white;
+}
+
+.more-cities {
+    margin-bottom: 30px;
+}
+
+.more-cities-link {
+    font-size: 14px;
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.more-cities-link:hover {
+    color: #3498db;
+}
+
+/* RF Map Styles */
+.rf-map {
+    position: relative;
+    max-width: 980px;
+    margin: 30px auto 0;
+    padding: 20px;
+}
+
+.rf-map .district b {
+    position: absolute;
+    z-index: 5;
+    width: 18px;
+    height: 18px;
+    background: rgba(0, 212, 170, 0.9);
+    border-radius: 50%;
+    left: 6px;
+    top: 18px;
+    transition: all 0.3s;
+}
+
+.rf-map .district span {
+    position: absolute;
+    z-index: 5;
+    top: 20px;
+    left: 30px;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1;
+    color: #46c0c0;
+}
+
+.rf-map .district {
+    display: none;
+}
+
+.rf-map.open .district b {
+    top: 0;
+    left: 0;
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2), 0 16px 20px rgba(0,0,0,0.2);
+}
+
+.rf-map.open .district span {
+    color: #FFF;
+}
+
+.rf-map svg {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.1));
+}
+
+.rf-map path {
+    stroke: #FFFFFF;
+    stroke-width: 1;
+    stroke-linejoin: round;
+}
+
+.rf-map [data-code] {
+    fill: rgb(212, 223, 223);
+    transition: fill 0.2s;
+    cursor: pointer;
+}
+
+.rf-map [data-code]:hover {
+    fill: #46c0c0;
+}
+
+.rf-map .close-district {
+    opacity: 0;
+    z-index: 6;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    line-height: 1;
+    font-size: 40px;
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 1s;
+    pointer-events: none;
+}
+
+.rf-map.open .close-district {
+    opacity: 1;
+    pointer-events: initial;
+}
+
+.dropfill {
+    fill: #46c0c0 !important;
+}
+
+.mainfill {
+    fill: #46c0c0 !important;
+}
+
+@media (max-width: 768px) {
+    .russia-map {
+        padding: 60px 20px;
+    }
+
+    .russia-map .section-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .cities-filter {
+        gap: 10px;
+    }
+
+    .city-btn {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+
+    .map-container {
+        height: 400px;
+    }
+}
