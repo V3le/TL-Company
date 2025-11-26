@@ -176,3 +176,187 @@
         gap: 0;
     }
 }
+
+
+/* Стили для изображений в слайдере */
+.slide-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.slide-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.slide-content img:hover {
+    transform: scale(1.02);
+}
+
+/* Стили для текстовых благодарственных писем */
+.testimonial-text {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.testimonial-text h3 {
+    font-size: 20px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.testimonial-text .author {
+    font-size: 14px;
+    color: #7f8c8d;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.testimonial-text p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #34495e;
+}
+
+/* Модальное окно для полноэкранного просмотра */
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s;
+    padding: 20px;
+}
+
+.image-modal.active {
+    display: flex;
+}
+
+.image-modal-content {
+    width: auto;
+    height: auto;
+    max-width: 95vw;
+    max-height: 95vh;
+    object-fit: contain;
+    animation: zoomIn 0.3s;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.image-modal-close {
+    position: fixed;
+    top: 20px;
+    right: 40px;
+    color: white;
+    font-size: 60px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 10001;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.image-modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+.image-modal-nav {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 60px;
+    cursor: pointer;
+    padding: 20px;
+    user-select: none;
+    transition: all 0.3s;
+    z-index: 10001;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-modal-nav:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.image-modal-prev {
+    left: 20px;
+}
+
+.image-modal-next {
+    right: 20px;
+}
+
+@media (max-width: 768px) {
+    .image-modal-content {
+        max-width: 100vw;
+        max-height: 100vh;
+    }
+    
+    .image-modal-close {
+        top: 10px;
+        right: 10px;
+        font-size: 40px;
+        width: 50px;
+        height: 50px;
+    }
+    
+    .image-modal-nav {
+        font-size: 40px;
+        width: 60px;
+        height: 60px;
+    }
+    
+    .image-modal-prev {
+        left: 10px;
+    }
+    
+    .image-modal-next {
+        right: 10px;
+    }
+}

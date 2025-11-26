@@ -42,19 +42,36 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.textContent = 'Отправляем...';
         
         try {
-            // Здесь будет отправка на сервер
-            // Пока что имитируем отправку
-            await simulateSubmit(data);
+            // Отправка на сервер
+            const response = await fetch('../api/contacts/create.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: data.name,
+                    phone: data.phone,
+                    email: data.email,
+                    message: data.message
+                })
+            });
             
-            showMessage('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
-            form.reset();
+            const result = await response.json();
+            
+            if (response.ok) {
+                showMessage('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
+                form.reset();
+            } else {
+                showMessage(result.message || 'Произошла ошибка при отправке.', 'error');
+            }
             
         } catch (error) {
+            console.error('Ошибка:', error);
             showMessage('Произошла ошибка при отправке. Попробуйте еще раз.', 'error');
         } finally {
             // Включаем кнопку обратно
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Получить расчет';
+            submitBtn.textContent = 'Отправить';
         }
     });
     
@@ -117,20 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // Имитация отправки (заменить на реальную отправку)
-    function simulateSubmit(data) {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                // Имитируем успешную отправку в 90% случаев
-                if (Math.random() > 0.1) {
-                    console.log('Данные формы:', data);
-                    resolve();
-                } else {
-                    reject(new Error('Ошибка сервера'));
-                }
-            }, 1500);
-        });
-    }
     
     // Маска для телефона
     const phoneInput = document.getElementById('phone');
