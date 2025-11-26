@@ -6,7 +6,6 @@
     
     <nav class="sidebar-nav">
         <?php
-        // Определяем базовый путь в зависимости от текущей директории
         $current_dir = dirname($_SERVER['PHP_SELF']);
         if (strpos($current_dir, '/admin/pages') !== false) {
             $base = '';
