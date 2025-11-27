@@ -35,6 +35,17 @@ $query = "SELECT COUNT(*) as total FROM contacts WHERE status = 'new'";
 $stmt = $db->prepare($query);
 $stmt->execute();
 $new_contacts = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+
+// Статистика по заявкам
+$query = "SELECT COUNT(*) as total FROM orders";
+$stmt = $db->prepare($query);
+$stmt->execute();
+$orders_count = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+
+$query = "SELECT COUNT(*) as total FROM orders WHERE status = 'new'";
+$stmt = $db->prepare($query);
+$stmt->execute();
+$new_orders = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -64,6 +75,24 @@ $new_contacts = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
                         <a href="testimonials.php" class="stat-link">Перейти →</a>
                     </div>
                     
+                    <div class="stat-card highlight">
+                        <div class="stat-icon">🚚</div>
+                        <div class="stat-info">
+                            <div class="stat-value"><?php echo $orders_count; ?></div>
+                            <div class="stat-label">Всего заявок</div>
+                        </div>
+                        <a href="orders.php" class="stat-link">Перейти →</a>
+                    </div>
+                    
+                    <div class="stat-card highlight">
+                        <div class="stat-icon">🔔</div>
+                        <div class="stat-info">
+                            <div class="stat-value"><?php echo $new_orders; ?></div>
+                            <div class="stat-label">Новых заявок</div>
+                        </div>
+                        <a href="orders.php?status=new" class="stat-link">Перейти →</a>
+                    </div>
+                    
                     <div class="stat-card">
                         <div class="stat-icon">✉️</div>
                         <div class="stat-info">
@@ -73,8 +102,8 @@ $new_contacts = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
                         <a href="contacts.php" class="stat-link">Перейти →</a>
                     </div>
                     
-                    <div class="stat-card highlight">
-                        <div class="stat-icon">🔔</div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📬</div>
                         <div class="stat-info">
                             <div class="stat-value"><?php echo $new_contacts; ?></div>
                             <div class="stat-label">Новых обращений</div>

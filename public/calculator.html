@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор грузоперевозок - TL Web</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/contacts.css">
+    <link rel="stylesheet" href="css/calculator.css">
+    <link rel="stylesheet" href="css/modal.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    
+    <section class="breadcrumbs">
+        <div class="container">
+            <a href="index.html" class="breadcrumb-link">Главная</a>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-current">Расчет перевозки</span>
+        </div>
+    </section>
+
+    <section class="calculator-section">
+        <div class="container">
+            <h1 class="page-title">Калькулятор грузоперевозок по России</h1>
+            
+            <div class="calculator-wrapper">
+                <div class="calculator-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Откуда</label>
+                            <div class="city-input-wrapper">
+                                <input type="text" id="calcCityFrom" placeholder="г Ставрополь" autocomplete="off">
+                                <div id="calcCityFromSuggestions" class="city-suggestions"></div>
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="swap-cities" id="swapCities">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 16V4M7 4L3 8M7 4L11 8M17 8V20M17 20L21 16M17 20L13 16"/>
+                            </svg>
+                        </button>
+                        
+                        <div class="form-group">
+                            <label>Куда</label>
+                            <div class="city-input-wrapper">
+                                <input type="text" id="calcCityTo" placeholder="г Москва" autocomplete="off">
+                                <div id="calcCityToSuggestions" class="city-suggestions"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="transport-type-selector">
+                        <button type="button" class="transport-btn active" data-type="dedicated">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18 18.5C18.83 18.5 19.5 17.83 19.5 17C19.5 16.17 18.83 15.5 18 15.5C17.17 15.5 16.5 16.17 16.5 17C16.5 17.83 17.17 18.5 18 18.5ZM19.5 9.5H17V12H21.46L19.5 9.5ZM6 18.5C6.83 18.5 7.5 17.83 7.5 17C7.5 16.17 6.83 15.5 6 15.5C5.17 15.5 4.5 16.17 4.5 17C4.5 17.83 5.17 18.5 6 18.5ZM20 8L23 12V17H21C21 18.66 19.66 20 18 20C16.34 20 15 18.66 15 17H9C9 18.66 7.66 20 6 20C4.34 20 3 18.66 3 17H1V6C1 4.89 1.89 4 3 4H17V8H20Z"/>
+                            </svg>
+                            <span>Отдельная машина</span>
+                        </button>
+                        <button type="button" class="transport-btn" data-type="shared">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18 18.5C18.83 18.5 19.5 17.83 19.5 17C19.5 16.17 18.83 15.5 18 15.5C17.17 15.5 16.5 16.17 16.5 17C16.5 17.83 17.17 18.5 18 18.5ZM19.5 9.5H17V12H21.46L19.5 9.5ZM6 18.5C6.83 18.5 7.5 17.83 7.5 17C7.5 16.17 6.83 15.5 6 15.5C5.17 15.5 4.5 16.17 4.5 17C4.5 17.83 5.17 18.5 6 18.5ZM20 8L23 12V17H21C21 18.66 19.66 20 18 20C16.34 20 15 18.66 15 17H9C9 18.66 7.66 20 6 20C4.34 20 3 18.66 3 17H1V6C1 4.89 1.89 4 3 4H17V8H20Z"/>
+                            </svg>
+                            <span>Догруз</span>
+                        </button>
+                    </div>
+
+                    <div class="weight-selector">
+                        <button type="button" class="weight-btn active" data-weight="1.5">1.5 тонны</button>
+                        <button type="button" class="weight-btn" data-weight="5">5 тонн</button>
+                        <button type="button" class="weight-btn" data-weight="10">10 тонн</button>
+                        <button type="button" class="weight-btn" data-weight="20">20 тонн</button>
+                        <button type="button" class="weight-btn" data-weight="20+">20 тонн (120 м³)</button>
+                        <button type="button" class="weight-btn" data-weight="oversized">Негабарит</button>
+                    </div>
+
+                    <button type="button" class="btn-calculate" id="calculateBtn">Рассчитать стоимость</button>
+                </div>
+
+                <div class="calculation-result" id="calculationResult">
+                    <div class="result-icon">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#3498db" stroke-width="1.5">
+                            <path d="M20 7L12 3L4 7M20 7L12 11M20 7V17L12 21M12 11L4 7M12 11V21M4 7V17L12 21"/>
+                        </svg>
+                    </div>
+                    <div class="result-route">
+                        <span class="route-text">Маршрут: <strong id="routeFrom">г Ставрополь</strong> → <strong id="routeTo">г Москва</strong></span>
+                    </div>
+                    <div class="result-distance">
+                        Расстояние: <strong id="distanceValue">1407</strong> км
+                    </div>
+                    <div class="result-price">
+                        Стоимость: <strong id="priceValue">39 398</strong> руб.
+                    </div>
+                    <button type="button" class="btn-order" id="orderFromCalc">Оставить заявку</button>
+                </div>
+
+                <div class="promo-card">
+                    <div class="promo-icon">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#3498db" stroke-width="1.5">
+                            <path d="M20 7L12 3L4 7M20 7L12 11M20 7V17L12 21M12 11L4 7M12 11V21M4 7V17L12 21"/>
+                        </svg>
+                    </div>
+                    <div class="promo-percent">10%</div>
+                    <div class="promo-title">СКИДКА</div>
+                    <div class="promo-subtitle">НА ПЕРВЫЙ ЗАКАЗ</div>
+                    <button type="button" class="btn-promo">Отправить груз</button>
+                </div>
+            </div>
+
+            <div class="calculator-info">
+                <p class="info-note">
+                    <strong>Важная информация!</strong> Калькулятор показывает ориентировочную цену и не является публичной офертой! 
+                    Точная стоимость зависит от веса, объема, характера груза и может быть рассчитана только менеджером-логистом. 
+                    Для расчета точной стоимости оставьте заявку на сайте или позвоните по телефону 
+                    <a href="tel:+74994601740">+7 (499) 460-17-40</a>
+                </p>
+            </div>
+
+            <div class="calculator-description">
+                <h2>Онлайн калькулятор грузоперевозок из Ставрополя</h2>
+                <p>
+                    На этой странице вы можете провести расчет стоимости грузоперевозки. После вам будет выслано персональное 
+                    коммерческое предложение. Этот раздел поможет вам оперативно получить только актуальные данные по желаемым перевозкам.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция контактов -->
+    <section class="contacts" id="contacts">
+        <div class="container">
+            <h2 class="section-title">Свяжитесь с нами</h2>
+            <div class="contacts-wrapper">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-details">
+                            <h3>Телефон</h3>
+                            <a href="tel:+74994601740">+7 (499) 460-17-40</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <a href="mailto:info@example.com">info@example.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h3>Адрес</h3>
+                            <p>Москва, ул. Примерная, д. 1</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-wrapper">
+                    <form class="contact-form" id="contactForm">
+                        <input type="text" name="name" placeholder="Ваше имя" required>
+                        <input type="tel" name="phone" placeholder="Телефон" required>
+                        <input type="email" name="email" placeholder="Email">
+                        <textarea name="message" placeholder="Сообщение" required></textarea>
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>О компании</h3>
+                    <p>TL Web - надежный партнер в сфере грузоперевозок по всей России</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <p>Телефон: <a href="tel:+74994601740">+7 (499) 460-17-40</a></p>
+                    <p>Email: <a href="mailto:info@example.com">info@example.com</a></p>
+                </div>
+                <div class="footer-column">
+                    <h3>Мы в соцсетях</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="Telegram">Telegram</a>
+                        <a href="#" aria-label="WhatsApp">WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TL Web. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/header.js"></script>
+    <script src="js/calculator.js"></script>
+    <script src="js/contacts.js"></script>
+    <script src="js/order-modal.js"></script>
+</body>
+</html>

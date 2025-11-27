@@ -107,6 +107,12 @@ body {
     font-weight: 500;
 }
 
+.nav-text exit{
+    font-size: 14px;
+    font-weight: 500;
+
+}
+
 .nav-badge {
     margin-left: auto;
     background: var(--danger);
@@ -124,6 +130,7 @@ body {
 
 .nav-item.logout {
     color: var(--danger);
+    justify-content: center;
 }
 
 .nav-item.logout:hover {

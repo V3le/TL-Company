@@ -25,13 +25,27 @@
             <span class="nav-text">Благодарственные письма</span>
         </a>
         
-        <a href="<?php echo $base; ?>contacts.php" class="nav-item <?php echo basename($_SERVER['PHP_SELF']) == 'contacts.php' || basename($_SERVER['PHP_SELF']) == 'contact-view.php' ? 'active' : ''; ?>">
-            <span class="nav-icon">✉️</span>
-            <span class="nav-text">Обращения</span>
+        <a href="<?php echo $base; ?>orders.php" class="nav-item <?php echo basename($_SERVER['PHP_SELF']) == 'orders.php' || basename($_SERVER['PHP_SELF']) == 'order-view.php' ? 'active' : ''; ?>">
+            <span class="nav-icon">🚚</span>
+            <span class="nav-text">Заявки</span>
             <?php
             include_once '../../../api/config/database.php';
             $database = new Database();
             $db = $database->getConnection();
+            $query = "SELECT COUNT(*) as total FROM orders WHERE status = 'new'";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            $new_orders_count = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+            if ($new_orders_count > 0):
+            ?>
+            <span class="nav-badge"><?php echo $new_orders_count; ?></span>
+            <?php endif; ?>
+        </a>
+        
+        <a href="<?php echo $base; ?>contacts.php" class="nav-item <?php echo basename($_SERVER['PHP_SELF']) == 'contacts.php' || basename($_SERVER['PHP_SELF']) == 'contact-view.php' ? 'active' : ''; ?>">
+            <span class="nav-icon">✉️</span>
+            <span class="nav-text">Обращения</span>
+            <?php
             $query = "SELECT COUNT(*) as total FROM contacts WHERE status = 'new'";
             $stmt = $db->prepare($query);
             $stmt->execute();
@@ -52,8 +66,7 @@
         }
         ?>
         <a href="<?php echo $logout_path; ?>" class="nav-item logout">
-            <span class="nav-icon">🚪</span>
-            <span class="nav-text">Выход</span>
+            <span class="nav-text exit">Выход</span>
         </a>
     </div>
 </aside>
