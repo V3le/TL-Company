@@ -1,43 +1,19 @@
-// Список городов России для автодополнения
-const russianCities = [
-    'Москва', 'Санкт-Петербург', 'Новосибирск', 'Екатеринбург', 'Казань',
-    'Нижний Новгород', 'Челябинск', 'Самара', 'Омск', 'Ростов-на-Дону',
-    'Уфа', 'Красноярск', 'Воронеж', 'Пермь', 'Волгоград',
-    'Краснодар', 'Саратов', 'Тюмень', 'Тольятти', 'Ижевск',
-    'Барнаул', 'Ульяновск', 'Иркутск', 'Хабаровск', 'Ярославль',
-    'Владивосток', 'Махачкала', 'Томск', 'Оренбург', 'Кемерово',
-    'Новокузнецк', 'Рязань', 'Астрахань', 'Набережные Челны', 'Пенза',
-    'Липецк', 'Тула', 'Киров', 'Чебоксары', 'Калининград',
-    'Брянск', 'Курск', 'Иваново', 'Магнитогорск', 'Тверь',
-    'Ставрополь', 'Нижний Тагил', 'Белгород', 'Архангельск', 'Владимир',
-    'Сочи', 'Курган', 'Смоленск', 'Калуга', 'Чита',
-    'Орёл', 'Волжский', 'Череповец', 'Владикавказ', 'Мурманск',
-    'Сургут', 'Вологда', 'Саранск', 'Тамбов', 'Стерлитамак',
-    'Грозный', 'Якутск', 'Кострома', 'Комсомольск-на-Амуре', 'Петрозаводск',
-    'Таганрог', 'Нижневартовск', 'Йошкар-Ола', 'Братск', 'Новороссийск',
-    'Дзержинск', 'Шахты', 'Нальчик', 'Орск', 'Сыктывкар',
-    'Нижнекамск', 'Ангарск', 'Старый Оскол', 'Великий Новгород', 'Благовещенск',
-    'Прокопьевск', 'Бийск', 'Псков', 'Энгельс', 'Рыбинск',
-    'Балаково', 'Северодвинск', 'Армавир', 'Подольск', 'Королёв',
-    'Южно-Сахалинск', 'Петропавловск-Камчатский', 'Сызрань', 'Норильск', 'Златоуст',
-    'Мытищи', 'Люберцы', 'Волгодонск', 'Находка', 'Уссурийск',
-    'Березники', 'Салават', 'Электросталь', 'Миасс', 'Рубцовск',
-    'Альметьевск', 'Ковров', 'Коломна', 'Майкоп', 'Пятигорск',
-    'Одинцово', 'Копейск', 'Хасавюрт', 'Новочеркасск', 'Ачинск',
-    'Кисловодск', 'Серпухов', 'Новомосковск', 'Первоуральск', 'Ессентуки',
-    'Ставрополь', 'Севастополь', 'Симферополь', 'Керчь', 'Евпатория'
-];
+// Модальное окно для заявок
+// Использует window.russianCities из cities-data.js
 
 class OrderModal {
     constructor() {
+        console.log('OrderModal: Инициализация...');
         this.modal = null;
         this.form = null;
         this.init();
     }
 
     init() {
+        console.log('OrderModal: Создание модального окна...');
         this.createModal();
         this.attachEventListeners();
+        console.log('OrderModal: Готово! Modal:', this.modal);
     }
 
     createModal() {
@@ -107,16 +83,34 @@ class OrderModal {
 
     attachEventListeners() {
         // Используем делегирование событий для кнопок (включая динамически загруженные)
-        document.addEventListener('click', (e) => {
+        const self = this;
+        
+        // Удаляем старый обработчик если есть
+        if (window.orderModalClickHandler) {
+            document.removeEventListener('click', window.orderModalClickHandler);
+        }
+        
+        // Создаем новый обработчик
+        window.orderModalClickHandler = function(e) {
+            // Проверяем клик по кнопке или ссылке
             const target = e.target.closest('button, a');
             if (target) {
                 const text = target.textContent.trim();
-                if (text === 'Оставить заявку' || text.includes('Оставить заявку')) {
+                
+                console.log('Клик по элементу:', text, target.className);
+                
+                // Открываем модалку если текст содержит "Оставить заявку"
+                if (text.includes('Оставить заявку') || 
+                    text.includes('Отправить груз')) {
+                    console.log('Открываем модальное окно');
                     e.preventDefault();
-                    this.open();
+                    e.stopPropagation();
+                    self.open();
                 }
             }
-        });
+        };
+        
+        document.addEventListener('click', window.orderModalClickHandler, true);
 
         // Закрытие модального окна
         const closeBtn = this.modal.querySelector('.modal-close');
@@ -158,7 +152,7 @@ class OrderModal {
                 return;
             }
 
-            const filtered = russianCities.filter(city => 
+            const filtered = (window.russianCities || []).filter(city => 
                 city.toLowerCase().includes(value)
             ).slice(0, 10);
 
@@ -240,8 +234,14 @@ class OrderModal {
     }
 
     open() {
-        this.modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        console.log('Метод open() вызван, modal:', this.modal);
+        if (this.modal) {
+            this.modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            console.log('Модальное окно открыто');
+        } else {
+            console.error('Модальное окно не найдено!');
+        }
     }
 
     close() {
