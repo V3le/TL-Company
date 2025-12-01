@@ -2,18 +2,30 @@
 
 Все стили сайта теперь используют единую систему дизайна с CSS переменными.
 
-## Цвета
+## Цветовая палитра
+
+### Основные цвета
 
 ```css
---color-primary: #1a1a1a          /* Основной цвет (черный) */
---color-primary-hover: #333        /* Hover состояние */
---color-text: #1a1a1a             /* Основной текст */
---color-text-secondary: #666       /* Вторичный текст */
---color-text-light: #999          /* Светлый текст */
---color-background: #fafafa        /* Фон страницы */
---color-white: #ffffff            /* Белый */
---color-border: #e0e0e0           /* Рамки */
---color-border-light: #f0f0f0     /* Светлые рамки */
+--color-onyx: #222526           /* Onyx - самый темный (header/footer) */
+--color-graphite: #353A3E       /* Graphite - темно-серый (текст/кнопки) */
+--color-platinum: #E0E0E0       /* Platinum - светло-серый (фоны) */
+--color-jet-black: #1A1A1A      /* Jet Black - черный (акценты) */
+--color-ash: #BFBFBF            /* Ash - серый (вторичные элементы) */
+--color-white: #ffffff          /* Белый */
+```
+
+### Применение цветов
+
+```css
+--color-primary: #1A1A1A          /* Основной цвет (Jet Black) */
+--color-primary-hover: #353A3E    /* Hover (Graphite) */
+--color-text: #1A1A1A             /* Основной текст (Jet Black) */
+--color-text-secondary: #353A3E   /* Вторичный текст (Graphite) */
+--color-text-light: #BFBFBF       /* Светлый текст (Ash) */
+--color-background: #E0E0E0       /* Фон страницы (Platinum) */
+--color-border: #BFBFBF           /* Рамки (Ash) */
+--color-border-light: #E0E0E0     /* Светлые рамки (Platinum) */
 ```
 
 ## Тени

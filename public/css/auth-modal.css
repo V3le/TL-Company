@@ -155,21 +155,9 @@
     display: none;
 }
 
+/* Инпуты используют стили из design-system.css */
 .auth-input-group input {
-    width: 100%;
-    padding: 14px 16px;
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    font-size: 15px;
-    transition: all 0.3s;
-    background: #fafafa;
-}
-
-.auth-input-group input:focus {
-    outline: none;
-    border-color: #1a1a1a;
-    background: white;
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+    /* Специфичные стили только для валидации */
 }
 
 .auth-input-group input.error {

@@ -1,6 +1,6 @@
 /* Contacts Section */
 .contacts {
-    background: #fafafa;
+    background: rgba(224, 224, 224, 0.85);
     padding: 80px 20px;
 }
 
@@ -13,7 +13,7 @@
 .contacts .section-title {
     font-size: 36px;
     font-weight: 700;
-    color: #1a1a1a;
+    color: var(--color-jet-black, #1A1A1A);
     text-align: left;
     margin-bottom: 8px;
     letter-spacing: -0.5px;
@@ -21,7 +21,7 @@
 
 .contacts .section-subtitle {
     font-size: 16px;
-    color: #666;
+    color: var(--color-graphite, #353A3E);
     text-align: left;
     margin-bottom: 40px;
 }
@@ -39,23 +39,23 @@
 }
 
 .contact-block {
-    background: white;
+    background: var(--color-white, #ffffff);
     padding: 32px;
     border-radius: 16px;
-    border: 1px solid #f0f0f0;
+    border: 1px solid var(--color-platinum, #E0E0E0);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     transition: all 0.3s ease;
 }
 
 .contact-block:hover {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    border-color: #e0e0e0;
+    border-color: var(--color-ash, #BFBFBF);
 }
 
 .contact-title {
     font-size: 18px;
     font-weight: 700;
-    color: #1a1a1a;
+    color: var(--color-jet-black, #1A1A1A);
     margin-bottom: 24px;
 }
 
@@ -68,50 +68,54 @@
 }
 
 .schedule-day {
-    background: #fafafa;
+    background: var(--color-white, #ffffff);
     border-radius: 12px;
     padding: 16px 8px;
     text-align: center;
     transition: all 0.3s ease;
-    border: 1px solid #f0f0f0;
+    border: 1px solid var(--color-platinum, #E0E0E0);
+}
+
+.schedule-day.weekend {
+    background: var(--color-platinum, #E0E0E0);
 }
 
 .schedule-day.active {
-    background: #1a1a1a;
-    border-color: #1a1a1a;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: var(--color-white, #ffffff);
+    border: 2px solid var(--color-jet-black, #1A1A1A);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .schedule-day.active .day-name {
-    color: white;
-    border-color: rgba(255, 255, 255, 0.3);
+    color: var(--color-jet-black, #1A1A1A);
+    border-color: var(--color-jet-black, #1A1A1A);
 }
 
 .schedule-day.active .day-time {
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.schedule-day.weekend .day-name {
-    border-color: #e0e0e0;
+    color: var(--color-graphite, #353A3E);
 }
 
 .day-name {
     font-size: 13px;
     font-weight: 700;
-    color: #1a1a1a;
+    color: var(--color-jet-black, #1A1A1A);
     margin-bottom: 8px;
     padding-bottom: 8px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--color-platinum, #E0E0E0);
+}
+
+.schedule-day.weekend .day-name {
+    border-bottom-color: var(--color-jet-black, #1A1A1A);
 }
 
 .day-time {
     font-size: 12px;
-    color: #666;
+    color: var(--color-graphite, #353A3E);
     line-height: 1.4;
 }
 
 .contact-details {
-    color: #5a6c7d;
+    color: var(--color-graphite, #353A3E);
     line-height: 1.6;
 }
 
@@ -125,24 +129,24 @@
 
 .contact-item strong {
     display: block;
-    color: #2c3e50;
+    color: var(--color-jet-black, #1A1A1A);
     margin-bottom: 8px;
     font-size: 16px;
 }
 
 .contact-details p {
     margin: 5px 0;
-    color: #5a6c7d;
+    color: var(--color-graphite, #353A3E);
 }
 
 .contact-details a {
-    color: #46c0c0;
+    color: var(--color-jet-black, #1A1A1A);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .contact-details a:hover {
-    color: #3aa8a8;
+    color: var(--color-graphite, #353A3E);
 }
 
 .contacts-address .contact-title::before {
@@ -155,24 +159,24 @@
     margin-top: 20px;
 }
 
-.btn-address {
+a.btn-address {
     display: inline-block;
     padding: 10px 20px;
-    border: 2px solid #46c0c0;
+    border: 2px solid var(--color-jet-black, #1A1A1A);
     border-radius: 8px;
-    color: #46c0c0;
+    color: var(--color-jet-black, #1A1A1A) !important;
     text-decoration: none;
     font-weight: 500;
     transition: all 0.3s ease;
 }
 
-.btn-address:hover {
-    background: #46c0c0;
-    color: white;
+a.btn-address:hover {
+    background: var(--color-jet-black, #1A1A1A) !important;
+    color: var(--color-white, #ffffff) !important;
 }
 
 .contact-form-wrapper {
-    background: white;
+    background: var(--color-white, #ffffff);
     padding: 40px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -187,36 +191,15 @@
     display: block;
     font-size: 14px;
     font-weight: 600;
-    color: #1a1a1a;
+    color: var(--color-jet-black, #1A1A1A);
     margin-bottom: 8px;
 }
 
+/* Инпуты используют стили из design-system.css */
 .form-group input,
 .form-group select,
 .form-group textarea {
-    width: 100%;
-    padding: 14px 16px;
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    font-size: 15px;
-    transition: all 0.3s ease;
     box-sizing: border-box;
-    background: #fafafa;
-    font-family: inherit;
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: #999;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #1a1a1a;
-    background: white;
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
 }
 
 .form-group textarea {
@@ -231,38 +214,61 @@
 }
 
 .checkbox-group input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    min-width: 18px;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
     margin-top: 2px;
     cursor: pointer;
+    border: 2px solid var(--color-ash, #BFBFBF);
+    border-radius: 4px;
+    background: var(--color-white, #ffffff);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.checkbox-group input[type="checkbox"]:hover {
+    border-color: var(--color-jet-black, #1A1A1A);
+}
+
+.checkbox-group input[type="checkbox"]:checked {
+    background: var(--color-jet-black, #1A1A1A);
+    border-color: var(--color-jet-black, #1A1A1A);
+}
+
+.checkbox-group input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color-white, #ffffff);
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .checkbox-group label {
     font-size: 14px;
     font-weight: normal;
-    color: #666;
+    color: var(--color-graphite, #353A3E);
     margin: 0;
     cursor: pointer;
 }
 
 .checkbox-group label a {
-    color: #1a1a1a;
+    color: var(--color-jet-black, #1A1A1A);
     text-decoration: underline;
 }
 
 .checkbox-group label a:hover {
-    color: #666;
-}
-
-.checkbox-group label a:hover {
-    text-decoration: underline;
+    color: var(--color-graphite, #353A3E);
 }
 
 .btn-submit {
     width: 100%;
-    background: #1a1a1a;
-    color: white;
+    background: var(--color-jet-black, #1A1A1A);
+    color: var(--color-white, #ffffff);
     border: none;
     padding: 16px 32px;
     font-size: 16px;
@@ -274,14 +280,14 @@
 }
 
 .btn-submit:hover {
-    background: #333;
+    background: var(--color-graphite, #353A3E);
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .btn-submit:disabled {
-    background: #e0e0e0;
-    color: #999;
+    background: var(--color-platinum, #E0E0E0);
+    color: var(--color-ash, #BFBFBF);
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
@@ -340,4 +346,63 @@
     .address-buttons {
         flex-direction: column;
     }
+}
+
+
+/* Кастомные подсказки валидации */
+.form-group {
+    position: relative;
+}
+
+.form-group input:invalid:not(:placeholder-shown):not(:focus),
+.form-group textarea:invalid:not(:placeholder-shown):not(:focus),
+.form-group select:invalid:not(:placeholder-shown):not(:focus) {
+    border-color: #f44336;
+}
+
+/* Стили для встроенных подсказок браузера */
+input::-webkit-validation-bubble-message,
+textarea::-webkit-validation-bubble-message,
+select::-webkit-validation-bubble-message {
+    padding: 12px 16px;
+    background: var(--color-jet-black, #1A1A1A);
+    color: var(--color-white, #ffffff);
+    border-radius: 8px;
+    font-size: 13px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Кастомный чекбокс для всех форм */
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    cursor: pointer;
+    border: 2px solid var(--color-ash, #BFBFBF);
+    border-radius: 4px;
+    background: var(--color-white, #ffffff);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+input[type="checkbox"]:hover {
+    border-color: var(--color-jet-black, #1A1A1A);
+}
+
+input[type="checkbox"]:checked {
+    background: var(--color-jet-black, #1A1A1A);
+    border-color: var(--color-jet-black, #1A1A1A);
+}
+
+input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color-white, #ffffff);
+    font-size: 14px;
+    font-weight: bold;
 }

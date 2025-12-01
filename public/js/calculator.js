@@ -251,10 +251,10 @@ class Calculator {
             hint.style.color = '#46c0c0';
         } else if (this.weight > 1500) {
             hint.textContent = '✓ Малый тоннаж (1.5-5 тонн)';
-            hint.style.color = '#46c0c0';
+            hint.style.color = 'var(--color-jet-black, #1A1A1A)';
         } else {
-            hint.textContent = 'не более 500 кг';
-            hint.style.color = '#9CA3AF';
+            hint.textContent = 'до 1.5 тонн';
+            hint.style.color = 'var(--color-ash, #BFBFBF)';
         }
     }
     

@@ -17,8 +17,8 @@
 }
 
 .header-info {
-    background: #f8f9fa;
-    border-bottom: 1px solid #e9ecef;
+    background: var(--color-onyx, #222526);
+    border-bottom: 1px solid var(--color-graphite, #353A3E);
     padding: 10px 0;
     width: 100%;
     display: block;
@@ -35,7 +35,7 @@
 }
 
 .info-text {
-    color: #6c757d;
+    color: var(--color-ash, #BFBFBF);
     font-size: 14px;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .social-icon {
-    color: #6c757d;
+    color: var(--color-ash, #BFBFBF);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -57,7 +57,7 @@
 }
 
 .social-icon:hover {
-    color: #3498db;
+    color: var(--color-white, #ffffff);
 }
 
 .social-icon svg {
@@ -68,18 +68,18 @@
 .separator {
     width: 1px;
     height: 16px;
-    background: #dee2e6;
+    background: var(--color-graphite, #353A3E);
 }
 
 .contact-link {
-    color: #212529;
+    color: var(--color-white, #ffffff);
     text-decoration: none;
     font-size: 14px;
     transition: color 0.3s ease;
 }
 
 .contact-link:hover {
-    color: #3498db;
+    color: var(--color-ash, #BFBFBF);
 }
 
 .header-nav {
@@ -144,7 +144,7 @@
 }
 
 .nav-link {
-    color: #212529;
+    color: var(--color-jet-black, #1A1A1A);
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
@@ -158,12 +158,12 @@
 }
 
 .nav-link:hover {
-    color: #3498db;
+    color: var(--color-graphite, #353A3E);
 }
 
 .dropdown-arrow {
     font-size: 10px;
-    color: #6c757d;
+    color: var(--color-ash, #BFBFBF);
     transition: transform 0.3s ease;
 }
 
@@ -198,15 +198,15 @@
 .dropdown-link {
     display: block;
     padding: 10px 20px;
-    color: #212529;
+    color: var(--color-jet-black, #1A1A1A);
     text-decoration: none;
     font-size: 14px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .dropdown-link:hover {
-    background-color: #f8f9fa;
-    color: #3498db;
+    background-color: var(--color-platinum, #E0E0E0);
+    color: var(--color-graphite, #353A3E);
 }
 
 .header-actions {
@@ -229,23 +229,23 @@
 }
 
 .btn-outline {
-    background: white;
-    color: #e74c3c;
-    border: 1px solid #e74c3c;
+    background: var(--color-white, #ffffff);
+    color: var(--color-jet-black, #1A1A1A);
+    border: 1px solid var(--color-jet-black, #1A1A1A);
 }
 
 .btn-outline:hover {
-    background: #e74c3c;
-    color: white;
+    background: var(--color-jet-black, #1A1A1A) !important;
+    color: var(--color-white, #ffffff) !important;
 }
 
 .btn-solid {
-    background: #3498db;
-    color: white;
+    background: var(--color-jet-black, #1A1A1A);
+    color: var(--color-white, #ffffff);
 }
 
 .btn-solid:hover {
-    background: #2980b9;
+    background: var(--color-graphite, #353A3E);
 }
 
 @media (max-width: 1200px) {

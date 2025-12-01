@@ -22,7 +22,7 @@ class OrderModal {
                 <div class="modal-box">
                     <div class="modal-header">
                         <h2>Оставить заявку</h2>
-                        <button type="button" class="modal-close" aria-label="Закрыть">&times;</button>
+                        <button type="button" class="modal-close" aria-label="Закрыть">×</button>
                     </div>
                     <div class="modal-body">
                         <div id="alertMessage" class="alert"></div>

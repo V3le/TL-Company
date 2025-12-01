@@ -39,6 +39,8 @@ async function loadAuthModal() {
         
         if (authModalPlaceholder) {
             authModalPlaceholder.outerHTML = html.trim();
+            // Отправляем событие что модальное окно загружено
+            window.dispatchEvent(new Event('authModalLoaded'));
         }
     } catch (error) {
         console.error('Ошибка загрузки модального окна авторизации:', error);

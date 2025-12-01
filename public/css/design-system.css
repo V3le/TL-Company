@@ -18,8 +18,9 @@
     --color-text: var(--color-jet-black);
     --color-text-secondary: var(--color-graphite);
     --color-text-light: var(--color-ash);
-    --color-background: var(--color-platinum);
-    --color-border: var(--color-ash);
+    --color-background: #fafafa;
+    --color-input-bg: #fafafa;
+    --color-border: #e0e0e0;
     --color-border-light: var(--color-platinum);
     
     /* Тени */
@@ -136,8 +137,9 @@ button[type="submit"]:hover {
 }
 
 .btn-secondary:hover {
-    background: var(--color-background);
+    background: var(--color-primary);
     border-color: var(--color-primary);
+    color: var(--color-white) !important;
     transform: translateY(-2px);
 }
 
@@ -156,12 +158,17 @@ select {
     border-radius: var(--radius-md);
     font-size: var(--font-size-md);
     transition: all var(--transition-base);
-    background: var(--color-background);
+    background: var(--color-input-bg);
     font-family: inherit;
     color: var(--color-text);
 }
 
-input:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="password"]:focus,
 textarea:focus,
 select:focus {
     outline: none;
@@ -170,9 +177,71 @@ select:focus {
     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
 }
 
+/* Заполненные инпуты имеют белый фон */
+input[type="text"]:not(:placeholder-shown),
+input[type="email"]:not(:placeholder-shown),
+input[type="tel"]:not(:placeholder-shown),
+input[type="number"]:not(:placeholder-shown),
+input[type="date"]:not(:placeholder-shown),
+input[type="password"]:not(:placeholder-shown),
+textarea:not(:placeholder-shown),
+select:not(:placeholder-shown) {
+    background: var(--color-white) !important;
+}
+
+/* Отключаем голубой фон автозаполнения браузера */
+input[type="text"]:-webkit-autofill,
+input[type="email"]:-webkit-autofill,
+input[type="tel"]:-webkit-autofill,
+input[type="password"]:-webkit-autofill,
+input[type="text"]:-webkit-autofill:hover,
+input[type="email"]:-webkit-autofill:hover,
+input[type="tel"]:-webkit-autofill:hover,
+input[type="password"]:-webkit-autofill:hover,
+input[type="text"]:-webkit-autofill:focus,
+input[type="email"]:-webkit-autofill:focus,
+input[type="tel"]:-webkit-autofill:focus,
+input[type="password"]:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+    -webkit-text-fill-color: var(--color-text) !important;
+    background-color: white !important;
+    background: white !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
 input::placeholder,
 textarea::placeholder {
-    color: var(--color-text-light);
+    color: var(--color-ash);
+}
+
+/* Стили валидации */
+input:invalid:not(:placeholder-shown),
+textarea:invalid:not(:placeholder-shown),
+select:invalid:not(:placeholder-shown) {
+    border-color: #f44336;
+}
+
+input:valid:not(:placeholder-shown),
+textarea:valid:not(:placeholder-shown),
+select:valid:not(:placeholder-shown) {
+    border-color: var(--color-jet-black);
+}
+
+/* Кастомные подсказки браузера */
+input:invalid:not(:focus):not(:placeholder-shown) {
+    animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
 }
 
 /* Карточки */
@@ -226,4 +295,64 @@ section {
 
 .bg-gray {
     background: var(--color-background);
+}
+
+
+/* Кастомные подсказки валидации */
+.custom-validation-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-jet-black, #1A1A1A);
+    color: var(--color-white, #ffffff);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    white-space: nowrap;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    animation: tooltipFadeIn 0.3s ease;
+    pointer-events: none;
+}
+
+.custom-validation-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--color-jet-black, #1A1A1A);
+}
+
+.custom-validation-tooltip.error {
+    background: #f44336;
+}
+
+.custom-validation-tooltip.error::after {
+    border-top-color: #f44336;
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* Стили для инпутов с ошибками */
+.has-error {
+    border-color: #f44336 !important;
+    animation: inputShake 0.3s ease;
+}
+
+@keyframes inputShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
 }

@@ -1,6 +1,6 @@
 /* Footer - Единый стиль */
 .footer {
-    background: var(--color-primary, #1a1a1a);
+    background: var(--color-onyx, #222526);
     color: var(--color-white, #ffffff);
     padding: var(--spacing-2xl, 40px) var(--spacing-lg, 24px);
 }

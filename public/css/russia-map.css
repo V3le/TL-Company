@@ -1,7 +1,7 @@
 /* Russia Map Section - Единый стиль */
 .russia-map {
     padding: 80px 20px;
-    background: var(--color-background, #fafafa);
+    background: rgba(255, 255, 255, 0.85);
 }
 
 .russia-map .section-title {
@@ -56,8 +56,8 @@
 
 .city-btn:hover,
 .city-btn.active {
-    background: var(--color-primary, #1a1a1a);
-    color: var(--color-white, #ffffff);
+    background: var(--color-primary, #1a1a1a) !important;
+    color: var(--color-white, #ffffff) !important;
     border-color: var(--color-primary, #1a1a1a);
     transform: translateY(-2px);
 }

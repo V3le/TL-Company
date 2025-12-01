@@ -3,14 +3,50 @@ let registrationData = {};
 
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Auth.js: DOMContentLoaded');
     checkUserSession();
+    
     // Ждем загрузки модального окна
+    const initAuth = () => {
+        console.log('Auth.js: Инициализация модального окна');
+        const modal = document.getElementById('authModal');
+        console.log('Auth.js: Модальное окно найдено:', !!modal);
+        
+        if (modal) {
+            initAuthModal();
+            initPasswordToggle();
+            initPasswordStrength();
+            initFormValidation();
+        }
+    };
+    
+    // Пробуем несколько раз с увеличивающейся задержкой
     setTimeout(() => {
-        initAuthModal();
-        initPasswordToggle();
-        initPasswordStrength();
-        initFormValidation();
-    }, 200);
+        if (document.getElementById('authModal')) {
+            console.log('Auth.js: Модальное окно найдено сразу');
+            initAuth();
+        }
+    }, 100);
+    
+    setTimeout(() => {
+        if (document.getElementById('authModal')) {
+            console.log('Auth.js: Модальное окно найдено через 300ms');
+            initAuth();
+        }
+    }, 300);
+    
+    setTimeout(() => {
+        if (document.getElementById('authModal')) {
+            console.log('Auth.js: Модальное окно найдено через 600ms');
+            initAuth();
+        }
+    }, 600);
+    
+    // Ждем события загрузки модального окна
+    window.addEventListener('authModalLoaded', () => {
+        console.log('Auth.js: Получено событие authModalLoaded');
+        initAuth();
+    });
 });
 
 // Проверка сессии пользователя
@@ -186,18 +222,32 @@ function initAuthModal() {
 
 // Открытие модального окна
 function openAuthModal() {
+    console.log('openAuthModal вызвана');
     const modal = document.getElementById('authModal');
+    console.log('Модальное окно:', modal);
+    
     if (!modal) {
+        console.error('Модальное окно авторизации не найдено!');
+        console.log('Доступные элементы с id:', 
+            Array.from(document.querySelectorAll('[id]')).map(el => el.id)
+        );
         return;
     }
+    
+    console.log('Открываем модальное окно');
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
+
+// Делаем функцию глобально доступной
+window.openAuthModal = openAuthModal;
+console.log('window.openAuthModal установлена:', typeof window.openAuthModal);
 
 // Закрытие модального окна
 function closeAuthModal() {
     const modal = document.getElementById('authModal');
     if (!modal) {
+        console.error('Модальное окно авторизации не найдено!');
         return;
     }
     modal.classList.remove('active');
@@ -713,8 +763,8 @@ function showNotification(message, type = 'info') {
 }
 
 // Добавление стилей для уведомлений
-const style = document.createElement('style');
-style.textContent = `
+const authStyle = document.createElement('style');
+authStyle.textContent = `
     .auth-notification {
         position: fixed;
         bottom: 30px;
@@ -762,7 +812,7 @@ style.textContent = `
         }
     }
 `;
-document.head.appendChild(style);
+document.head.appendChild(authStyle);
 
 // Делаем функции глобальными для доступа из HTML
 window.openAuthModal = openAuthModal;
@@ -773,3 +823,10 @@ window.logout = logout;
 window.toggleUserDropdown = toggleUserDropdown;
 window.getCurrentUser = getCurrentUser;
 window.autofillForms = autofillForms;
+
+
+// Делаем функции глобально доступными
+window.toggleUserDropdown = toggleUserDropdown;
+window.switchToLogin = switchToLogin;
+window.switchToRegister = switchToRegister;
+window.closeAuthModal = closeAuthModal;

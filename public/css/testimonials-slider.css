@@ -1,7 +1,7 @@
 /* Testimonials Slider Section */
 .testimonials-slider {
     padding: 80px 20px;
-    background: white;
+    background: rgba(255, 255, 255, 0.85);
 }
 
 .testimonials-slider .section-title {
@@ -77,8 +77,8 @@
 .slider-btn {
     width: 52px;
     height: 52px;
-    border-radius: 50%;
-    background: #1a1a1a;
+    border-radius: 12px;
+    background: var(--color-jet-black, #1A1A1A);
     border: none;
     display: flex;
     align-items: center;
@@ -92,22 +92,15 @@
 }
 
 .slider-btn:hover {
-    background: #333;
+    background: var(--color-graphite, #353A3E);
     transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .slider-btn svg {
-    color: white;
-}
-
-.slider-btn:hover svg {
-    stroke: white;
-}
-
-.slider-btn svg {
-    stroke: #2c3e50;
-    transition: stroke 0.3s ease;
+    color: var(--color-white, #ffffff);
+    stroke: var(--color-white, #ffffff);
+    transition: all 0.3s ease;
 }
 
 .slider-dots {
@@ -121,14 +114,14 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: #d0d0d0;
+    background: var(--color-ash, #BFBFBF);
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .slider-dot.active {
-    background: #46c0c0;
+    background: var(--color-jet-black, #1A1A1A);
     width: 30px;
     border-radius: 6px;
 }

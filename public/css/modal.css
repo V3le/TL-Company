@@ -48,25 +48,30 @@
 
 .modal-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: var(--spacing-xl, 32px) var(--spacing-2xl, 40px);
     border-bottom: 1px solid var(--color-border-light, #f0f0f0);
+    position: relative;
 }
 
 .modal-header h2 {
     font-size: var(--font-size-2xl, 24px);
     font-weight: 700;
     color: var(--color-text, #1a1a1a);
-    margin: 0 auto;
+    margin: 0;
     letter-spacing: -0.5px;
 }
 
 .modal-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
     background: none;
     border: none;
     font-size: 32px;
-    color: var(--color-text-light, #999);
+    font-weight: 300;
+    color: #999;
     cursor: pointer;
     line-height: 1;
     padding: 0;
@@ -75,13 +80,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: var(--radius-full, 50%);
-    transition: all var(--transition-base, 0.3s ease);
+    border-radius: 50%;
+    transition: all 0.3s;
+    z-index: 10;
 }
 
 .modal-close:hover {
-    background: var(--color-background, #fafafa);
-    color: var(--color-text, #1a1a1a);
+    background: #f5f5f5;
+    color: #333;
     transform: rotate(90deg);
 }
 
@@ -108,26 +114,11 @@
     margin-bottom: var(--spacing-xs, 8px);
 }
 
+/* Инпуты используют стили из design-system.css */
 .form-group input,
 .form-group textarea,
 .form-group select {
-    width: 100%;
-    padding: 14px 16px;
-    border: 1px solid var(--color-border, #e0e0e0);
     border-radius: var(--radius-md, 12px);
-    font-size: var(--font-size-md, 15px);
-    transition: all var(--transition-base, 0.3s ease);
-    background: var(--color-background, #fafafa);
-    font-family: inherit;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: var(--color-primary, #1a1a1a);
-    background: var(--color-white, #ffffff);
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
 }
 
 .form-group textarea {
@@ -265,4 +256,41 @@
     .form-row {
         grid-template-columns: 1fr;
     }
+}
+
+
+/* Кастомный чекбокс */
+.privacy-checkbox input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    cursor: pointer;
+    border: 2px solid var(--color-ash, #BFBFBF);
+    border-radius: 4px;
+    background: var(--color-white, #ffffff);
+    transition: all 0.3s ease;
+    position: relative;
+    margin-top: 0;
+}
+
+.privacy-checkbox input[type="checkbox"]:hover {
+    border-color: var(--color-jet-black, #1A1A1A);
+}
+
+.privacy-checkbox input[type="checkbox"]:checked {
+    background: var(--color-jet-black, #1A1A1A);
+    border-color: var(--color-jet-black, #1A1A1A);
+}
+
+.privacy-checkbox input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color-white, #ffffff);
+    font-size: 14px;
+    font-weight: bold;
 }
