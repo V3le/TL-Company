@@ -1,121 +1,131 @@
-/* Transport Types Section */
+/* Transport Types Section - Единый стиль */
 .transport-types {
     padding: 80px 20px;
-    background: transparent;
+    background: var(--color-white, #ffffff);
 }
 
 .transport-types .section-title {
-    font-size: 36px;
-    font-weight: bold;
-    color: #2c3e50;
-    text-align: left;
-    margin-bottom: 40px;
+    font-size: var(--font-size-4xl, 36px);
+    font-weight: 700;
+    color: var(--color-text, #1a1a1a);
+    text-align: center;
+    margin-bottom: var(--spacing-3xl, 60px);
+    letter-spacing: -0.5px;
 }
 
 .transport-cards {
     display: flex;
-    gap: 30px;
-    margin-bottom: 40px;
+    gap: var(--spacing-lg, 24px);
+    margin-bottom: var(--spacing-2xl, 40px);
     flex-wrap: wrap;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .transport-card {
     flex: 1;
     min-width: 280px;
-    background: white;
-    border-radius: 12px;
-    padding: 30px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: var(--color-white, #ffffff);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--spacing-xl, 32px);
+    border: 1px solid var(--color-border-light, #f0f0f0);
+    box-shadow: var(--shadow-sm, 0 2px 8px rgba(0, 0, 0, 0.04));
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    gap: var(--spacing-lg, 24px);
+    transition: all var(--transition-base, 0.3s ease);
 }
 
 .transport-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md, 0 8px 24px rgba(0, 0, 0, 0.08));
+    border-color: var(--color-border, #e0e0e0);
 }
 
 .transport-header {
     display: flex;
-    gap: 20px;
+    gap: var(--spacing-lg, 24px);
     align-items: flex-start;
 }
 
 .transport-icon {
-    width: 135px;
-    height: 135px;
+    width: 120px;
+    height: 120px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: var(--color-background, #fafafa);
+    border-radius: var(--radius-md, 12px);
 }
 
 .transport-icon img {
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
     object-fit: contain;
 }
 
 .transport-info {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--spacing-sm, 12px);
     flex: 1;
 }
 
 .transport-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #2c3e50;
+    font-size: var(--font-size-xl, 18px);
+    font-weight: 700;
+    color: var(--color-text, #1a1a1a);
     line-height: 1.3;
     margin: 0;
 }
 
 .transport-description {
-    font-size: 14px;
-    color: #6c757d;
+    font-size: var(--font-size-base, 14px);
+    color: var(--color-text-secondary, #666);
     margin: 0;
+    line-height: 1.5;
 }
 
 .transport-link {
-    font-size: 14px;
-    color: #3498db;
+    font-size: var(--font-size-base, 14px);
+    color: var(--color-text, #1a1a1a);
     text-decoration: none;
-    font-weight: 700;
-    transition: color 0.3s ease;
+    font-weight: 600;
+    transition: color var(--transition-base, 0.3s ease);
     align-self: flex-start;
 }
 
 .transport-link:hover {
-    color: #2980b9;
+    color: var(--color-text-secondary, #666);
 }
 
 .btn-calculate {
-    background: #46c0c0;
-    color: white;
+    background: var(--color-primary, #1a1a1a);
+    color: var(--color-white, #ffffff);
     border: none;
-    padding: 15px 40px;
-    font-size: 16px;
+    padding: var(--spacing-md, 16px) var(--spacing-xl, 32px);
+    font-size: var(--font-size-lg, 16px);
     font-weight: 600;
-    border-radius: 25px;
+    border-radius: var(--radius-md, 12px);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all var(--transition-base, 0.3s ease);
     text-decoration: none;
     display: inline-block;
     text-align: center;
+    box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.15));
 }
 
 .btn-calculate:hover {
-    background: #00bfa0;
+    background: var(--color-primary-hover, #333);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 212, 170, 0.4);
+    box-shadow: var(--shadow-lg, 0 6px 20px rgba(0, 0, 0, 0.2));
 }
 
 @media (max-width: 1024px) {
     .transport-cards {
-        gap: 20px;
+        gap: var(--spacing-md, 16px);
     }
 
     .transport-card {
@@ -129,13 +139,13 @@
     }
 
     .transport-types .section-title {
-        font-size: 28px;
-        margin-bottom: 30px;
+        font-size: var(--font-size-3xl, 28px);
+        margin-bottom: var(--spacing-2xl, 40px);
     }
 
     .transport-cards {
         flex-direction: column;
-        gap: 20px;
+        gap: var(--spacing-md, 16px);
     }
 
     .transport-card {
@@ -144,6 +154,5 @@
 
     .btn-calculate {
         width: 100%;
-        padding: 15px 30px;
     }
 }
