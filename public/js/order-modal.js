@@ -97,7 +97,13 @@ class OrderModal {
             if (target) {
                 const text = target.textContent.trim();
                 
-                console.log('Клик по элементу:', text, target.className);
+                console.log('Клик по элементу:', text, target.className, target.id);
+                
+                // Пропускаем кнопку из калькулятора - она обрабатывается отдельно
+                if (target.id === 'orderFromCalc') {
+                    console.log('Кнопка из калькулятора - пропускаем');
+                    return;
+                }
                 
                 // Открываем модалку если текст содержит "Оставить заявку"
                 if (text.includes('Оставить заявку') || 
@@ -239,6 +245,45 @@ class OrderModal {
             this.modal.classList.add('active');
             document.body.style.overflow = 'hidden';
             console.log('Модальное окно открыто');
+            
+            // Проверяем, есть ли данные из калькулятора с небольшой задержкой
+            setTimeout(() => {
+                // Автозаполнение данными пользователя
+                const currentUser = window.getCurrentUser ? window.getCurrentUser() : null;
+                if (currentUser) {
+                    const fullName = [currentUser.last_name, currentUser.first_name, currentUser.middle_name]
+                        .filter(Boolean)
+                        .join(' ');
+                    
+                    const orderName = document.getElementById('orderName');
+                    const orderPhone = document.getElementById('orderPhone');
+                    
+                    if (orderName && !orderName.value) orderName.value = fullName;
+                    if (orderPhone && !orderPhone.value && currentUser.phone) orderPhone.value = currentUser.phone;
+                }
+                
+                // Заполнение данными из калькулятора
+                if (window.calculatorData) {
+                    console.log('Заполняем данные из калькулятора:', window.calculatorData);
+                    
+                    const cityFromInput = document.getElementById('cityFrom');
+                    const cityToInput = document.getElementById('cityTo');
+                    
+                    if (cityFromInput && window.calculatorData.cityFrom) {
+                        cityFromInput.value = window.calculatorData.cityFrom;
+                        console.log('cityFrom заполнен:', cityFromInput.value);
+                    }
+                    if (cityToInput && window.calculatorData.cityTo) {
+                        cityToInput.value = window.calculatorData.cityTo;
+                        console.log('cityTo заполнен:', cityToInput.value);
+                    }
+                    
+                    // Очищаем данные после использования
+                    window.calculatorData = null;
+                } else {
+                    console.log('window.calculatorData не найден');
+                }
+            }, 50);
         } else {
             console.error('Модальное окно не найдено!');
         }
@@ -254,5 +299,5 @@ class OrderModal {
 
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
-    new OrderModal();
+    window.orderModalInstance = new OrderModal();
 });

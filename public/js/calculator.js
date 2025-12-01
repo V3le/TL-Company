@@ -325,6 +325,40 @@ class Calculator {
                 }
             });
         }
+        
+        // Обработчик для кнопки "Оставить заявку" из калькулятора
+        const orderBtn = document.getElementById('orderFromCalc');
+        if (orderBtn) {
+            orderBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.openOrderModalWithData();
+            }, true); // Используем capture phase чтобы сработать раньше
+        }
+    }
+    
+    openOrderModalWithData() {
+        console.log('openOrderModalWithData вызван');
+        
+        // Сохраняем данные калькулятора для передачи в модальное окно
+        const cityFromValue = document.getElementById('calcCityFrom').value;
+        const cityToValue = document.getElementById('calcCityTo').value;
+        
+        console.log('Данные из калькулятора:', cityFromValue, cityToValue);
+        
+        window.calculatorData = {
+            cityFrom: cityFromValue,
+            cityTo: cityToValue
+        };
+        
+        console.log('window.calculatorData установлен:', window.calculatorData);
+        
+        // Теперь вручную открываем модальное окно
+        if (window.orderModalInstance) {
+            window.orderModalInstance.open();
+        } else {
+            console.error('OrderModal instance не найден!');
+        }
     }
 
     async calculate() {

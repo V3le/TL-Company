@@ -59,6 +59,27 @@ function initContactForm() {
             }
         });
     }
+    
+    // Выделяем текущий день недели
+    highlightCurrentDay();
+}
+
+// Функция для выделения текущего дня недели
+function highlightCurrentDay() {
+    const today = new Date().getDay(); // 0 = воскресенье, 1 = понедельник, и т.д.
+    const scheduleDays = document.querySelectorAll('.schedule-day');
+    
+    console.log('Выделение текущего дня недели. Сегодня:', today);
+    console.log('Найдено дней:', scheduleDays.length);
+    
+    scheduleDays.forEach(day => {
+        const dayNumber = parseInt(day.getAttribute('data-day'));
+        console.log('Проверка дня:', dayNumber, 'Сегодня:', today, 'Совпадает:', dayNumber === today);
+        if (dayNumber === today) {
+            day.classList.add('active');
+            console.log('День', dayNumber, 'выделен как активный');
+        }
+    });
 }
 
 // Загружаем контакты при загрузке DOM

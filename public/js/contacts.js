@@ -6,6 +6,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('contactForm');
     const submitBtn = form.querySelector('.btn-submit');
     
+    // Маска для телефона (определяем раньше)
+    const phoneInput = document.getElementById('phone');
+    const applyPhoneMask = (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        
+        if (value.length > 0) {
+            if (value[0] === '8') {
+                value = '7' + value.slice(1);
+            }
+            
+            let formattedValue = '+';
+            if (value.length > 0) formattedValue += value.substring(0, 1);
+            if (value.length > 1) formattedValue += ' (' + value.substring(1, 4);
+            if (value.length > 4) formattedValue += ') ' + value.substring(4, 7);
+            if (value.length > 7) formattedValue += '-' + value.substring(7, 9);
+            if (value.length > 9) formattedValue += '-' + value.substring(9, 11);
+            
+            e.target.value = formattedValue;
+        }
+    };
+    
+    if (phoneInput) {
+        phoneInput.addEventListener('input', applyPhoneMask);
+    }
+    
+    // Автозаполнение формы данными пользователя
+    setTimeout(() => {
+        const currentUser = window.getCurrentUser ? window.getCurrentUser() : null;
+        if (currentUser) {
+            const fullName = [currentUser.last_name, currentUser.first_name, currentUser.middle_name]
+                .filter(Boolean)
+                .join(' ');
+            
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            
+            if (nameInput && !nameInput.value) nameInput.value = fullName;
+            if (emailInput && !emailInput.value && currentUser.email) emailInput.value = currentUser.email;
+            
+            // Для телефона используем уже отформатированное значение
+            if (phoneInput && !phoneInput.value && currentUser.phone) {
+                phoneInput.value = currentUser.phone;
+            }
+        }
+    }, 500);
+    
     // Функция для выделения текущего дня недели
     function highlightCurrentDay() {
         const today = new Date().getDay(); // 0 = Воскресенье, 1 = Понедельник, и т.д.
@@ -133,26 +179,4 @@ document.addEventListener('DOMContentLoaded', () => {
             existingMessage.remove();
         }
     }
-    
-    
-    // Маска для телефона
-    const phoneInput = document.getElementById('phone');
-    phoneInput.addEventListener('input', (e) => {
-        let value = e.target.value.replace(/\D/g, '');
-        
-        if (value.length > 0) {
-            if (value[0] === '8') {
-                value = '7' + value.slice(1);
-            }
-            
-            let formattedValue = '+';
-            if (value.length > 0) formattedValue += value.substring(0, 1);
-            if (value.length > 1) formattedValue += ' (' + value.substring(1, 4);
-            if (value.length > 4) formattedValue += ') ' + value.substring(4, 7);
-            if (value.length > 7) formattedValue += '-' + value.substring(7, 9);
-            if (value.length > 9) formattedValue += '-' + value.substring(9, 11);
-            
-            e.target.value = formattedValue;
-        }
-    });
 });

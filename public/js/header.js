@@ -27,6 +27,24 @@ async function loadHeader() {
     }
 }
 
+// Загрузка модального окна авторизации
+async function loadAuthModal() {
+    try {
+        const response = await fetch('components/auth-modal.html?v=' + Date.now());
+        if (!response.ok) {
+            throw new Error('Не удалось загрузить модальное окно авторизации');
+        }
+        const html = await response.text();
+        const authModalPlaceholder = document.getElementById('auth-modal-placeholder');
+        
+        if (authModalPlaceholder) {
+            authModalPlaceholder.outerHTML = html.trim();
+        }
+    } catch (error) {
+        console.error('Ошибка загрузки модального окна авторизации:', error);
+    }
+}
+
 // Флаг для отслеживания инициализации
 let headerInitialized = false;
 
@@ -58,10 +76,14 @@ function initHeader() {
     });
 }
 
-// Загружаем хедер при загрузке DOM
+// Загружаем хедер и модальное окно при загрузке DOM
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', loadHeader);
+    document.addEventListener('DOMContentLoaded', () => {
+        loadHeader();
+        loadAuthModal();
+    });
 } else {
     loadHeader();
+    loadAuthModal();
 }
 
