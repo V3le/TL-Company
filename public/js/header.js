@@ -76,6 +76,51 @@ function initHeader() {
             e.stopPropagation();
         });
     });
+
+    // Обработчики для кнопок в хедере
+    const callButton = document.querySelector('.btn-outline');
+    const orderButton = document.querySelector('.btn-solid');
+    const userIcon = document.querySelector('.user-icon');
+    
+    console.log('Найдены элементы:', {
+        callButton: !!callButton,
+        orderButton: !!orderButton,
+        userIcon: !!userIcon
+    });
+    
+    if (callButton) {
+        callButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Клик по кнопке "Заказать звонок"');
+            window.location.href = 'tel:+74994601740';
+        });
+    }
+    
+    if (orderButton) {
+        orderButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Клик по кнопке "Оставить заявку"');
+            // Открываем модальное окно заказа
+            if (typeof openOrderModal === 'function') {
+                openOrderModal();
+            } else {
+                console.error('Функция openOrderModal не найдена!');
+            }
+        });
+    }
+    
+    if (userIcon) {
+        userIcon.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Клик по иконке пользователя');
+            // Открываем модальное окно авторизации
+            if (typeof openAuthModal === 'function') {
+                openAuthModal();
+            } else {
+                console.error('Функция openAuthModal не найдена!');
+            }
+        });
+    }
 }
 
 // Загружаем хедер и модальное окно при загрузке DOM
@@ -83,9 +128,32 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         loadHeader();
         loadAuthModal();
+        checkLogo();
     });
 } else {
     loadHeader();
     loadAuthModal();
+    setTimeout(checkLogo, 500);
+}
+
+// Проверка загрузки логотипа
+function checkLogo() {
+    const logoImg = document.querySelector('.logo-img');
+    const logoFallback = document.querySelector('.logo-text-fallback');
+    
+    if (logoImg && logoFallback) {
+        logoImg.addEventListener('error', function() {
+            console.error('Логотип не загрузился, показываем текст');
+            logoImg.style.display = 'none';
+            logoFallback.style.display = 'block';
+        });
+        
+        // Проверяем загрузился ли уже
+        if (!logoImg.complete || logoImg.naturalHeight === 0) {
+            console.warn('Логотип не загружен, показываем текст');
+            logoImg.style.display = 'none';
+            logoFallback.style.display = 'block';
+        }
+    }
 }
 

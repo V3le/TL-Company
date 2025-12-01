@@ -1,5 +1,3 @@
-// Модальное окно для заявок
-// Использует window.russianCities из cities-data.js
 
 class OrderModal {
     constructor() {
@@ -128,7 +126,7 @@ class OrderModal {
             }
         });
 
-        // Автодополнение городов
+
         this.setupCityAutocomplete('cityFrom', 'cityFromSuggestions');
         this.setupCityAutocomplete('cityTo', 'cityToSuggestions');
 
@@ -297,7 +295,21 @@ class OrderModal {
     }
 }
 
+// Глобальная функция для открытия модального окна
+function openOrderModal() {
+    console.log('openOrderModal вызвана');
+    if (!window.orderModalInstance) {
+        console.log('Создаем новый экземпляр OrderModal');
+        window.orderModalInstance = new OrderModal();
+    }
+    window.orderModalInstance.open();
+}
+
 // Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        window.orderModalInstance = new OrderModal();
+    });
+} else {
     window.orderModalInstance = new OrderModal();
-});
+}

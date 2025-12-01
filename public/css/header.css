@@ -8,7 +8,7 @@
     background: white;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 2000;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     width: 100%;
     display: block;
@@ -87,6 +87,8 @@
     padding: 15px 0;
     width: 100%;
     display: block;
+    position: relative;
+    z-index: 10;
 }
 
 .header-nav-content {
@@ -103,28 +105,23 @@
 }
 
 .logo {
-    display: flex;
+    display: flex !important;
     align-items: center;
     text-decoration: none;
     flex-shrink: 0;
+    height: 50px;
+    position: relative;
+    z-index: 10;
 }
 
 .logo-img {
-    height: 50px;
-    width: auto;
-    display: block;
-}
-
-.logo-icon {
-    display: none;
-}
-
-.logo-box {
-    display: none;
-}
-
-.logo-text {
-    display: none;
+    height: 50px !important;
+    width: auto !important;
+    display: block !important;
+    object-fit: contain;
+    max-width: 150px;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .nav-menu {
@@ -214,6 +211,8 @@
     gap: 15px;
     align-items: center;
     flex-shrink: 0;
+    position: relative;
+    z-index: 10;
 }
 
 .btn-nav {
@@ -246,6 +245,30 @@
 
 .btn-solid:hover {
     background: var(--color-graphite, #353A3E);
+}
+
+.user-icon-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+.user-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--color-platinum, #E0E0E0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 18px;
+}
+
+.user-icon:hover {
+    background: var(--color-ash, #BFBFBF);
 }
 
 @media (max-width: 1200px) {

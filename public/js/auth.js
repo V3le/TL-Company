@@ -1,6 +1,19 @@
 // Система авторизации и регистрации
 let registrationData = {};
 
+// Глобальная функция для открытия модального окна авторизации
+function openAuthModal() {
+    console.log('openAuthModal вызвана');
+    const modal = document.getElementById('authModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        console.log('Модальное окно авторизации открыто');
+    } else {
+        console.error('Модальное окно авторизации не найдено!');
+    }
+}
+
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Auth.js: DOMContentLoaded');
