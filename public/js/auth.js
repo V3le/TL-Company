@@ -510,96 +510,154 @@ async function checkEmailExists(email) {
 
 // Инициализация переключателя видимости пароля
 function initPasswordToggle() {
-    setTimeout(() => {
-        document.querySelectorAll('.auth-toggle-password').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                const inputGroup = this.closest('.auth-input-group');
-                const input = inputGroup.querySelector('input[type="password"], input[type="text"]');
-                if (input) {
-                    if (input.type === 'password') {
-                        input.type = 'text';
-                        // Иконка "скрыть" (перечеркнутый глаз)
-                        this.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
-                            <line x1="1" y1="1" x2="23" y2="23"/>
-                        </svg>`;
-                    } else {
-                        input.type = 'password';
-                        // Иконка "показать" (открытый глаз)
-                        this.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                            <circle cx="12" cy="12" r="3"/>
-                        </svg>`;
-                    }
-                }
-            });
+    const modal = document.getElementById('authModal');
+    if (!modal) return;
+    
+    // Функция для добавления глазика к полю
+    const addToggleButton = (input) => {
+        const inputGroup = input.closest('.auth-input-group');
+        if (!inputGroup) return;
+        
+        // Проверяем, не добавлена ли уже кнопка
+        if (inputGroup.querySelector('.auth-toggle-password')) return;
+        
+        // Помечаем поле как обработанное
+        input.dataset.toggleAdded = 'true';
+        
+        // Создаем кнопку
+        const toggleBtn = document.createElement('button');
+        toggleBtn.type = 'button';
+        toggleBtn.className = 'auth-toggle-password';
+        toggleBtn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+        </svg>`;
+        
+        // Добавляем обработчик
+        toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                this.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                    <line x1="1" y1="1" x2="23" y2="23"/>
+                </svg>`;
+            } else {
+                input.type = 'password';
+                this.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>`;
+            }
         });
-    }, 100);
+        
+        inputGroup.appendChild(toggleBtn);
+    };
+    
+    // Добавляем глазики ко всем существующим полям
+    modal.querySelectorAll('input[type="password"]').forEach(addToggleButton);
+    
+    // Наблюдаем за появлением новых полей
+    const observer = new MutationObserver(() => {
+        modal.querySelectorAll('input[type="password"]:not([data-toggle-added])').forEach(addToggleButton);
+    });
+    
+    observer.observe(modal, { childList: true, subtree: true });
+}
+
+// Функция проверки совпадения паролей
+function checkPasswordMatch() {
+    const passwordInput = document.getElementById('regPassword');
+    const confirmInput = document.getElementById('regPasswordConfirm');
+    
+    if (!passwordInput || !confirmInput) return;
+    
+    const password = passwordInput.value;
+    const confirm = confirmInput.value;
+    
+    // Если поле подтверждения пустое - убираем все индикаторы
+    if (!confirm || confirm.length === 0) {
+        confirmInput.classList.remove('success', 'error');
+        hideValidationMessage('passwordMatchValidation');
+        return;
+    }
+    
+    // Если пароли совпадают - зелёная рамка, текст скрыт
+    if (password === confirm) {
+        confirmInput.classList.remove('error');
+        confirmInput.classList.add('success');
+        hideValidationMessage('passwordMatchValidation');
+    } 
+    // Если не совпадают - красная рамка и текст ошибки
+    else {
+        confirmInput.classList.remove('success');
+        confirmInput.classList.add('error');
+        showValidationMessage('passwordMatchValidation', 'Пароли не совпадают');
+    }
 }
 
 // Инициализация индикатора надёжности пароля
 function initPasswordStrength() {
-    // Используем setTimeout чтобы дождаться загрузки модального окна
     setTimeout(() => {
         const passwordInput = document.getElementById('regPassword');
         const confirmGroup = document.getElementById('confirmPasswordGroup');
         const passwordMatchValidation = document.getElementById('passwordMatchValidation');
+        const strengthBlock = document.querySelector('.password-strength');
         
         if (!passwordInput) return;
         
-        // Скрываем поле подтверждения пароля изначально
-        if (confirmGroup) {
-            confirmGroup.style.display = 'none';
-        }
-        if (passwordMatchValidation) {
-            passwordMatchValidation.style.display = 'none';
-        }
+        // Скрываем поле подтверждения пароля и блок надёжности изначально
+        if (confirmGroup) confirmGroup.style.display = 'none';
+        if (passwordMatchValidation) passwordMatchValidation.style.display = 'none';
+        if (strengthBlock) strengthBlock.style.display = 'none';
         
+        // Обработчик для основного поля пароля
         passwordInput.addEventListener('input', function() {
             const password = this.value;
             const strengthFill = document.getElementById('passwordStrengthFill');
             const strengthText = document.getElementById('passwordStrengthText');
             const passwordConfirmInput = document.getElementById('regPasswordConfirm');
             
-            // Показываем поле подтверждения только если пароль введён
-            if (confirmGroup && passwordMatchValidation) {
-                if (password.length > 0) {
-                    confirmGroup.style.display = 'block';
-                    passwordMatchValidation.style.display = 'block';
-                } else {
-                    confirmGroup.style.display = 'none';
-                    passwordMatchValidation.style.display = 'none';
-                    if (passwordConfirmInput) passwordConfirmInput.value = '';
-                }
-            }
-            
-            if (!password) {
-                if (strengthFill) {
-                    strengthFill.className = 'password-strength-fill';
-                }
-                if (strengthText) {
-                    strengthText.textContent = 'Слабый';
-                    strengthText.className = 'password-strength-text';
+            // Показываем/скрываем блоки
+            if (password.length > 0) {
+                if (confirmGroup) confirmGroup.style.display = 'block';
+                if (passwordMatchValidation) passwordMatchValidation.style.display = 'block';
+                if (strengthBlock) strengthBlock.style.display = 'block';
+                
+                // Добавляем обработчик для поля подтверждения с небольшой задержкой
+                setTimeout(() => {
+                    const confirmInput = document.getElementById('regPasswordConfirm');
+                    if (confirmInput && !confirmInput.dataset.listenerAdded) {
+                        confirmInput.dataset.listenerAdded = 'true';
+                        confirmInput.addEventListener('input', checkPasswordMatch);
+                        // Также проверяем при изменении основного пароля
+                        checkPasswordMatch();
+                    }
+                }, 100);
+            } else {
+                if (confirmGroup) confirmGroup.style.display = 'none';
+                if (passwordMatchValidation) passwordMatchValidation.style.display = 'none';
+                if (strengthBlock) strengthBlock.style.display = 'none';
+                if (passwordConfirmInput) {
+                    passwordConfirmInput.value = '';
+                    passwordConfirmInput.classList.remove('success', 'error');
                 }
                 return;
             }
             
+            // Проверяем совпадение паролей при изменении основного пароля
+            checkPasswordMatch();
+            
+            // Расчет надёжности пароля
             let strength = 0;
             
-            // Длина
             if (password.length >= 6) strength++;
             if (password.length >= 8) strength++;
             if (password.length >= 12) strength++;
-            
-            // Содержит цифры
             if (/\d/.test(password)) strength++;
-            
-            // Содержит буквы разного регистра
             if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
-            
-            // Содержит спецсимволы
             if (/[^a-zA-Z0-9]/.test(password)) strength++;
             
             // Обновление UI
@@ -692,24 +750,7 @@ function initFormValidation() {
             });
         }
         
-        // Валидация совпадения паролей
-        const passwordConfirmInput = document.getElementById('regPasswordConfirm');
-        if (passwordConfirmInput) {
-            passwordConfirmInput.addEventListener('input', function() {
-                const password = document.getElementById('regPassword').value;
-                const confirm = this.value;
-                
-                if (confirm && password !== confirm) {
-                    this.classList.remove('success');
-                    this.classList.add('error');
-                    showValidationMessage('passwordMatchValidation', 'Пароли не совпадают');
-                } else if (confirm) {
-                    this.classList.remove('error');
-                    this.classList.add('success');
-                    hideValidationMessage('passwordMatchValidation');
-                }
-            });
-        }
+        // Валидация совпадения паролей теперь в checkPasswordMatch()
         
         // Маска для телефона
         const phoneInput = document.getElementById('regPhone');
@@ -739,6 +780,7 @@ function showValidationMessage(id, message) {
     if (element) {
         element.textContent = message;
         element.classList.add('show');
+        element.style.display = 'block';
     }
 }
 
@@ -747,6 +789,7 @@ function hideValidationMessage(id) {
     const element = document.getElementById(id);
     if (element) {
         element.classList.remove('show');
+        element.style.display = 'none';
     }
 }
 
@@ -843,3 +886,6 @@ window.toggleUserDropdown = toggleUserDropdown;
 window.switchToLogin = switchToLogin;
 window.switchToRegister = switchToRegister;
 window.closeAuthModal = closeAuthModal;
+
+
+// Дублирующаяся функция удалена - используется версия выше

@@ -24,7 +24,7 @@
     width: 90%;
     max-width: 520px;
     max-height: 95vh;
-    overflow-y: auto;
+    overflow: hidden;
     position: relative;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     animation: slideUp 0.3s ease;
@@ -166,7 +166,20 @@
 
 .auth-input-group input.success {
     border-color: #4caf50;
-    padding-right: 40px;
+    padding-right: 48px;
+}
+
+/* Убираем встроенный глазик браузера */
+.auth-input-group input[type="password"]::-ms-reveal,
+.auth-input-group input[type="password"]::-ms-clear {
+    display: none;
+}
+
+.auth-input-group input[type="password"]::-webkit-credentials-auto-fill-button,
+.auth-input-group input[type="password"]::-webkit-contacts-auto-fill-button {
+    visibility: hidden;
+    pointer-events: none;
+    position: absolute;
 }
 
 .auth-validation-icon {
@@ -192,27 +205,33 @@
 
 .auth-toggle-password {
     position: absolute;
-    right: 16px;
+    right: -15px;
     top: 50%;
     transform: translateY(-50%);
     background: none;
     border: none;
     cursor: pointer;
-    padding: 4px;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0.5;
-    transition: opacity 0.3s;
-    color: #666;
+    transition: all 0.3s;
+    /* color: #666; */
+    z-index: 10;
+    border-radius: 6px;
 }
 
 .auth-toggle-password:hover {
     opacity: 1;
+    /* background: rgba(0, 0, 0, 0.05); */
 }
 
 .auth-toggle-password svg {
     display: block;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
 }
 
 .auth-validation-message {
@@ -224,24 +243,6 @@
 
 .auth-validation-message.show {
     display: block;
-}
-
-.auth-toggle-password {
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-    opacity: 0.5;
-    transition: opacity 0.3s;
-    color: #666;
-}
-
-.auth-toggle-password:hover {
-    opacity: 0.8;
 }
 
 .auth-options {
@@ -331,7 +332,7 @@
     content: '';
     position: absolute;
     top: 50%;
-    width: 42%;
+    width: 40%;
     height: 1px;
     background: #e0e0e0;
 }
@@ -346,9 +347,11 @@
 
 .auth-divider span {
     background: white;
-    padding: 0 12px;
+    padding: 0 16px;
     color: #999;
     font-size: 12px;
+    position: relative;
+    z-index: 1;
 }
 
 .auth-social {
@@ -441,7 +444,8 @@
 
 .password-strength-fill {
     height: 100%;
-    width: 0;
+    width: 33%;
+    background: #e0e0e0;
     transition: all 0.3s;
     border-radius: 2px;
 }
@@ -464,6 +468,7 @@
 .password-strength-text {
     font-size: 12px;
     font-weight: 600;
+    color: #999;
 }
 
 .password-strength-text.weak {
