@@ -65,19 +65,27 @@ document.addEventListener('DOMContentLoaded', function() {
 // Проверка сессии пользователя
 async function checkUserSession() {
     try {
-        const response = await fetch('/api/auth/check-session.php');
+        const response = await fetch('/api/auth/check-session.php', {
+            credentials: 'include' // Важно для отправки cookies
+        });
         const data = await response.json();
         
         if (data.success) {
             updateUserUI(data.user);
         } else {
+            // Если сессия истекла, очищаем localStorage
+            localStorage.removeItem('currentUser');
             updateUserUI(null);
         }
     } catch (error) {
         console.error('Ошибка проверки сессии:', error);
+        localStorage.removeItem('currentUser');
         updateUserUI(null);
     }
 }
+
+// Периодическая проверка сессии (каждые 5 минут)
+setInterval(checkUserSession, 5 * 60 * 1000);
 
 // Обновление UI пользователя
 function updateUserUI(user) {
@@ -168,12 +176,20 @@ function toggleUserDropdown() {
 // Выход из системы
 async function logout() {
     try {
-        const response = await fetch('/api/auth/logout.php');
+        const response = await fetch('/api/auth/logout.php', {
+            credentials: 'include' // Важно для cookies
+        });
         const data = await response.json();
         
         if (data.success) {
+            localStorage.removeItem('currentUser');
             updateUserUI(null);
             showNotification('Вы успешно вышли из системы', 'success');
+            
+            // Перенаправляем на главную, если находимся в личном кабинете
+            if (window.location.pathname.includes('my-requests')) {
+                window.location.href = '/';
+            }
         }
     } catch (error) {
         console.error('Ошибка выхода:', error);
@@ -346,6 +362,7 @@ async function handleLogin(e) {
     
     const login = document.getElementById('loginInput').value.trim();
     const password = document.getElementById('loginPassword').value;
+    const rememberMe = document.getElementById('rememberMe')?.checked || false;
     
     if (!login || !password) {
         showNotification('Заполните все поля', 'error');
@@ -358,7 +375,8 @@ async function handleLogin(e) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ login, password })
+            credentials: 'include', // Важно для cookies
+            body: JSON.stringify({ login, password, remember_me: rememberMe })
         });
         
         const data = await response.json();
@@ -453,6 +471,7 @@ async function handleRegisterStep2(e) {
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: 'include', // Важно для cookies
             body: JSON.stringify(userData)
         });
         

@@ -1,5 +1,7 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+// Разрешаем отправку cookies
+header("Access-Control-Allow-Origin: " . ($_SERVER['HTTP_ORIGIN'] ?? '*'));
+header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -19,9 +21,28 @@ if(!empty($data->login) && !empty($data->password)) {
     $user->password = $data->password;
     
     if($user->login()) {
+        // Настройка параметров сессии
+        $remember_me = isset($data->remember_me) && $data->remember_me === true;
+        
+        // Если "Запомнить меня" включено - сессия на 30 дней, иначе - до закрытия браузера
+        if ($remember_me) {
+            // 30 дней в секундах
+            $lifetime = 30 * 24 * 60 * 60;
+            ini_set('session.gc_maxlifetime', $lifetime);
+            session_set_cookie_params($lifetime);
+        } else {
+            // Сессия до закрытия браузера (0 = до закрытия браузера)
+            session_set_cookie_params(0);
+        }
+        
         session_start();
         $_SESSION['user_id'] = $user->id;
         $_SESSION['username'] = $user->username;
+        
+        // Обновляем время жизни cookie после старта сессии
+        if ($remember_me) {
+            setcookie(session_name(), session_id(), time() + $lifetime, '/');
+        }
         
         http_response_code(200);
         echo json_encode(array(

@@ -1,5 +1,7 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+// Разрешаем отправку cookies
+header("Access-Control-Allow-Origin: " . ($_SERVER['HTTP_ORIGIN'] ?? '*'));
+header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -41,9 +43,17 @@ if(!empty($data->username) && !empty($data->email) && !empty($data->password)) {
     $user->city = isset($data->city) ? htmlspecialchars(strip_tags($data->city)) : null;
     
     if($user->register()) {
+        // Устанавливаем длительную сессию по умолчанию при регистрации (30 дней)
+        $lifetime = 30 * 24 * 60 * 60;
+        ini_set('session.gc_maxlifetime', $lifetime);
+        session_set_cookie_params($lifetime);
+        
         session_start();
         $_SESSION['user_id'] = $user->id;
         $_SESSION['username'] = $user->username;
+        
+        // Обновляем время жизни cookie после старта сессии
+        setcookie(session_name(), session_id(), time() + $lifetime, '/');
         
         http_response_code(201);
         echo json_encode(array(

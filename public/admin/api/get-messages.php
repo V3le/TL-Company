@@ -6,7 +6,7 @@ header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: GET");
 
-include_once '../config/database.php';
+include_once '../../../api/config/database.php';
 
 // Проверяем авторизацию админа
 if(!isset($_SESSION['admin_id'])) {

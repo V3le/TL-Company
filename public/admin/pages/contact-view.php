@@ -157,7 +157,7 @@ if (!$contact) {
         // Загрузка сообщений
         async function loadMessages() {
             try {
-                const response = await fetch(`/api/admin/get-messages.php?contact_id=${contactId}`, {
+                const response = await fetch(`../api/get-messages.php?contact_id=${contactId}`, {
                     credentials: 'include'
                 });
                 
@@ -214,7 +214,7 @@ if (!$contact) {
             if (!message) return;
             
             try {
-                const response = await fetch('/api/admin/send-message.php', {
+                const response = await fetch('../api/send-message.php', {
                     method: 'POST',
                     credentials: 'include',
                     headers: {
