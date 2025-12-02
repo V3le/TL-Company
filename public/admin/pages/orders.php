@@ -32,6 +32,7 @@ $count = count($orders);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Заявки - Админ-панель</title>
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
     <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
@@ -95,7 +96,13 @@ $count = count($orders);
                             </td>
                             <td><?php echo date('d.m.Y H:i', strtotime($row['created_at'])); ?></td>
                             <td class="actions">
-                                <a href="order-view.php?id=<?php echo $row['id']; ?>" class="btn btn-view">👁️ Просмотр</a>
+                                <a href="order-view.php?id=<?php echo $row['id']; ?>" class="btn btn-view">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                    Просмотр
+                                </a>
                             </td>
                         </tr>
                         <?php endforeach; ?>

@@ -98,8 +98,7 @@ function updateUserUI(user) {
                     ${user.first_name || user.username}
                 </div>
                 <div class="user-dropdown-divider"></div>
-                <a href="#" class="user-dropdown-item">Профиль</a>
-                <a href="#" class="user-dropdown-item">Настройки</a>
+                <a href="my-requests.html" class="user-dropdown-item">Личный кабинет</a>
                 <div class="user-dropdown-divider"></div>
                 <div class="user-dropdown-item" onclick="logout()">Выйти</div>
             </div>

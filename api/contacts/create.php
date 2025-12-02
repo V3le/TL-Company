@@ -1,5 +1,9 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+session_start();
+
+// Разрешаем отправку cookies
+header("Access-Control-Allow-Origin: " . ($_SERVER['HTTP_ORIGIN'] ?? '*'));
+header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 
@@ -11,9 +15,13 @@ $db = $database->getConnection();
 $data = json_decode(file_get_contents("php://input"));
 
 if(!empty($data->name) && !empty($data->phone) && !empty($data->message)) {
-    $query = "INSERT INTO contacts (name, phone, email, message) VALUES (:name, :phone, :email, :message)";
+    // Проверяем авторизацию пользователя
+    $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+    
+    $query = "INSERT INTO contacts (user_id, name, phone, email, message) VALUES (:user_id, :name, :phone, :email, :message)";
     $stmt = $db->prepare($query);
     
+    $stmt->bindParam(":user_id", $user_id);
     $stmt->bindParam(":name", $data->name);
     $stmt->bindParam(":phone", $data->phone);
     $stmt->bindParam(":email", $data->email);

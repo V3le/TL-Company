@@ -347,3 +347,46 @@
     }
 }
 
+
+/* Выпадающее меню пользователя */
+.user-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.user-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.user-dropdown-item {
+    display: block;
+    padding: 12px 20px;
+    color: var(--color-jet-black, #1A1A1A);
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.user-dropdown-item:hover {
+    background-color: var(--color-platinum, #E0E0E0);
+}
+
+.user-dropdown-divider {
+    height: 1px;
+    background: var(--color-platinum, #E0E0E0);
+    margin: 5px 0;
+}

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2B - Личный кабинет</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/design-system.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/auth-modal.css">
+    <link rel="stylesheet" href="css/my-requests.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    <div id="auth-modal-placeholder"></div>
+
+    <main class="account-page">
+        <div class="account-container">
+            <!-- Боковое меню -->
+            <aside class="account-sidebar">
+                <div class="sidebar-header">
+                    <div class="user-avatar" id="sidebarAvatar">НА</div>
+                    <div class="user-info">
+                        <h3 class="user-name" id="sidebarUserName">Загрузка...</h3>
+                        <p class="user-email" id="sidebarUserEmail">...</p>
+                    </div>
+                </div>
+                
+                <nav class="sidebar-menu">
+                    <a href="#profile" class="menu-item" data-section="profile">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        <span>Профиль</span>
+                    </a>
+                    
+                    <a href="#requests" class="menu-item active" data-section="requests">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10 9 9 9 8 9"/>
+                        </svg>
+                        <span>Мои заявки</span>
+                    </a>
+                    
+                    <a href="#security" class="menu-item" data-section="security">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                        <span>Безопасность</span>
+                    </a>
+                </nav>
+                
+                <button class="sidebar-logout" onclick="logout()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                    <span>Выйти</span>
+                </button>
+            </aside>
+
+            <!-- Основной контент -->
+            <div class="account-content">
+                <!-- Секция: Профиль -->
+                <section class="content-section" id="profile-section">
+                    <h1 class="section-title">Мой профиль</h1>
+                    
+                    <div class="profile-card">
+                        <h3 class="card-title">Личная информация</h3>
+                        <form id="profileForm" class="profile-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Фамилия</label>
+                                    <input type="text" id="lastName" placeholder="Иванов">
+                                </div>
+                                <div class="form-group">
+                                    <label>Имя</label>
+                                    <input type="text" id="firstName" placeholder="Иван">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Отчество</label>
+                                    <input type="text" id="middleName" placeholder="Иванович">
+                                </div>
+                                <div class="form-group">
+                                    <label>Дата рождения</label>
+                                    <input type="date" id="birthDate">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Телефон</label>
+                                    <input type="tel" id="phone" placeholder="+7 (999) 999-99-99">
+                                </div>
+                                <div class="form-group">
+                                    <label>Город</label>
+                                    <input type="text" id="city" placeholder="Москва">
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn-primary">Сохранить изменения</button>
+                        </form>
+                    </div>
+                    
+                    <div class="profile-card">
+                        <h3 class="card-title">Контактная информация</h3>
+                        <form id="contactForm" class="profile-form">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" id="email" placeholder="example@mail.ru">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Логин</label>
+                                <input type="text" id="username" placeholder="username" disabled>
+                                <small class="form-hint">Логин нельзя изменить</small>
+                            </div>
+                            
+                            <button type="submit" class="btn-primary">Сохранить изменения</button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Секция: Мои заявки -->
+                <section class="content-section active" id="requests-section">
+                    <!-- Список заявок -->
+                    <div id="requests-list-view">
+                        <h1 class="section-title">Мои заявки и обращения</h1>
+                        
+                        <div class="requests-tabs">
+                            <button class="tab-btn active" data-tab="orders">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="1" y="3" width="15" height="13"/>
+                                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+                                    <circle cx="5.5" cy="18.5" r="2.5"/>
+                                    <circle cx="18.5" cy="18.5" r="2.5"/>
+                                </svg>
+                                Заявки на перевозку
+                            </button>
+                            <button class="tab-btn" data-tab="contacts">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                                </svg>
+                                Обращения
+                            </button>
+                        </div>
+
+                        <div class="tab-content active" id="orders-tab">
+                            <div class="requests-grid" id="orders-list">
+                                <div class="loading">Загрузка...</div>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" id="contacts-tab">
+                            <div class="requests-grid" id="contacts-list">
+                                <div class="loading">Загрузка...</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Вид чата -->
+                    <div id="chat-view" style="display: none;">
+                        <button class="btn-back" onclick="closeChat()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="19" y1="12" x2="5" y2="12"/>
+                                <polyline points="12 19 5 12 12 5"/>
+                            </svg>
+                            Вернуться к обращениям
+                        </button>
+                        
+                        <div class="chat-container">
+                            <div class="chat-header-fixed">
+                                <div class="chat-info">
+                                    <h2 class="chat-title">Обращение #<span id="chatContactId"></span></h2>
+                                </div>
+                                <span class="chat-status" id="chatStatus"></span>
+                            </div>
+                            
+                            <div class="chat-messages" id="chatMessages">
+                                <div class="chat-loading">Загрузка сообщений...</div>
+                            </div>
+                            
+                            <div class="chat-input-container">
+                                <textarea 
+                                    id="chatInput" 
+                                    class="chat-input" 
+                                    placeholder="Введите сообщение..."
+                                    rows="1"
+                                ></textarea>
+                                <button class="chat-send-btn" onclick="sendMessage()">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="22" y1="2" x2="11" y2="13"/>
+                                        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Секция: Безопасность -->
+                <section class="content-section" id="security-section">
+                    <h1 class="section-title">Безопасность</h1>
+                    
+                    <div class="profile-card">
+                        <h3 class="card-title">Изменить пароль</h3>
+                        <form id="passwordForm" class="profile-form">
+                            <div class="form-group">
+                                <label>Текущий пароль</label>
+                                <input type="password" id="currentPassword" placeholder="Введите текущий пароль">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Новый пароль</label>
+                                <input type="password" id="newPassword" placeholder="Введите новый пароль">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Подтвердите новый пароль</label>
+                                <input type="password" id="confirmPassword" placeholder="Повторите новый пароль">
+                            </div>
+                            
+                            <button type="submit" class="btn-primary">Изменить пароль</button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/my-requests.js"></script>
+</body>
+</html>
+
+

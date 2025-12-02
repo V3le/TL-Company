@@ -12,11 +12,16 @@ $db = $database->getConnection();
 
 // Фильтр по статусу
 $status_filter = $_GET['status'] ?? '';
-$query = "SELECT * FROM contacts";
+$query = "SELECT c.*, 
+          (SELECT COUNT(*) FROM contact_messages cm 
+           WHERE cm.contact_id = c.id 
+           AND cm.sender_type = 'user' 
+           AND cm.is_read = 0) as unread_count
+          FROM contacts c";
 if ($status_filter) {
-    $query .= " WHERE status = :status";
+    $query .= " WHERE c.status = :status";
 }
-$query .= " ORDER BY created_at DESC";
+$query .= " ORDER BY c.created_at DESC";
 
 $stmt = $db->prepare($query);
 if ($status_filter) {
@@ -32,6 +37,7 @@ $count = count($contacts);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Обращения - Админ-панель</title>
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
     <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
@@ -52,6 +58,7 @@ $count = count($contacts);
                     <a href="contacts.php?status=in_progress" class="filter-btn <?php echo $status_filter == 'in_progress' ? 'active' : ''; ?>">В работе</a>
                     <a href="contacts.php?status=completed" class="filter-btn <?php echo $status_filter == 'completed' ? 'active' : ''; ?>">Завершенные</a>
                     <a href="contacts.php?status=cancelled" class="filter-btn <?php echo $status_filter == 'cancelled' ? 'active' : ''; ?>">Отмененные</a>
+                    <a href="contacts.php?status=closed" class="filter-btn <?php echo $status_filter == 'closed' ? 'active' : ''; ?>">Закрытые</a>
                 </div>
 
                 <table class="data-table">
@@ -81,7 +88,8 @@ $count = count($contacts);
                                     'new' => ['Новое', 'status-new'],
                                     'in_progress' => ['В работе', 'status-progress'],
                                     'completed' => ['Завершено', 'status-completed'],
-                                    'cancelled' => ['Отменено', 'status-cancelled']
+                                    'cancelled' => ['Отменено', 'status-cancelled'],
+                                    'closed' => ['Закрыто', 'status-closed']
                                 ];
                                 $status_info = $status_labels[$row['status']];
                                 ?>
@@ -91,7 +99,16 @@ $count = count($contacts);
                             </td>
                             <td><?php echo date('d.m.Y H:i', strtotime($row['created_at'])); ?></td>
                             <td class="actions">
-                                <a href="contact-view.php?id=<?php echo $row['id']; ?>" class="btn btn-view">👁️ Просмотр</a>
+                                <a href="contact-view.php?id=<?php echo $row['id']; ?>" class="btn btn-view">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                    Просмотр
+                                    <?php if ($row['unread_count'] > 0): ?>
+                                        <span class="unread-badge"><?php echo $row['unread_count']; ?></span>
+                                    <?php endif; ?>
+                                </a>
                             </td>
                         </tr>
                         <?php endforeach; ?>
