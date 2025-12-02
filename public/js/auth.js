@@ -251,6 +251,14 @@ function initAuthModal() {
 // Открытие модального окна
 function openAuthModal() {
     console.log('openAuthModal вызвана');
+    
+    // Проверяем, залогинен ли пользователь
+    const currentUser = getCurrentUser();
+    if (currentUser) {
+        console.log('Пользователь уже залогинен, модалка не открывается');
+        return;
+    }
+    
     const modal = document.getElementById('authModal');
     console.log('Модальное окно:', modal);
     
@@ -906,4 +914,4 @@ window.switchToRegister = switchToRegister;
 window.closeAuthModal = closeAuthModal;
 
 
-// Дублирующаяся функция удалена - используется версия выше
+
