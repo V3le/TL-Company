@@ -1,4 +1,4 @@
-/* Калькулятор грузоперевозок - стиль как на главной странице */
+
 
 .calc-breadcrumbs {
     background: white;
@@ -132,9 +132,9 @@
     margin-bottom: 6px;
 }
 
-/* Инпуты используют стили из design-system.css */
+
 .calc-form-group input {
-    padding-left: 42px; /* Место для иконки */
+    padding-left: 42px; 
 }
 
 
@@ -226,6 +226,8 @@
     z-index: 10;
     position: relative;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transform: rotate(90deg);
+    padding: 0px !important;
 }
 
 .calc-swap-cities svg {
@@ -237,12 +239,12 @@
     background: var(--color-jet-black, #1A1A1A);
     color: var(--color-white, #ffffff);
     border-color: var(--color-jet-black, #1A1A1A);
-    transform: rotate(180deg) scale(1.05);
+    transform: rotate(270deg) scale(1.05);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .calc-swap-cities:active {
-    transform: rotate(180deg) scale(0.95);
+    transform: rotate(270deg) scale(0.95);
 }
 
 /* Тип транспорта */
@@ -254,7 +256,7 @@
 }
 
 .calc-transport-btn {
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
     gap: 10px;
@@ -676,8 +678,16 @@
     }
     
     .calc-swap-cities {
-        transform: rotate(90deg);
+        transform: rotate(180deg);
         margin: 0 auto;
+    }
+    
+    .calc-swap-cities:hover {
+        transform: rotate(0deg) scale(1.05);
+    }
+    
+    .calc-swap-cities:active {
+        transform: rotate(0deg) scale(0.95);
     }
     
     .calc-transport-selector {
