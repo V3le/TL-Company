@@ -336,10 +336,10 @@ function showBranchDetails(branch) {
     // Обновляем время и часовой пояс
     updateLocalTime(branch);
     
-    // Подсвечиваем текущий день недели для этого часового пояса
-    highlightCurrentDay(branch);
-    
     details.style.display = 'block';
+    
+    // Подсвечиваем текущий день недели для этого часового пояса (с небольшой задержкой)
+    setTimeout(() => highlightCurrentDay(branch), 10);
     
     // Запускаем обновление времени каждую секунду
     if (timeUpdateInterval) {
@@ -387,12 +387,19 @@ function highlightCurrentDay(branch) {
     const localTime = new Date(utcTime + (3600000 * utcOffset));
     const today = localTime.getDay();
     
-    const scheduleDays = document.querySelectorAll('.schedule-day');
+    console.log('Текущий день недели:', today, 'для города', branch.city);
+    
+    const scheduleDays = document.querySelectorAll('.branch-details .schedule-day');
+    
+    console.log('Найдено дней:', scheduleDays.length);
     
     scheduleDays.forEach(day => {
         day.classList.remove('today');
-        if (parseInt(day.dataset.day) === today) {
+        const dayNumber = parseInt(day.dataset.day);
+        console.log('День:', dayNumber, 'Сегодня:', today);
+        if (dayNumber === today) {
             day.classList.add('today');
+            console.log('Подсвечен день:', dayNumber);
         }
     });
 }

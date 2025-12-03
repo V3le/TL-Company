@@ -6,7 +6,7 @@
     font-size: 14px;
     position: sticky;
     top: 115px;
-    z-index: 999;
+    z-index: 1000;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
@@ -85,7 +85,7 @@ ymaps a[href*="yandex"] {
 /* Контролы карты сверху */
 .map-controls {
     position: fixed;
-    top: 140px;
+    top: 180px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 100;
@@ -106,19 +106,19 @@ ymaps a[href*="yandex"] {
     display: flex;
     gap: var(--spacing-sm);
     background: var(--color-white);
-    padding: var(--spacing-sm);
+    padding: 8px;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
     width: 100%;
-    max-width: 500px;
+    max-width: 400px;
 }
 
 .search-input {
     flex: 1;
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: 8px 12px;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    font-size: var(--font-size-base);
+    font-size: 14px;
     transition: all var(--transition-base);
 }
 
@@ -129,7 +129,7 @@ ymaps a[href*="yandex"] {
 }
 
 .search-btn {
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: 8px 12px;
     background: var(--color-primary);
     color: var(--color-white);
     border: none;
@@ -155,12 +155,12 @@ ymaps a[href*="yandex"] {
 
 .filter-btn,
 .list-btn {
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: 8px 12px;
     background: var(--color-white);
     color: var(--color-text);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
-    font-size: var(--font-size-sm);
+    font-size: 13px;
     font-weight: 500;
     cursor: pointer;
     transition: all var(--transition-base);
@@ -188,8 +188,8 @@ ymaps a[href*="yandex"] {
 }
 
 .filter-btn svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     flex-shrink: 0;
 }
 
@@ -208,11 +208,11 @@ ymaps a[href*="yandex"] {
     width: 100%;
     height: 100%;
     position: fixed;
-    top: 120px;
+    top: 160px;
     left: 0;
     z-index: 1;
     background: #f0f0f0;
-    height: calc(100vh - 120px);
+    height: calc(100vh - 160px);
 }
 
 #map {
@@ -232,10 +232,10 @@ ymaps a[href*="yandex"] {
 /* Боковая панель со списком */
 .branches-sidebar {
     position: fixed;
-    top: 120px;
+    top: 160px;
     left: -400px;
     width: 400px;
-    height: calc(100vh - 120px);
+    height: calc(100vh - 160px);
     background: var(--color-white);
     box-shadow: var(--shadow-xl);
     overflow: hidden;
@@ -332,16 +332,26 @@ ymaps a[href*="yandex"] {
 /* Детали филиала */
 .branch-details {
     position: fixed;
-    top: 140px;
+    top: 180px;
     right: var(--spacing-lg);
     width: 450px;
-    max-height: calc(100vh - 160px);
+    max-height: calc(100vh - 200px);
     background: var(--color-white);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-xl);
     overflow-y: auto;
     z-index: 1002;
     animation: slideInRight 0.3s ease;
+}
+
+/* Скрываем scrollbar в модальном окне */
+.branch-details::-webkit-scrollbar {
+    display: none;
+}
+
+.branch-details {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 @keyframes slideInRight {
@@ -404,6 +414,7 @@ ymaps a[href*="yandex"] {
     flex-direction: column;
     align-items: flex-end;
     gap: 4px;
+    margin-right: 40px;
 }
 
 .local-time {
@@ -593,7 +604,7 @@ ymaps a[href*="yandex"] {
     }
 
     .branch-details {
-        width: calc(100% - 40px);
+        width: calc(100% - 0px);
         left: var(--spacing-lg);
         right: var(--spacing-lg);
     }
@@ -605,7 +616,7 @@ ymaps a[href*="yandex"] {
     }
 
     .map-controls {
-        top: 100px;
+        top: 140px;
     }
 
     .search-box {
