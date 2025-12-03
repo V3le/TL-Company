@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Дек 01 2025 г., 20:48
+-- Время создания: Дек 03 2025 г., 17:23
 -- Версия сервера: 10.4.32-MariaDB
 -- Версия PHP: 8.2.12
 
@@ -51,11 +51,12 @@ INSERT INTO `admins` (`id`, `username`, `password`, `email`, `created_at`) VALUE
 
 CREATE TABLE `contacts` (
   `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL COMMENT 'ID пользователя',
   `name` varchar(255) NOT NULL COMMENT 'Имя',
   `phone` varchar(50) NOT NULL COMMENT 'Телефон',
   `email` varchar(255) DEFAULT NULL COMMENT 'Email',
   `message` text NOT NULL COMMENT 'Сообщение',
-  `status` enum('new','in_progress','completed','cancelled') DEFAULT 'new' COMMENT 'Статус обращения',
+  `status` enum('new','in_progress','completed','cancelled','closed') DEFAULT 'new' COMMENT 'Статус обращения',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Дата создания',
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Дата обновления'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -64,11 +65,33 @@ CREATE TABLE `contacts` (
 -- Дамп данных таблицы `contacts`
 --
 
-INSERT INTO `contacts` (`id`, `name`, `phone`, `email`, `message`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Никита', '+7 (962) 851-52-82', 'nikita-adonev@mail.ru', 'Тест обращения', 'cancelled', '2025-11-26 09:16:02', '2025-11-26 09:27:45'),
-(2, 'Никита', '+7 (962) 851-52-82', 'nikita-adonev@mail.ru', 'У меня возник вопрос по поводу доставки в другую страну.', 'in_progress', '2025-11-26 09:27:30', '2025-11-26 09:31:18'),
-(3, 'Никита', '+7 (962) 851-52-82', 'nikita-adonev@mail.ru', 'fgfgdfgfdgd', 'new', '2025-11-28 16:55:02', '2025-11-28 16:55:02'),
-(4, 'Адоньев Никита Дмитриевич', 'nikita-adonev@mail.ru', '2weyzi2@mail.ru', '123', 'new', '2025-12-01 17:15:58', '2025-12-01 17:15:58');
+INSERT INTO `contacts` (`id`, `user_id`, `name`, `phone`, `email`, `message`, `status`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'Никита', '+7 (962) 851-52-82', 'nikita-adonev@mail.ru', 'Тест обращения', 'completed', '2025-11-26 09:16:02', '2025-12-02 15:45:42'),
+(2, NULL, 'Никита', '+7 (962) 851-52-82', 'nikita-adonev@mail.ru', 'У меня возник вопрос по поводу доставки в другую страну.', 'in_progress', '2025-11-26 09:27:30', '2025-11-26 09:31:18');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `contact_messages`
+--
+
+CREATE TABLE `contact_messages` (
+  `id` int(11) NOT NULL,
+  `contact_id` int(11) NOT NULL COMMENT 'ID обращения',
+  `sender_type` enum('user','admin') NOT NULL COMMENT 'Тип отправителя',
+  `sender_id` int(11) DEFAULT NULL COMMENT 'ID отправителя (user_id или admin_id)',
+  `message` text NOT NULL COMMENT 'Текст сообщения',
+  `is_read` tinyint(1) DEFAULT 0 COMMENT 'Прочитано',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Дата отправки'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Сообщения чата по обращениям';
+
+--
+-- Дамп данных таблицы `contact_messages`
+--
+
+INSERT INTO `contact_messages` (`id`, `contact_id`, `sender_type`, `sender_id`, `message`, `is_read`, `created_at`) VALUES
+(1, 1, 'user', NULL, 'Тест обращения', 1, '2025-11-26 09:16:02'),
+(2, 2, 'user', NULL, 'У меня возник вопрос по поводу доставки в другую страну.', 1, '2025-11-26 09:27:30');
 
 -- --------------------------------------------------------
 
@@ -78,6 +101,7 @@ INSERT INTO `contacts` (`id`, `name`, `phone`, `email`, `message`, `status`, `cr
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL COMMENT 'ID пользователя',
   `name` varchar(255) NOT NULL COMMENT 'Имя клиента',
   `phone` varchar(50) NOT NULL COMMENT 'Телефон',
   `cargo_description` text NOT NULL COMMENT 'Описание груза',
@@ -92,8 +116,9 @@ CREATE TABLE `orders` (
 -- Дамп данных таблицы `orders`
 --
 
-INSERT INTO `orders` (`id`, `name`, `phone`, `cargo_description`, `city_from`, `city_to`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Никита', '+79628515282', 'Колёса, 4 шт, вес 130 кг', 'Ставрополь', 'Краснодар', 'in_progress', '2025-11-27 13:39:48', '2025-11-28 16:54:44');
+INSERT INTO `orders` (`id`, `user_id`, `name`, `phone`, `cargo_description`, `city_from`, `city_to`, `status`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'Никита', '+79628515282', 'Колёса, 4 шт, вес 130 кг', 'Ставрополь', 'Краснодар', 'in_progress', '2025-11-27 13:39:48', '2025-11-28 16:54:44'),
+(2, 1, 'Адоньев Никита Дмитриевич', '+7 (962) 851-52-82', 'Тест', 'Ставрополь', 'Москва', 'new', '2025-12-02 14:13:57', '2025-12-02 14:13:57');
 
 -- --------------------------------------------------------
 
@@ -168,6 +193,15 @@ ALTER TABLE `admins`
 ALTER TABLE `contacts`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idx_status` (`status`),
+  ADD KEY `idx_created_at` (`created_at`),
+  ADD KEY `idx_user_id` (`user_id`);
+
+--
+-- Индексы таблицы `contact_messages`
+--
+ALTER TABLE `contact_messages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_contact_id` (`contact_id`),
   ADD KEY `idx_created_at` (`created_at`);
 
 --
@@ -176,7 +210,8 @@ ALTER TABLE `contacts`
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idx_status` (`status`),
-  ADD KEY `idx_created_at` (`created_at`);
+  ADD KEY `idx_created_at` (`created_at`),
+  ADD KEY `idx_user_id` (`user_id`);
 
 --
 -- Индексы таблицы `testimonials`
@@ -210,13 +245,19 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT для таблицы `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT для таблицы `contact_messages`
+--
+ALTER TABLE `contact_messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `testimonials`
@@ -229,6 +270,28 @@ ALTER TABLE `testimonials`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `contacts`
+--
+ALTER TABLE `contacts`
+  ADD CONSTRAINT `fk_contacts_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `contact_messages`
+--
+ALTER TABLE `contact_messages`
+  ADD CONSTRAINT `fk_contact_messages_contact` FOREIGN KEY (`contact_id`) REFERENCES `contacts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `fk_orders_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
