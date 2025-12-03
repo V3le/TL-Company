@@ -63,7 +63,7 @@ class OrderModal {
                             <div class="privacy-checkbox">
                                 <input type="checkbox" id="privacyAgree" required>
                                 <label for="privacyAgree">
-                                    Согласен на <a href="#" target="_blank">обработку персональных данных</a>
+                                    Согласен на <a href="documents.html#consent" target="_blank">обработку персональных данных</a>
                                 </label>
                             </div>
 

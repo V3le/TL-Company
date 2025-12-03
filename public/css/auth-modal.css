@@ -617,3 +617,33 @@
         display: none;
     }
 }
+
+/* Чекбокс политики конфиденциальности */
+.auth-privacy-checkbox {
+    margin: 20px 0;
+}
+
+.auth-privacy-checkbox .auth-checkbox {
+    align-items: flex-start;
+}
+
+.auth-privacy-checkbox .auth-checkbox input {
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.auth-privacy-checkbox .auth-checkbox span {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.auth-privacy-checkbox .auth-checkbox a {
+    color: #1a1a1a;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.auth-privacy-checkbox .auth-checkbox a:hover {
+    color: #666;
+}

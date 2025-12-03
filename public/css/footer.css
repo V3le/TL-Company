@@ -39,6 +39,17 @@
     color: rgba(255, 255, 255, 0.7);
 }
 
+.footer-link {
+    font-size: var(--font-size-sm, 13px);
+    color: rgba(255, 255, 255, 0.7);
+    margin-left: var(--spacing-md, 16px);
+}
+
+.footer-link:hover {
+    color: var(--color-white, #ffffff);
+    text-decoration: underline;
+}
+
 .admin-link {
     padding: var(--spacing-sm, 12px) var(--spacing-lg, 24px);
     background: rgba(255, 255, 255, 0.1);

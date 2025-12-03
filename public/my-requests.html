@@ -6,14 +6,24 @@
     <title>A2B - Личный кабинет</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="css/design-system.css">
+    <link rel="stylesheet" href="css/scrollbar.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/modal.css">
     <link rel="stylesheet" href="css/auth-modal.css">
     <link rel="stylesheet" href="css/my-requests.css">
 </head>
 <body>
     <div id="header-placeholder"></div>
     <div id="auth-modal-placeholder"></div>
+
+    <section class="calc-breadcrumbs">
+        <div class="container">
+            <a href="index.html" class="calc-breadcrumb-link">Главная</a>
+            <span class="calc-breadcrumb-separator">›</span>
+            <span class="calc-breadcrumb-current">Личный кабинет</span>
+        </div>
+    </section>
 
     <main class="account-page">
         <div class="account-container">
@@ -242,6 +252,7 @@
 
     <script src="js/header.js"></script>
     <script src="js/footer.js"></script>
+    <script src="js/order-modal.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/my-requests.js"></script>
 </body>

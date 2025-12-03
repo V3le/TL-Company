@@ -6,6 +6,7 @@
     <title>Филиалы - A2B Logistics</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="css/design-system.css">
+    <link rel="stylesheet" href="css/scrollbar.css">
     <link rel="stylesheet" href="css/modern-design.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
@@ -16,6 +17,14 @@
 </head>
 <body>
     <div id="header-placeholder"></div>
+
+    <section class="calc-breadcrumbs">
+        <div class="container">
+            <a href="index.html" class="calc-breadcrumb-link">Главная</a>
+            <span class="calc-breadcrumb-separator">›</span>
+            <span class="calc-breadcrumb-current">Филиалы</span>
+        </div>
+    </section>
 
     <main class="branches-page">
         <!-- Поиск и фильтры сверху карты -->
@@ -71,7 +80,7 @@
                 <button class="close-sidebar" onclick="toggleCitiesList()">×</button>
             </div>
             <div class="cities-list" id="citiesList">
-                <!-- Города будут добавлены через JS -->
+                
             </div>
         </aside>
 
