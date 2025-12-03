@@ -23,8 +23,7 @@ class OrderModal {
                         <button type="button" class="modal-close" aria-label="Закрыть">×</button>
                     </div>
                     <div class="modal-body">
-                        <div id="alertMessage" class="alert"></div>
-                        <form id="orderForm">
+                        <form id="orderForm" novalidate>
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="orderName">Ваше имя <span class="required">*</span></label>
@@ -130,6 +129,43 @@ class OrderModal {
         this.setupCityAutocomplete('cityFrom', 'cityFromSuggestions');
         this.setupCityAutocomplete('cityTo', 'cityToSuggestions');
 
+        // Валидация имени - только буквы
+        const nameInput = document.getElementById('orderName');
+        if (nameInput) {
+            nameInput.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/[^а-яА-ЯёЁa-zA-Z\s\-]/g, '');
+            });
+        }
+
+        // Маска для телефона
+        const phoneInput = document.getElementById('orderPhone');
+        if (phoneInput) {
+            phoneInput.addEventListener('input', (e) => {
+                let value = e.target.value.replace(/\D/g, '');
+                
+                if (value.length > 0) {
+                    if (value[0] === '8') {
+                        value = '7' + value.slice(1);
+                    }
+                    
+                    let formattedValue = '+';
+                    if (value.length > 0) formattedValue += value.substring(0, 1);
+                    if (value.length > 1) formattedValue += ' (' + value.substring(1, 4);
+                    if (value.length > 4) formattedValue += ') ' + value.substring(4, 7);
+                    if (value.length > 7) formattedValue += '-' + value.substring(7, 9);
+                    if (value.length > 9) formattedValue += '-' + value.substring(9, 11);
+                    
+                    e.target.value = formattedValue;
+                }
+            });
+            
+            phoneInput.addEventListener('keypress', (e) => {
+                if (!/[\d\+\(\)\-\s]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Delete') {
+                    e.preventDefault();
+                }
+            });
+        }
+
         // Отправка формы
         this.form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -192,8 +228,18 @@ class OrderModal {
             phone: document.getElementById('orderPhone').value,
             cargo_description: document.getElementById('cargoDescription').value,
             city_from: document.getElementById('cityFrom').value,
-            city_to: document.getElementById('cityTo').value
+            city_to: document.getElementById('cityTo').value,
+            privacy: document.getElementById('privacyAgree').checked
         };
+
+        // Валидация
+        const validationError = this.validateForm(formData);
+        if (validationError) {
+            this.showFormAlert(validationError, 'error');
+            return;
+        }
+
+        this.removeFormAlert();
 
         const submitBtn = this.form.querySelector('.btn-submit');
         submitBtn.disabled = true;
@@ -211,30 +257,93 @@ class OrderModal {
             const data = await response.json();
 
             if (response.ok) {
-                this.showAlert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
+                this.showFormAlert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
                 this.form.reset();
                 setTimeout(() => {
                     this.close();
                 }, 3000);
             } else {
-                this.showAlert(data.message || 'Произошла ошибка при отправке заявки', 'error');
+                this.showFormAlert(data.message || 'Произошла ошибка при отправке заявки', 'error');
             }
         } catch (error) {
-            this.showAlert('Ошибка соединения с сервером', 'error');
+            this.showFormAlert('Ошибка соединения с сервером. Проверьте подключение к интернету.', 'error');
         } finally {
             submitBtn.disabled = false;
             submitBtn.textContent = 'Отправить заявку';
         }
     }
 
-    showAlert(message, type) {
-        const alert = document.getElementById('alertMessage');
-        alert.textContent = message;
-        alert.className = `alert alert-${type} active`;
+    validateForm(data) {
+        // Проверка имени
+        if (!data.name || !data.name.trim()) {
+            return 'Пожалуйста, введите ваше имя';
+        }
         
-        setTimeout(() => {
-            alert.classList.remove('active');
-        }, 5000);
+        if (!/^[а-яА-ЯёЁa-zA-Z\s\-]+$/.test(data.name.trim())) {
+            return 'Имя должно содержать только буквы';
+        }
+        
+        if (data.name.trim().length < 2) {
+            return 'Имя должно содержать минимум 2 символа';
+        }
+
+        // Проверка телефона
+        if (!data.phone || !data.phone.trim()) {
+            return 'Пожалуйста, введите номер телефона';
+        }
+        
+        const phoneDigits = data.phone.replace(/\D/g, '');
+        if (phoneDigits.length !== 11) {
+            return 'Номер телефона должен содержать 11 цифр';
+        }
+        
+        if (phoneDigits[0] !== '7' && phoneDigits[0] !== '8') {
+            return 'Номер телефона должен начинаться с +7 или 8';
+        }
+
+        // Проверка описания груза
+        if (!data.cargo_description || !data.cargo_description.trim()) {
+            return 'Пожалуйста, опишите ваш груз';
+        }
+        
+        if (data.cargo_description.trim().length < 10) {
+            return 'Описание груза должно содержать минимум 10 символов';
+        }
+
+        // Проверка городов
+        if (!data.city_from || !data.city_from.trim()) {
+            return 'Пожалуйста, укажите город отправления';
+        }
+        
+        if (!data.city_to || !data.city_to.trim()) {
+            return 'Пожалуйста, укажите город назначения';
+        }
+
+        // Проверка согласия
+        if (!data.privacy) {
+            return 'Необходимо согласие с политикой обработки персональных данных';
+        }
+
+        return null;
+    }
+
+    showFormAlert(message, type) {
+        this.removeFormAlert();
+        
+        const alert = document.createElement('div');
+        alert.className = `form-alert ${type}`;
+        alert.textContent = message;
+        
+        this.form.insertBefore(alert, this.form.firstChild);
+        
+        alert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    removeFormAlert() {
+        const existingAlert = this.form.querySelector('.form-alert');
+        if (existingAlert) {
+            existingAlert.remove();
+        }
     }
 
     open() {
@@ -291,7 +400,7 @@ class OrderModal {
         this.modal.classList.remove('active');
         document.body.style.overflow = '';
         this.form.reset();
-        document.getElementById('alertMessage').classList.remove('active');
+        this.removeFormAlert();
     }
 }
 

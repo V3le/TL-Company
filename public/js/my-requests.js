@@ -281,7 +281,7 @@ function initProfileForm() {
         });
     }
     
-    const contactForm = document.getElementById('contactForm');
+    const contactForm = document.getElementById('profileContactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();

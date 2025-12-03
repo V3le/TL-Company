@@ -24,43 +24,8 @@ async function loadContacts() {
 
 // Инициализация формы контактов
 function initContactForm() {
-    const form = document.getElementById('contactForm');
-    if (form && !form.dataset.initialized) {
-        form.dataset.initialized = 'true';
-        
-        // Здесь можно добавить обработчик отправки формы
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const formData = {
-                name: form.name.value,
-                phone: form.phone.value,
-                email: form.email.value,
-                message: form.message.value
-            };
-            
-            try {
-                const response = await fetch('/api/contacts/create.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                });
-                
-                if (response.ok) {
-                    alert('Сообщение отправлено! Мы свяжемся с вами в ближайшее время.');
-                    form.reset();
-                } else {
-                    alert('Произошла ошибка при отправке сообщения');
-                }
-            } catch (error) {
-                alert('Ошибка соединения с сервером');
-            }
-        });
-    }
-    
-    // Выделяем текущий день недели
+    // Обработчик формы находится в contacts.js
+    // Здесь только выделяем текущий день недели
     highlightCurrentDay();
 }
 
