@@ -824,77 +824,8 @@ function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-// Показать уведомление
-function showNotification(message, type = 'info') {
-    // Создание элемента уведомления
-    const notification = document.createElement('div');
-    notification.className = `auth-notification auth-notification-${type} auth-notification-show`;
-    notification.textContent = message;
-    
-    // Устанавливаем цвет фона в зависимости от типа
-    const bgColor = type === 'success' ? '#4caf50' : type === 'error' ? '#f44336' : '#2196f3';
-    notification.style.background = bgColor;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.classList.remove('auth-notification-show');
-        notification.classList.add('auth-notification-hide');
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
-}
-
-// Добавление стилей для уведомлений
-const authStyle = document.createElement('style');
-authStyle.textContent = `
-    .auth-notification {
-        position: fixed;
-        bottom: 30px;
-        left: 50%;
-        padding: 16px 24px;
-        color: white;
-        border-radius: 12px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-        z-index: 10001;
-        font-size: 15px;
-        font-weight: 500;
-        min-width: 300px;
-        max-width: 500px;
-        text-align: center;
-        pointer-events: none;
-    }
-    
-    .auth-notification-show {
-        animation: slideInUpNotification 0.3s ease forwards;
-    }
-    
-    .auth-notification-hide {
-        animation: slideOutDownNotification 0.3s ease forwards;
-    }
-    
-    @keyframes slideInUpNotification {
-        from {
-            transform: translate(-50%, 20px);
-            opacity: 0;
-        }
-        to {
-            transform: translate(-50%, 0);
-            opacity: 1;
-        }
-    }
-    
-    @keyframes slideOutDownNotification {
-        from {
-            transform: translate(-50%, 0);
-            opacity: 1;
-        }
-        to {
-            transform: translate(-50%, 20px);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(authStyle);
+// Функция showNotification теперь определена в toast.js
+// Она автоматически доступна глобально через window.showNotification
 
 // Делаем функции глобальными для доступа из HTML
 window.openAuthModal = openAuthModal;

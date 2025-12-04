@@ -52,15 +52,15 @@ document.addEventListener('submit', async (e) => {
         
         if (response.ok) {
             removeFormAlert(form);
-            showNotification('Сообщение отправлено!', 'Мы свяжемся с вами в ближайшее время.');
+            toast.success('Сообщение отправлено! Мы свяжемся с вами в ближайшее время.');
             form.reset();
         } else {
-            showFormAlert(form, result.message || 'Произошла ошибка при отправке. Попробуйте еще раз.', 'error');
+            showFormAlert(form, result.message || 'Произошла ошибка при отправке. Попробуйте еще раз.');
         }
         
     } catch (error) {
         console.error('Ошибка:', error);
-        showFormAlert(form, 'Произошла ошибка при отправке. Проверьте подключение к интернету.', 'error');
+        showFormAlert(form, 'Произошла ошибка при отправке. Проверьте подключение к интернету.');
     } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Отправить';
@@ -242,45 +242,4 @@ function removeFormAlert(form) {
     }
 }
 
-// Показать модальное уведомление (только для успеха)
-function showNotification(title, message) {
-    const existingModal = document.querySelector('.notification-modal');
-    if (existingModal) {
-        existingModal.remove();
-    }
-    
-    const modal = document.createElement('div');
-    modal.className = 'notification-modal';
-    modal.innerHTML = `
-        <div class="notification-content">
-            <h3>${title}</h3>
-            <p>${message}</p>
-            <button class="notification-btn">OK</button>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-    
-    setTimeout(() => {
-        modal.classList.add('active');
-    }, 10);
-    
-    const closeModal = () => {
-        modal.classList.remove('active');
-        setTimeout(() => {
-            modal.remove();
-        }, 300);
-    };
-    
-    const btn = modal.querySelector('.notification-btn');
-    btn.addEventListener('click', closeModal);
-    
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closeModal();
-        }
-    });
-    
-    // Автоматически закрыть через 2 секунды
-    setTimeout(closeModal, 2000);
-}
+// Функция showNotification теперь определена в toast.js

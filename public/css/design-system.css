@@ -189,7 +189,7 @@ select:not(:placeholder-shown) {
     background: var(--color-white) !important;
 }
 
-/* Отключаем голубой фон автозаполнения браузера */
+
 input[type="text"]:-webkit-autofill,
 input[type="email"]:-webkit-autofill,
 input[type="tel"]:-webkit-autofill,

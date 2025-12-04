@@ -28,21 +28,25 @@ if(!empty($data->login) && !empty($data->password)) {
         if ($remember_me) {
             // 30 дней в секундах
             $lifetime = 30 * 24 * 60 * 60;
-            ini_set('session.gc_maxlifetime', $lifetime);
-            session_set_cookie_params($lifetime);
         } else {
             // Сессия до закрытия браузера (0 = до закрытия браузера)
-            session_set_cookie_params(0);
+            $lifetime = 0;
         }
+        
+        // ВАЖНО: параметры сессии должны быть установлены ДО session_start()
+        ini_set('session.gc_maxlifetime', $lifetime > 0 ? $lifetime : 86400);
+        session_set_cookie_params([
+            'lifetime' => $lifetime,
+            'path' => '/',
+            'domain' => '',
+            'secure' => false,
+            'httponly' => true,
+            'samesite' => 'Lax'
+        ]);
         
         session_start();
         $_SESSION['user_id'] = $user->id;
         $_SESSION['username'] = $user->username;
-        
-        // Обновляем время жизни cookie после старта сессии
-        if ($remember_me) {
-            setcookie(session_name(), session_id(), time() + $lifetime, '/');
-        }
         
         http_response_code(200);
         echo json_encode(array(

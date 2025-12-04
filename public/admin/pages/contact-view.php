@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once '../config/session.php';
 if (!isset($_SESSION['admin_logged_in'])) {
     header('Location: ../auth/login.php');
     exit;

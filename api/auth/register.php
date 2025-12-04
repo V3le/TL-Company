@@ -45,15 +45,21 @@ if(!empty($data->username) && !empty($data->email) && !empty($data->password)) {
     if($user->register()) {
         // Устанавливаем длительную сессию по умолчанию при регистрации (30 дней)
         $lifetime = 30 * 24 * 60 * 60;
+        
+        // ВАЖНО: параметры сессии должны быть установлены ДО session_start()
         ini_set('session.gc_maxlifetime', $lifetime);
-        session_set_cookie_params($lifetime);
+        session_set_cookie_params([
+            'lifetime' => $lifetime,
+            'path' => '/',
+            'domain' => '',
+            'secure' => false,
+            'httponly' => true,
+            'samesite' => 'Lax'
+        ]);
         
         session_start();
         $_SESSION['user_id'] = $user->id;
         $_SESSION['username'] = $user->username;
-        
-        // Обновляем время жизни cookie после старта сессии
-        setcookie(session_name(), session_id(), time() + $lifetime, '/');
         
         http_response_code(201);
         echo json_encode(array(

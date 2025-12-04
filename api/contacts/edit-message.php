@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once '../config/session.php';
 
 header("Access-Control-Allow-Origin: " . ($_SERVER['HTTP_ORIGIN'] ?? '*'));
 header("Access-Control-Allow-Credentials: true");

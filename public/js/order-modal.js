@@ -257,11 +257,12 @@ class OrderModal {
             const data = await response.json();
 
             if (response.ok) {
-                this.showFormAlert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
+                this.removeFormAlert();
+                toast.success('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
                 this.form.reset();
                 setTimeout(() => {
                     this.close();
-                }, 3000);
+                }, 2000);
             } else {
                 this.showFormAlert(data.message || 'Произошла ошибка при отправке заявки', 'error');
             }

@@ -212,7 +212,7 @@ body::before {
     line-height: 1.4;
 }
 
-/* Кнопки hero используют стили из design-system.css */
+
 
 @media (max-width: 1024px) {
     .hero {
