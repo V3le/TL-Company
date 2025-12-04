@@ -361,3 +361,109 @@
         margin-bottom: 10px;
     }
 }
+
+/* Реквизиты */
+.document-header-with-download {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    white-space: nowrap;
+}
+
+.btn-download:hover {
+    background: var(--color-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-download svg {
+    width: 20px;
+    height: 20px;
+}
+
+.requisites-grid {
+    display: grid;
+    gap: 16px;
+}
+
+.requisite-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-border-light, #f5f5f5);
+}
+
+.requisite-item:last-child {
+    border-bottom: none;
+}
+
+.requisite-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.requisite-value {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    word-break: break-word;
+}
+
+.requisite-value a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color var(--transition-base);
+}
+
+.requisite-value a:hover {
+    color: var(--color-primary-hover);
+    text-decoration: underline;
+}
+
+/* Адаптивность для реквизитов */
+@media (max-width: 768px) {
+    .document-header-with-download {
+        flex-direction: column;
+        gap: 16px;
+        align-items: stretch;
+    }
+
+    .btn-download {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .requisite-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 16px 0;
+    }
+
+    .requisite-label {
+        font-size: 13px;
+    }
+
+    .requisite-value {
+        font-size: 14px;
+        font-weight: 500;
+    }
+}

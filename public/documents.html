@@ -33,7 +33,18 @@
                 <aside class="documents-sidebar">
                     <h1 class="page-title">Документы</h1>
                     <nav class="documents-menu">
-                        <a href="#consent" class="documents-menu-item active" data-doc="consent">
+                        <a href="#requisites" class="documents-menu-item active" data-doc="requisites">
+                            <span class="menu-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14 2 14 8 20 8"/>
+                                    <line x1="16" y1="13" x2="8" y2="13"/>
+                                    <line x1="16" y1="17" x2="8" y2="17"/>
+                                </svg>
+                            </span>
+                            <span class="menu-text">Реквизиты</span>
+                        </a>
+                        <a href="#consent" class="documents-menu-item" data-doc="consent">
                             <span class="menu-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -61,8 +72,120 @@
 
                 <!-- Контент документа -->
                 <div class="documents-content">
+                    <!-- Реквизиты -->
+                    <div id="requisites" class="document-card active">
+                        <div class="document-header-with-download">
+                            <div>
+                                <h2 class="document-title">Реквизиты компании</h2>
+                                <p class="document-date">Актуально на 04 декабря 2025 г.</p>
+                            </div>
+                            <button class="btn-download" onclick="downloadRequisites()">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="7 10 12 15 17 10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                Скачать реквизиты
+                            </button>
+                        </div>
+
+                        <section class="document-section">
+                            <h3>Общая информация</h3>
+                            <div class="requisites-grid">
+                                <div class="requisite-item">
+                                    <span class="requisite-label">Полное наименование:</span>
+                                    <span class="requisite-value">Общество с ограниченной ответственностью "A2B"</span>
+                                </div>
+                                <div class="requisite-item">
+                                    <span class="requisite-label">Сокращенное наименование:</span>
+                                    <span class="requisite-value">ООО "A2B"</span>
+                                </div>
+                                <div class="requisite-item">
+                                    <span class="requisite-label">ИНН:</span>
+                                    <span class="requisite-value">7729123456</span>
+                                </div>
+                                <div class="requisite-item">
+                                    <span class="requisite-label">КПП:</span>
+                                    <span class="requisite-value">772901001</span>
+                                </div>
+                                <div class="requisite-item">
+                                    <span class="requisite-label">ОГРН:</span>
+                                    <span class="requisite-value">1127746123456</span>
+                                </div>
+                                <div class="requisite-item">
+                                    <span class="requisite-label">ОКПО:</span>
+                                    <span class="requisite-value">12345678</span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="document-section">
+                            <h3>Юридический адрес</h3>
+                            <div class="requisites-grid">
+                                <div class="requisite-item">
+                                    <span class="requisite-label">Адрес:</span>
+                                    <span class="requisite-value">119454, г. Москва, пр-т Вернадского д.29, БЦ «Лето», офис 804Б</span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="document-section">
+                            <h3>Банковские реквизиты</h3>
+                            <div class="requisites-grid">
+                                <div class="requisite-item">
+                                    <span class="requisite-label">Расчетный счет:</span>
+                                    <span class="requisite-value">40702810400000123456</span>
+                                </div>
+                                <div class="requisite-item">
+                                    <span class="requisite-label">Банк:</span>
+                                    <span class="requisite-value">ПАО "Сбербанк России"</span>
+                                </div>
+                                <div class="requisite-item">
+                                    <span class="requisite-label">Корр. счет:</span>
+                                    <span class="requisite-value">30101810400000000225</span>
+                                </div>
+                                <div class="requisite-item">
+                                    <span class="requisite-label">БИК:</span>
+                                    <span class="requisite-value">044525225</span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="document-section">
+                            <h3>Контактная информация</h3>
+                            <div class="requisites-grid">
+                                <div class="requisite-item">
+                                    <span class="requisite-label">Телефон:</span>
+                                    <span class="requisite-value"><a href="tel:+74994601740">+7 (499) 460-17-40</a></span>
+                                </div>
+                                <div class="requisite-item">
+                                    <span class="requisite-label">Email:</span>
+                                    <span class="requisite-value"><a href="mailto:a2b@mail.ru">a2b@mail.ru</a></span>
+                                </div>
+                                <div class="requisite-item">
+                                    <span class="requisite-label">Сайт:</span>
+                                    <span class="requisite-value"><a href="https://a2b-logistics.ru" target="_blank">a2b-logistics.ru</a></span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="document-section">
+                            <h3>Руководство</h3>
+                            <div class="requisites-grid">
+                                <div class="requisite-item">
+                                    <span class="requisite-label">Генеральный директор:</span>
+                                    <span class="requisite-value">Адоньев Никита Дмитриевич</span>
+                                </div>
+                                <div class="requisite-item">
+                                    <span class="requisite-label">Действует на основании:</span>
+                                    <span class="requisite-value">Устава</span>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
                     <!-- Согласие на обработку персональных данных -->
-                    <div id="consent" class="document-card active">
+                    <div id="consent" class="document-card">
                         <h2 class="document-title">Согласие на обработку персональных данных</h2>
                         <p class="document-date">Дата последнего обновления: 03 декабря 2025 г.</p>
 
