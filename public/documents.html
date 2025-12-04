@@ -33,40 +33,70 @@
                 <aside class="documents-sidebar">
                     <h1 class="page-title">Документы</h1>
                     <nav class="documents-menu">
-                        <a href="#requisites" class="documents-menu-item active" data-doc="requisites">
-                            <span class="menu-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                    <polyline points="14 2 14 8 20 8"/>
-                                    <line x1="16" y1="13" x2="8" y2="13"/>
-                                    <line x1="16" y1="17" x2="8" y2="17"/>
-                                </svg>
-                            </span>
-                            <span class="menu-text">Реквизиты</span>
-                        </a>
-                        <a href="#consent" class="documents-menu-item" data-doc="consent">
-                            <span class="menu-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                    <polyline points="14 2 14 8 20 8"/>
-                                    <line x1="16" y1="13" x2="8" y2="13"/>
-                                    <line x1="16" y1="17" x2="8" y2="17"/>
-                                    <polyline points="10 9 9 9 8 9"/>
-                                </svg>
-                            </span>
-                            <span class="menu-text">Согласие на обработку персональных данных</span>
-                        </a>
-                        <a href="#policy" class="documents-menu-item" data-doc="policy">
-                            <span class="menu-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                    <polyline points="14 2 14 8 20 8"/>
-                                    <line x1="12" y1="18" x2="12" y2="12"/>
-                                    <line x1="9" y1="15" x2="15" y2="15"/>
-                                </svg>
-                            </span>
-                            <span class="menu-text">Политика обработки персональных данных</span>
-                        </a>
+                        <div class="documents-menu-category">
+                            <div class="menu-category-title">Компания</div>
+                            <a href="#requisites" class="documents-menu-item active" data-doc="requisites">
+                                <span class="menu-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                        <polyline points="14 2 14 8 20 8"/>
+                                        <line x1="16" y1="13" x2="8" y2="13"/>
+                                        <line x1="16" y1="17" x2="8" y2="17"/>
+                                    </svg>
+                                </span>
+                                <span class="menu-text">Реквизиты</span>
+                            </a>
+                        </div>
+
+                        <div class="documents-menu-category">
+                            <div class="menu-category-title">Персональные данные</div>
+                            <a href="#consent" class="documents-menu-item" data-doc="consent">
+                                <span class="menu-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                        <polyline points="14 2 14 8 20 8"/>
+                                        <line x1="16" y1="13" x2="8" y2="13"/>
+                                        <line x1="16" y1="17" x2="8" y2="17"/>
+                                        <polyline points="10 9 9 9 8 9"/>
+                                    </svg>
+                                </span>
+                                <span class="menu-text">Согласие на обработку ПД</span>
+                            </a>
+                            <a href="#policy" class="documents-menu-item" data-doc="policy">
+                                <span class="menu-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                        <polyline points="14 2 14 8 20 8"/>
+                                        <line x1="12" y1="18" x2="12" y2="12"/>
+                                        <line x1="9" y1="15" x2="15" y2="15"/>
+                                    </svg>
+                                </span>
+                                <span class="menu-text">Политика обработки ПД</span>
+                            </a>
+                        </div>
+
+                        <div class="documents-menu-category">
+                            <div class="menu-category-title">Правовая информация</div>
+                            <a href="#privacy" class="documents-menu-item" data-doc="privacy">
+                                <span class="menu-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                    </svg>
+                                </span>
+                                <span class="menu-text">Политика конфиденциальности</span>
+                            </a>
+                            <a href="#terms" class="documents-menu-item" data-doc="terms">
+                                <span class="menu-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                        <polyline points="14 2 14 8 20 8"/>
+                                        <line x1="9" y1="15" x2="15" y2="15"/>
+                                    </svg>
+                                </span>
+                                <span class="menu-text">Условия использования</span>
+                            </a>
+                        </div>
                     </nav>
                 </aside>
 
@@ -393,6 +423,98 @@
                                 <li><strong>Email:</strong> <a href="mailto:a2b@mail.ru">a2b@mail.ru</a></li>
                                 <li><strong>Телефон:</strong> <a href="tel:+74994601740">+7 (499) 460-17-40</a></li>
                             </ul>
+                        </section>
+                    </div>
+
+                    <!-- Политика конфиденциальности -->
+                    <div id="privacy" class="document-card">
+                        <h2 class="document-title">Политика конфиденциальности</h2>
+                        <p class="document-date">Последнее обновление: 4 декабря 2025 года</p>
+                        
+                        <section class="document-section">
+                            <h3>1. Общие положения</h3>
+                            <p>Настоящая Политика конфиденциальности персональных данных (далее – Политика) действует в отношении всей информации, которую ООО "A2B" (далее – Компания) может получить о пользователе во время использования им сайта a2b-logistics.ru.</p>
+                            <p>Использование сайта означает безоговорочное согласие пользователя с настоящей Политикой и указанными в ней условиями обработки его персональной информации.</p>
+                        </section>
+
+                        <section class="document-section">
+                            <h3>2. Персональная информация пользователей</h3>
+                            <p>Под персональной информацией в данной Политике понимается:</p>
+                            <ul>
+                                <li>Персональная информация, которую пользователь предоставляет о себе самостоятельно при регистрации или в процессе использования сервисов</li>
+                                <li>Данные, которые автоматически передаются сервисам в процессе их использования с помощью установленного на устройстве пользователя программного обеспечения</li>
+                            </ul>
+                        </section>
+
+                        <section class="document-section">
+                            <h3>3. Цели сбора персональной информации</h3>
+                            <ul>
+                                <li>Идентификация стороны в рамках соглашений и договоров</li>
+                                <li>Предоставление пользователю персонализированных сервисов</li>
+                                <li>Связь с пользователем для предоставления информации об услугах</li>
+                                <li>Улучшение качества сервисов, удобства их использования</li>
+                            </ul>
+                        </section>
+
+                        <section class="document-section">
+                            <h3>4. Защита персональной информации</h3>
+                            <p>Компания принимает необходимые и достаточные организационные и технические меры для защиты персональной информации пользователя от неправомерного или случайного доступа, уничтожения, изменения, блокирования, копирования, распространения.</p>
+                        </section>
+
+                        <section class="document-section">
+                            <h3>5. Обратная связь</h3>
+                            <p><strong>Email:</strong> <a href="mailto:a2b@mail.ru">a2b@mail.ru</a></p>
+                            <p><strong>Телефон:</strong> <a href="tel:+74994601740">+7 (499) 460-17-40</a></p>
+                        </section>
+                    </div>
+
+                    <!-- Условия использования -->
+                    <div id="terms" class="document-card">
+                        <h2 class="document-title">Условия использования</h2>
+                        <p class="document-date">Последнее обновление: 4 декабря 2025 года</p>
+                        
+                        <section class="document-section">
+                            <h3>1. Общие условия</h3>
+                            <p>Настоящие Условия использования (далее – Условия) регулируют отношения между ООО "A2B" (далее – Компания) и пользователями сайта a2b-logistics.ru (далее – Сайт).</p>
+                            <p>Используя Сайт, вы соглашаетесь с настоящими Условиями.</p>
+                        </section>
+
+                        <section class="document-section">
+                            <h3>2. Использование сайта</h3>
+                            <p>Пользователь имеет право:</p>
+                            <ul>
+                                <li>Просматривать информацию, размещенную на Сайте</li>
+                                <li>Использовать калькулятор стоимости услуг</li>
+                                <li>Оставлять заявки на услуги через формы обратной связи</li>
+                                <li>Регистрироваться и создавать личный кабинет</li>
+                            </ul>
+                        </section>
+
+                        <section class="document-section">
+                            <h3>3. Ограничения использования</h3>
+                            <p>При использовании Сайта запрещается:</p>
+                            <ul>
+                                <li>Нарушать законодательство Российской Федерации</li>
+                                <li>Размещать материалы, нарушающие права третьих лиц</li>
+                                <li>Использовать автоматизированные средства для сбора информации</li>
+                                <li>Предпринимать действия, направленные на нарушение работы Сайта</li>
+                            </ul>
+                        </section>
+
+                        <section class="document-section">
+                            <h3>4. Интеллектуальная собственность</h3>
+                            <p>Все материалы Сайта являются собственностью Компании или ее партнеров и защищены законодательством об интеллектуальной собственности.</p>
+                        </section>
+
+                        <section class="document-section">
+                            <h3>5. Ограничение ответственности</h3>
+                            <p>Компания не гарантирует бесперебойную работу Сайта и не несет ответственности за любой ущерб, возникший в результате использования или невозможности использования Сайта.</p>
+                        </section>
+
+                        <section class="document-section">
+                            <h3>6. Контактная информация</h3>
+                            <p><strong>Email:</strong> <a href="mailto:a2b@mail.ru">a2b@mail.ru</a></p>
+                            <p><strong>Телефон:</strong> <a href="tel:+74994601740">+7 (499) 460-17-40</a></p>
                         </section>
                     </div>
                 </div>

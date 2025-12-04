@@ -29,11 +29,25 @@ document.addEventListener('DOMContentLoaded', function() {
             if (targetDoc) {
                 targetDoc.classList.add('active');
                 
-                // Плавная прокрутка к началу документа
-                targetDoc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Небольшая задержка для прокрутки после отображения
+                setTimeout(() => {
+                    scrollToElement(targetDoc);
+                }, 50);
             }
         });
     });
+
+    // Функция для прокрутки к элементу с учетом header
+    function scrollToElement(element) {
+        const headerHeight = document.querySelector('.header')?.offsetHeight || 100;
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - headerHeight - 100; 
+        
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
+    }
 
     // Функция для активации документа по хэшу
     function activateDocumentByHash() {
@@ -59,10 +73,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (targetDoc) {
                     targetDoc.classList.add('active');
                     
-                    // Небольшая задержка для плавной прокрутки после загрузки
+                    // Небольшая задержка для прокрутки после загрузки и отображения
                     setTimeout(() => {
-                        targetDoc.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 100);
+                        scrollToElement(targetDoc);
+                    }, 150);
                 }
             }
         }
@@ -83,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Функция для скачивания реквизитов
+
 function downloadRequisites() {
     const requisitesText = `
 РЕКВИЗИТЫ КОМПАНИИ
@@ -148,23 +162,23 @@ Email:              a2b@mail.ru
 })}
 `;
 
-    // Создаем Blob с текстом
+
     const blob = new Blob([requisitesText], { type: 'text/plain;charset=utf-8' });
     
-    // Создаем ссылку для скачивания
+
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = 'Реквизиты_A2B.txt';
     
-    // Добавляем ссылку в документ, кликаем и удаляем
+
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
     
-    // Освобождаем память
+
     URL.revokeObjectURL(link.href);
     
-    // Показываем уведомление
+
     if (typeof showToast === 'function') {
         showToast('Реквизиты успешно скачаны', 'success');
     }

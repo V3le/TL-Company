@@ -1,7 +1,7 @@
 /* Transport Types Section - Единый стиль */
 .transport-types {
     padding: 80px 20px;
-    background: rgba(255, 255, 255, 0.85);
+    background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
 }
 
 .transport-types .section-title {

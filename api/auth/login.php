@@ -44,7 +44,10 @@ if(!empty($data->login) && !empty($data->password)) {
             'samesite' => 'Lax'
         ]);
         
-        session_start();
+        // Запускаем сессию если ещё не запущена
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         $_SESSION['user_id'] = $user->id;
         $_SESSION['username'] = $user->username;
         

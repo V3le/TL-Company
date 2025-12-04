@@ -13,8 +13,11 @@ async function loadContacts() {
             contactsPlaceholder.outerHTML = html.trim();
             
             // После загрузки инициализируем обработчик формы
-            requestAnimationFrame(() => {
-                initContactForm();
+            await new Promise(resolve => {
+                requestAnimationFrame(() => {
+                    initContactForm();
+                    resolve();
+                });
             });
         }
     } catch (error) {
@@ -24,8 +27,7 @@ async function loadContacts() {
 
 // Инициализация формы контактов
 function initContactForm() {
-    // Обработчик формы находится в contacts.js
-    // Здесь только выделяем текущий день недели
+
     highlightCurrentDay();
 }
 
@@ -47,9 +49,35 @@ function highlightCurrentDay() {
     });
 }
 
-// Загружаем контакты при загрузке DOM
+// Функция для прокрутки к заголовку "Связаться с нами", если есть якорь в URL
+function scrollToContactsIfNeeded() {
+    if (window.location.hash === '#contacts') {
+        // Небольшая задержка, чтобы секция успела загрузиться
+        setTimeout(() => {
+            // Ищем заголовок "Связаться с нами"
+            const contactsTitle = Array.from(document.querySelectorAll('h2')).find(
+                h2 => h2.textContent.trim() === 'Связаться с нами'
+            );
+            
+            if (contactsTitle) {
+                contactsTitle.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }
+        }, 500);
+    }
+}
+
+
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', loadContacts);
+    document.addEventListener('DOMContentLoaded', () => {
+        loadContacts().then(() => {
+            scrollToContactsIfNeeded();
+        });
+    });
 } else {
-    loadContacts();
+    loadContacts().then(() => {
+        scrollToContactsIfNeeded();
+    });
 }

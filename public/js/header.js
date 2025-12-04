@@ -55,37 +55,41 @@ function initHeader() {
     if (headerInitialized) return;
     headerInitialized = true;
 
-    // Закрытие dropdown при клике вне меню
-    document.addEventListener('click', function(event) {
-        const dropdowns = document.querySelectorAll('.dropdown');
-        dropdowns.forEach(dropdown => {
-            if (!dropdown.contains(event.target)) {
-                const menu = dropdown.querySelector('.dropdown-menu');
-                if (menu) {
-                    menu.style.opacity = '0';
-                    menu.style.visibility = 'hidden';
-                }
+    // Обработка dropdown меню для десктопа
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+        const menu = dropdown.querySelector('.dropdown-menu');
+        
+        // Для десктопа - работает на hover через CSS
+        // Для мобильных - работает на клик через класс active
+        dropdown.addEventListener('mouseenter', function() {
+            if (window.innerWidth > 992 && menu) {
+                // Убираем inline стили чтобы работал CSS hover
+                menu.style.opacity = '';
+                menu.style.visibility = '';
             }
         });
-    });
-
-    // Предотвращение закрытия при клике внутри dropdown
-    const dropdownMenus = document.querySelectorAll('.dropdown-menu');
-    dropdownMenus.forEach(menu => {
-        menu.addEventListener('click', function(e) {
-            e.stopPropagation();
+        
+        dropdown.addEventListener('mouseleave', function() {
+            if (window.innerWidth > 992 && menu) {
+                // Убираем inline стили чтобы работал CSS hover
+                menu.style.opacity = '';
+                menu.style.visibility = '';
+            }
         });
     });
 
     // Обработчики для кнопок в хедере
     const callButton = document.querySelector('.btn-outline');
-    const orderButton = document.querySelector('.btn-solid');
-    const userIcon = document.querySelector('.user-icon');
+    const orderButton = document.querySelector('.btn-primary');
+    const userBtn = document.querySelector('.user-btn');
+    const contactsLink = document.getElementById('contacts-link');
     
     console.log('Найдены элементы:', {
         callButton: !!callButton,
         orderButton: !!orderButton,
-        userIcon: !!userIcon
+        userBtn: !!userBtn,
+        contactsLink: !!contactsLink
     });
     
     if (callButton) {
@@ -109,15 +113,39 @@ function initHeader() {
         });
     }
     
-    if (userIcon) {
-        userIcon.addEventListener('click', function(e) {
+    if (userBtn) {
+        userBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            console.log('Клик по иконке пользователя');
+            console.log('Клик по кнопке пользователя');
             // Открываем модальное окно авторизации
             if (typeof openAuthModal === 'function') {
                 openAuthModal();
             } else {
                 console.error('Функция openAuthModal не найдена!');
+            }
+        });
+    }
+
+    // Обработчик для кнопки "Контакты"
+    if (contactsLink) {
+        contactsLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Клик по кнопке "Контакты"');
+            
+            // Ищем заголовок "Связаться с нами" на текущей странице
+            const contactsTitle = Array.from(document.querySelectorAll('h2')).find(
+                h2 => h2.textContent.trim() === 'Связаться с нами'
+            );
+            
+            if (contactsTitle) {
+                // Если заголовок найден, плавно прокручиваем к нему
+                contactsTitle.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            } else {
+                // Если заголовка нет, перенаправляем на главную страницу с якорем
+                window.location.href = 'index.html#contacts';
             }
         });
     }
@@ -139,21 +167,100 @@ if (document.readyState === 'loading') {
 // Проверка загрузки логотипа
 function checkLogo() {
     const logoImg = document.querySelector('.logo-img');
-    const logoFallback = document.querySelector('.logo-text-fallback');
+    const logoText = document.querySelector('.logo-text');
     
-    if (logoImg && logoFallback) {
+    if (logoImg && logoText) {
         logoImg.addEventListener('error', function() {
             console.error('Логотип не загрузился, показываем текст');
             logoImg.style.display = 'none';
-            logoFallback.style.display = 'block';
+            logoText.style.display = 'block';
         });
         
         // Проверяем загрузился ли уже
         if (!logoImg.complete || logoImg.naturalHeight === 0) {
             console.warn('Логотип не загружен, показываем текст');
             logoImg.style.display = 'none';
-            logoFallback.style.display = 'block';
+            logoText.style.display = 'block';
         }
     }
 }
 
+
+
+// Флаг инициализации бургер-меню
+let burgerInitialized = false;
+
+// Бургер-меню
+function initBurgerMenu() {
+    if (burgerInitialized) return;
+    
+    const burgerMenu = document.getElementById('burgerMenu');
+    const headerNav = document.getElementById('headerNav');
+    
+    if (!burgerMenu || !headerNav) return;
+    
+    burgerInitialized = true;
+    
+    burgerMenu.addEventListener('click', function(e) {
+        e.stopPropagation();
+        this.classList.toggle('active');
+        headerNav.classList.toggle('active');
+        document.body.style.overflow = this.classList.contains('active') ? 'hidden' : '';
+    });
+    
+    // Закрытие меню при клике вне его (только для мобильных)
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth <= 992) {
+            if (!e.target.closest('.header-nav') && !e.target.closest('.burger-menu')) {
+                burgerMenu.classList.remove('active');
+                headerNav.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+    });
+    
+    // Обработка dropdown в мобильном меню
+    const dropdowns = document.querySelectorAll('.header-nav .dropdown');
+    dropdowns.forEach(dropdown => {
+        const link = dropdown.querySelector('.nav-link');
+        if (!link.dataset.listenerAdded) {
+            link.dataset.listenerAdded = 'true';
+            link.addEventListener('click', function(e) {
+                if (window.innerWidth <= 992) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropdown.classList.toggle('active');
+                }
+            });
+        }
+    });
+    
+    // Закрытие меню при изменении размера окна
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            if (window.innerWidth > 992) {
+                burgerMenu.classList.remove('active');
+                headerNav.classList.remove('active');
+                document.body.style.overflow = '';
+                
+                // Убираем inline стили у dropdown меню
+                const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+                dropdownMenus.forEach(menu => {
+                    menu.style.opacity = '';
+                    menu.style.visibility = '';
+                });
+            }
+        }, 250);
+    });
+}
+
+// Инициализация бургер-меню после загрузки header
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(initBurgerMenu, 200);
+    });
+} else {
+    setTimeout(initBurgerMenu, 200);
+}

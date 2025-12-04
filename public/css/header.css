@@ -1,139 +1,177 @@
-/* Header Styles */
-#header-placeholder {
-    min-height: 0;
-    display: block;
-}
+/* ============================================
+   HEADER STYLES - Современный дизайн
+   ============================================ */
 
+/* Основной контейнер хедера */
 .header {
-    background: white;
     position: sticky;
     top: 0;
-    z-index: 2000;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    display: block;
-    margin: 0;
-    padding: 0;
+    z-index: 1000;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-.header-info {
-    background: var(--color-onyx, #222526);
-    border-bottom: 1px solid var(--color-graphite, #353A3E);
-    padding: 5px 0;
-    width: 100%;
-    display: block;
-}
-
-.header-info-content {
+/* Общий контейнер для контента */
+.header-container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 40px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
 }
 
-.info-text {
-    color: var(--color-ash, #BFBFBF);
-    font-size: 14px;
+/* ============================================
+   ВЕРХНЯЯ ПАНЕЛЬ (Top Bar)
+   ============================================ */
+.header-top {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3.5px 0;
 }
 
-.info-contacts {
+.header-top .header-container {
+    gap: 12px;
+}
+
+.header-top-left {
     display: flex;
     align-items: center;
-    gap: 15px;
 }
 
-.social-icon {
-    color: var(--color-ash, #BFBFBF);
+.header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+}
+
+.header-badge svg {
+    opacity: 0.9;
+    width: 14px;
+    height: 14px;
+}
+
+.header-top-right {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    transition: color 0.3s ease;
+    gap: 12px;
+    margin-left: auto;
+}
+
+/* Социальные сети */
+.header-socials {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.social-link-header {
+    display: inline-block;
     text-decoration: none;
 }
 
-.social-icon:hover {
-    color: var(--color-white, #ffffff);
+.social-link-header svg {
+    display: block;
+    width: 16px;
+    height: 16px;
 }
 
-.social-icon svg {
+.social-link-header:hover {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.social-link-header svg {
     width: 100%;
     height: 100%;
 }
 
-.separator {
+/* Разделитель */
+.header-divider {
     width: 1px;
     height: 16px;
-    background: var(--color-graphite, #353A3E);
+    background: rgba(255, 255, 255, 0.2);
 }
 
-.contact-link {
-    color: var(--color-white, #ffffff);
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.3s ease;
-}
-
-.contact-link:hover {
-    color: var(--color-ash, #BFBFBF);
-}
-
-.header-nav {
-    background: white;
-    padding: 15px 0;
-    width: 100%;
-    display: block;
-    position: relative;
-    z-index: 10;
-}
-
-.header-nav-content {
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 0 40px;
+/* Контактные ссылки */
+.header-phone,
+.header-email {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    box-sizing: border-box;
-    flex-wrap: nowrap;
-    gap: 20px;
-    overflow-x: visible;
+    gap: 6px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 4px 10px;
+    border-radius: 6px;
 }
 
-.logo {
-    display: flex !important;
+.header-phone:hover,
+.header-email:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.header-phone svg,
+.header-email svg {
+    opacity: 0.9;
+    width: 14px;
+    height: 14px;
+}
+
+/* ============================================
+   ОСНОВНАЯ НАВИГАЦИЯ (Main Nav)
+   ============================================ */
+.header-main {
+    background: #ffffff;
+    padding: 16px 0;
+}
+
+.header-main .header-container {
+    gap: 40px;
+}
+
+/* Логотип */
+.header-logo {
+    display: flex;
     align-items: center;
+    gap: 12px;
     text-decoration: none;
     flex-shrink: 0;
-    height: 50px;
-    position: relative;
-    z-index: 10;
 }
 
 .logo-img {
-    height: 50px !important;
-    width: auto !important;
-    display: block !important;
+    height: 45px;
+    width: auto;
+    display: block;
     object-fit: contain;
-    max-width: 150px;
-    visibility: visible !important;
-    opacity: 1 !important;
 }
 
-.nav-menu {
-    display: flex !important;
+.logo-text {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+    display: none;
+}
+
+/* Навигационное меню */
+.header-nav {
+    display: flex;
     list-style: none;
-    gap: 20px;
-    align-items: center;
     margin: 0;
     padding: 0;
+    gap: 32px;
     flex: 1;
     justify-content: center;
-    min-width: 0;
 }
 
 .nav-item {
@@ -141,252 +179,583 @@
 }
 
 .nav-link {
-    color: var(--color-jet-black, #1A1A1A);
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
+    color: #1a1a1a;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
     padding: 8px 0;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
     position: relative;
-    white-space: nowrap;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #1a1a1a;
+    transition: width 0.3s ease;
 }
 
 .nav-link:hover {
-    color: var(--color-graphite, #353A3E);
+    color: #1a1a1a;
 }
 
-.dropdown-arrow {
-    font-size: 10px;
-    color: var(--color-ash, #BFBFBF);
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-arrow {
     transition: transform 0.3s ease;
+    opacity: 0.6;
 }
 
-.nav-item:hover .dropdown-arrow {
+.nav-item:hover .nav-arrow {
     transform: rotate(180deg);
 }
 
+/* Выпадающее меню */
 .dropdown-menu {
     position: absolute;
-    top: 100%;
-    left: 0;
-    background: white;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
     list-style: none;
-    padding: 10px 0;
+    padding: 8px;
     margin: 0;
-    min-width: 200px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border-radius: 4px;
+    min-width: 220px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-10px);
+    transform: translateX(-50%) translateY(-10px);
     transition: all 0.3s ease;
-    z-index: 1000;
+    z-index: 100;
 }
 
 .nav-item:hover .dropdown-menu {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
 }
 
 .dropdown-link {
     display: block;
-    padding: 10px 20px;
-    color: var(--color-jet-black, #1A1A1A);
+    padding: 12px 16px;
+    color: #1a1a1a;
     text-decoration: none;
     font-size: 14px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.2s ease;
 }
 
 .dropdown-link:hover {
-    background-color: var(--color-platinum, #E0E0E0);
-    color: var(--color-graphite, #353A3E);
+    background: #f5f5f5;
+    color: #1a1a1a;
+    padding-left: 20px;
 }
 
+/* Действия в хедере */
 .header-actions {
     display: flex;
-    gap: 15px;
     align-items: center;
+    gap: 12px;
     flex-shrink: 0;
-    position: relative;
-    z-index: 10;
 }
 
-.btn-nav {
-    padding: 10px 20px;
+/* Кнопки */
+.btn-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
     font-size: 14px;
     font-weight: 600;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
+    white-space: nowrap;
+}
+
+.btn-header svg {
+    width: 16px;
+    height: 16px;
 }
 
 .btn-outline {
-    background: var(--color-white, #ffffff);
-    color: var(--color-jet-black, #1A1A1A);
-    border: 1px solid var(--color-jet-black, #1A1A1A);
+    background: transparent;
+    color: #1a1a1a;
+    border: 2px solid #e0e0e0;
 }
 
 .btn-outline:hover {
-    background: var(--color-jet-black, #1A1A1A) !important;
-    color: var(--color-white, #ffffff) !important;
+    background: #f5f5f5;
+    border-color: #1a1a1a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.btn-solid {
-    background: var(--color-jet-black, #1A1A1A);
-    color: var(--color-white, #ffffff);
+.btn-primary {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    color: #ffffff;
+    border: 2px solid transparent;
 }
 
-.btn-solid:hover {
-    background: var(--color-graphite, #353A3E);
+.btn-primary:hover {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
-.user-icon-wrapper {
-    display: flex;
-    align-items: center;
-    position: relative;
-    z-index: 10;
-}
-
-.user-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--color-platinum, #E0E0E0);
+/* Кнопка пользователя */
+.user-btn {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    border: 2px solid #e0e0e0;
+    color: #1a1a1a;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
-.user-icon:hover {
-    background: var(--color-ash, #BFBFBF);
+.user-btn:hover {
+    background: #1a1a1a;
+    border-color: #1a1a1a;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
+
+.user-btn svg {
+    transition: stroke 0.3s ease;
+}
+
+.user-btn:hover svg {
+    stroke: #ffffff;
+}
+
+/* Инициалы пользователя */
+.user-initials {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Кнопка когда пользователь авторизован */
+.user-btn-logged {
+    background: #1a1a1a;
+    border-color: #1a1a1a;
+    color: #ffffff;
+    width: 48px;
+    height: 48px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.user-btn-logged:hover {
+    background: #333333;
+    border-color: #333333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Обертка для иконки пользователя */
+.user-icon-wrapper {
+    position: relative;
+    margin-left: 16px;
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
 
 @media (max-width: 1200px) {
-    .header-nav-content {
-        gap: 15px;
+    .header-container {
+        padding: 0 30px;
     }
 
-    .nav-menu {
-        gap: 15px;
+    .header-nav {
+        gap: 24px;
     }
 
     .nav-link {
-        font-size: 13px;
+        font-size: 14px;
     }
 
-    .btn-nav {
-        padding: 8px 15px;
+    .btn-header {
+        padding: 10px 20px;
         font-size: 13px;
     }
 }
 
 @media (max-width: 1024px) {
-    .header-info-content,
-    .header-nav-content {
+    .header-container {
         padding: 0 20px;
     }
 
-    .nav-menu {
-        gap: 12px;
+    .header-nav {
+        gap: 20px;
     }
 
-    .nav-link {
-        font-size: 12px;
+    .header-phone,
+    .header-email {
+        font-size: 13px;
     }
 
-    .info-contacts {
-        gap: 10px;
+    .btn-header span {
+        display: none;
     }
 
-    .contact-link {
-        font-size: 12px;
-    }
-
-    .btn-nav {
-        padding: 8px 12px;
-        font-size: 12px;
+    .btn-header {
+        padding: 10px;
+        width: 40px;
+        height: 40px;
+        justify-content: center;
     }
 }
 
 @media (max-width: 768px) {
-    .header-info-content {
-        flex-direction: column;
-        gap: 10px;
+    .header-top-left {
+        display: none;
     }
 
-    .header-nav-content {
+    .header-top-right {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .header-email {
+        display: none;
+    }
+
+    .header-main .header-container {
         flex-wrap: wrap;
+        gap: 20px;
     }
 
-    .nav-menu {
+    .header-nav {
         order: 3;
         width: 100%;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-        margin-top: 15px;
+        gap: 0;
+        display: none;
+    }
+
+    .header-nav.active {
+        display: flex;
+    }
+
+    .nav-item {
+        width: 100%;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .nav-link {
+        padding: 16px 0;
+        width: 100%;
+    }
+
+    .dropdown-menu {
+        position: static;
+        transform: none;
+        box-shadow: none;
+        padding-left: 20px;
+        margin-top: 8px;
     }
 
     .header-actions {
         margin-left: auto;
     }
+}
 
-    .btn-nav {
-        padding: 8px 15px;
-        font-size: 12px;
+/* Fallback для логотипа */
+.logo-img[style*="display: none"] + .logo-text {
+    display: block !important;
+}
+
+
+/* Бургер-меню */
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.burger-menu span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: #1a1a1a;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.burger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.burger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8px);
+}
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+    .header-container {
+        padding: 0 20px;
+    }
+    
+    .header-nav {
+        gap: 20px;
+    }
+    
+    .btn-header {
+        padding: 10px 16px;
+        font-size: 13px;
     }
 }
 
-
-/* Выпадающее меню пользователя */
-.user-dropdown {
-    position: absolute;
-    top: calc(100% + 10px);
-    right: 0;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    min-width: 200px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-    z-index: 1000;
-    overflow: hidden;
+@media (max-width: 992px) {
+    /* Скрываем верхнюю панель на планшетах */
+    .header-top {
+        display: none;
+    }
+    
+    /* Показываем бургер-меню */
+    .burger-menu {
+        display: flex;
+    }
+    
+    /* Скрываем навигацию и кнопки */
+    .header-nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: #ffffff;
+        flex-direction: column;
+        padding: 70px 20px 20px;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+        transition: right 0.3s ease;
+        z-index: 1000;
+        overflow-y: auto;
+    }
+    
+    .header-nav.active {
+        right: 0;
+    }
+    
+    .nav-item {
+        width: 100%;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .nav-link {
+        padding: 15px 0;
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        box-shadow: none;
+        padding: 10px 0 10px 20px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+    
+    .dropdown.active .dropdown-menu {
+        max-height: 500px;
+    }
+    
+    .header-actions {
+        gap: 8px;
+    }
+    
+    /* Скрываем кнопку "Заказать звонок" */
+    .btn-header.btn-outline {
+        display: none;
+    }
+    
+    /* Оставляем кнопку "Оставить заявку" но делаем компактной */
+    .btn-header.btn-primary {
+        padding: 10px 14px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+    
+    .btn-header.btn-primary svg {
+        width: 14px;
+        height: 14px;
+        margin-right: 6px;
+    }
+    
+    /* Уменьшаем иконку пользователя */
+    .user-btn {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .user-btn-logged {
+        width: 42px;
+        height: 42px;
+    }
+    
+    .user-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .user-initials {
+        font-size: 13px;
+    }
 }
 
-.user-dropdown.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+@media (max-width: 768px) {
+    .header-main {
+        padding: 12px 0;
+    }
+    
+    .header-logo {
+        height: 38px;
+    }
+    
+    .logo-img {
+        height: 38px;
+    }
+    
+    .header-nav {
+        width: 260px;
+        padding: 60px 20px 20px;
+    }
+    
+    .header-actions {
+        gap: 6px;
+    }
+    
+    .user-btn {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .user-btn-logged {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .user-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .user-initials {
+        font-size: 12px;
+    }
+    
+    /* Кнопка "Оставить заявку" - только иконка */
+    .btn-header.btn-primary {
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        justify-content: center;
+        font-size: 0;
+    }
+    
+    .btn-header.btn-primary svg {
+        margin: 0;
+        width: 16px;
+        height: 16px;
+    }
 }
 
-.user-dropdown-item {
-    display: block;
-    padding: 12px 20px;
-    color: var(--color-jet-black, #1A1A1A);
-    text-decoration: none;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-}
-
-.user-dropdown-item:hover {
-    background-color: var(--color-platinum, #E0E0E0);
-}
-
-.user-dropdown-divider {
-    height: 1px;
-    background: var(--color-platinum, #E0E0E0);
-    margin: 5px 0;
+@media (max-width: 480px) {
+    .header-container {
+        padding: 0 12px;
+    }
+    
+    .header-logo {
+        height: 34px;
+    }
+    
+    .logo-img {
+        height: 34px;
+    }
+    
+    .header-nav {
+        width: 100%;
+        right: -100%;
+        padding: 60px 15px 15px;
+    }
+    
+    .user-icon-wrapper {
+        margin-left: 8px;
+    }
+    
+    .user-btn {
+        width: 34px;
+        height: 34px;
+    }
+    
+    .user-btn-logged {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .user-btn svg {
+        width: 15px;
+        height: 15px;
+    }
+    
+    .user-initials {
+        font-size: 11px;
+    }
+    
+    .btn-header.btn-primary {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .btn-header.btn-primary svg {
+        width: 15px;
+        height: 15px;
+    }
+    
+    .burger-menu {
+        width: 26px;
+        height: 20px;
+    }
+    
+    .burger-menu span {
+        height: 2px;
+    }
 }

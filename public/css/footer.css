@@ -1,75 +1,386 @@
-/* Footer - Единый стиль */
+/* ============================================
+   FOOTER STYLES - Современный широкоформатный дизайн
+   ============================================ */
+
 .footer {
-    background: var(--color-onyx, #222526);
-    color: var(--color-white, #ffffff);
-    padding: var(--spacing-2xl, 40px) var(--spacing-lg, 24px);
+    position: relative;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    color: #ffffff;
+    overflow: hidden;
 }
 
+/* ============================================
+   ОСНОВНОЙ КОНТЕНТ ФУТЕРА
+   ============================================ */
 .footer-content {
+    position: relative;
+    z-index: 2;
+    padding: 60px 0 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-container {
     max-width: 1400px;
     margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 60px;
+}
+
+/* ============================================
+   КОЛОНКИ ФУТЕРА
+   ============================================ */
+.footer-column {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ============================================
+   БРЕНДОВАЯ КОЛОНКА (ЛОГО)
+   ============================================ */
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.footer-logo-img {
+    height: 60px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    transition: all 0.3s ease;
+}
+
+.footer-logo:hover .footer-logo-img {
+    filter: brightness(0) invert(1) drop-shadow(0 0 15px rgba(255, 255, 255, 0.6));
+    transform: scale(1.05);
+}
+
+.footer-tagline {
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    max-width: 250px;
+}
+
+/* ============================================
+   КОЛОНКИ СО ССЫЛКАМИ
+   ============================================ */
+.footer-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 20px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footer-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-menu li a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
+}
+
+.footer-menu li a::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #ffffff;
+    transition: width 0.3s ease;
+}
+
+.footer-menu li a:hover {
+    color: #ffffff;
+    padding-left: 8px;
+}
+
+.footer-menu li a:hover::before {
+    width: 100%;
+}
+
+/* ============================================
+   КОНТАКТНАЯ КОЛОНКА
+   ============================================ */
+.footer-contacts {
+    gap: 24px;
+}
+
+.footer-contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.footer-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 8px 0;
+}
+
+.footer-contact-item svg {
+    flex-shrink: 0;
+    opacity: 0.8;
+}
+
+.footer-contact-item:hover {
+    color: #ffffff;
+    padding-left: 8px;
+}
+
+.footer-contact-item:hover svg {
+    opacity: 1;
+}
+
+.footer-subtitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 8px 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+   СОЦИАЛЬНЫЕ СЕТИ
+   ============================================ */
+.footer-socials {
+    display: flex;
+    gap: 12px;
+}
+
+.footer-social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.footer-social-link:hover {
+    background: #ffffff;
+    color: #1a1a1a;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+}
+
+.footer-social-link svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ============================================
+   НИЖНЯЯ ПАНЕЛЬ
+   ============================================ */
+.footer-bottom {
+    position: relative;
+    z-index: 2;
+    padding: 24px 0;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.footer-bottom .footer-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: var(--spacing-lg, 24px);
+    grid-template-columns: 1fr;
+    gap: 20px;
 }
 
-.footer-left,
-.footer-right {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-lg, 24px);
-}
-
-.footer p {
+.footer-copyright {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
     margin: 0;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: var(--font-size-base, 14px);
 }
 
-.footer a {
-    color: var(--color-white, #ffffff);
+.footer-bottom-links {
+    display: flex;
+    gap: 24px;
+}
+
+.footer-bottom-links a {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
     text-decoration: none;
-    font-weight: 500;
-    transition: color var(--transition-base, 0.3s ease);
+    transition: color 0.3s ease;
 }
 
-.footer a:hover {
-    color: rgba(255, 255, 255, 0.7);
+.footer-bottom-links a:hover {
+    color: #ffffff;
 }
 
-.footer-link {
-    font-size: var(--font-size-sm, 13px);
-    color: rgba(255, 255, 255, 0.7);
-    margin-left: var(--spacing-md, 16px);
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+@media (max-width: 1200px) {
+    .footer-container {
+        padding: 0 30px;
+        gap: 40px;
+    }
 }
 
-.footer-link:hover {
-    color: var(--color-white, #ffffff);
-    text-decoration: underline;
-}
+@media (max-width: 1024px) {
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
 
-.admin-link {
-    padding: var(--spacing-sm, 12px) var(--spacing-lg, 24px);
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-md, 12px);
-    transition: all var(--transition-base, 0.3s ease);
-}
-
-.admin-link:hover {
-    background: rgba(255, 255, 255, 0.2);
+    .footer-brand {
+        grid-column: 1 / -1;
+        align-items: center;
+    }
 }
 
 @media (max-width: 768px) {
     .footer-content {
+        padding: 40px 0 30px;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 0 20px;
+    }
+
+    .footer-brand {
+        grid-column: 1;
+        text-align: center;
+        align-items: center;
+    }
+
+    .footer-logo {
+        justify-content: center;
+    }
+
+    .footer-tagline {
+        text-align: center;
+    }
+
+    .footer-title {
+        font-size: 15px;
+        margin-bottom: 16px;
+    }
+
+    .footer-menu {
+        gap: 10px;
+    }
+
+    .footer-socials {
+        justify-content: flex-start;
+    }
+
+    .footer-bottom .footer-container {
         flex-direction: column;
         text-align: center;
     }
 
-    .footer-left,
-    .footer-right {
+    .footer-bottom-links {
         flex-direction: column;
-        width: 100%;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-content {
+        padding: 32px 0 24px;
+    }
+
+    .footer-logo-img {
+        height: 50px;
+    }
+
+    .footer-tagline {
+        font-size: 12px;
+    }
+
+    .footer-contact-item {
+        font-size: 14px;
+    }
+
+    .footer-socials {
+        justify-content: center;
+    }
+}
+
+/* ============================================
+   ДОПОЛНИТЕЛЬНЫЕ ЭФФЕКТЫ
+   ============================================ */
+
+/* Плавное появление футера */
+.footer {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Секретная кнопка админки */
+.admin-secret {
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+    cursor: default;
+    display: inline-block;
+    padding: 0 2px;
+}
+
+.admin-secret:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+/* Дополнительная скрытность - кнопка почти невидима */
+@media (prefers-color-scheme: dark) {
+    .admin-secret {
+        opacity: 0.2;
     }
 }

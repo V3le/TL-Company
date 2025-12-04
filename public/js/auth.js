@@ -14,6 +14,9 @@ function openAuthModal() {
     }
 }
 
+// Флаг инициализации модального окна
+let authModalInitialized = false;
+
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Auth.js: DOMContentLoaded');
@@ -21,11 +24,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Ждем загрузки модального окна
     const initAuth = () => {
+        // Предотвращаем повторную инициализацию
+        if (authModalInitialized) {
+            console.log('Auth.js: Модальное окно уже инициализировано');
+            return;
+        }
+        
         console.log('Auth.js: Инициализация модального окна');
         const modal = document.getElementById('authModal');
         console.log('Auth.js: Модальное окно найдено:', !!modal);
         
         if (modal) {
+            authModalInitialized = true;
             initAuthModal();
             initPasswordToggle();
             initPasswordStrength();
@@ -91,6 +101,11 @@ setInterval(checkUserSession, 5 * 60 * 1000);
 function updateUserUI(user) {
     const userIconWrapper = document.querySelector('.user-icon-wrapper');
     
+    if (!userIconWrapper) {
+        console.error('user-icon-wrapper не найден!');
+        return;
+    }
+    
     if (user) {
         // Сохраняем данные пользователя в localStorage
         localStorage.setItem('currentUser', JSON.stringify(user));
@@ -98,9 +113,9 @@ function updateUserUI(user) {
         // Пользователь авторизован
         const initials = (user.first_name?.[0] || '') + (user.last_name?.[0] || user.username[0]);
         userIconWrapper.innerHTML = `
-            <div class="user-icon" onclick="toggleUserDropdown()">
-                ${initials.toUpperCase()}
-            </div>
+            <button class="user-btn user-btn-logged" onclick="toggleUserDropdown()">
+                <span class="user-initials">${initials.toUpperCase()}</span>
+            </button>
             <div class="user-dropdown" id="userDropdown">
                 <div class="user-dropdown-item" style="font-weight: 600; pointer-events: none;">
                     ${user.first_name || user.username}
@@ -120,9 +135,12 @@ function updateUserUI(user) {
         
         // Пользователь не авторизован
         userIconWrapper.innerHTML = `
-            <div class="user-icon" onclick="openAuthModal()">
-                👤
-            </div>
+            <button class="user-btn" onclick="openAuthModal()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </button>
         `;
     }
 }
@@ -364,9 +382,18 @@ function resetForms() {
     }
 }
 
+// Флаг для предотвращения двойной отправки
+let isLoggingIn = false;
+
 // Обработка входа
 async function handleLogin(e) {
     e.preventDefault();
+    
+    // Предотвращаем двойную отправку
+    if (isLoggingIn) {
+        console.log('Вход уже выполняется, пропускаем');
+        return;
+    }
     
     const login = document.getElementById('loginInput').value.trim();
     const password = document.getElementById('loginPassword').value;
@@ -376,6 +403,8 @@ async function handleLogin(e) {
         showNotification('Заполните все поля', 'error');
         return;
     }
+    
+    isLoggingIn = true;
     
     try {
         const response = await fetch('/api/auth/login.php', {
@@ -399,6 +428,8 @@ async function handleLogin(e) {
     } catch (error) {
         console.error('Ошибка входа:', error);
         showNotification('Ошибка соединения с сервером', 'error');
+    } finally {
+        isLoggingIn = false;
     }
 }
 

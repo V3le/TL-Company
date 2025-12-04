@@ -367,9 +367,6 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 24px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--color-border);
 }
 
 .btn-download {
@@ -466,4 +463,33 @@
         font-size: 14px;
         font-weight: 500;
     }
+}
+
+
+/* Категории в меню */
+.documents-menu-category {
+    margin-bottom: 24px;
+}
+
+.documents-menu-category:last-child {
+    margin-bottom: 0;
+}
+
+.menu-category-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #999;
+    padding: 0 20px 12px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.documents-menu-category .documents-menu-item {
+    margin-bottom: 4px;
+}
+
+.documents-menu-category .documents-menu-item:last-child {
+    margin-bottom: 0;
 }
