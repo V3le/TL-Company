@@ -1,16 +1,14 @@
-/* 
- * Единая система дизайна
- * Все цвета, размеры и стили в одном месте
- */
 
 :root {
+    --font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    
     /* Основная палитра */
     --color-onyx: #222526;           /* Onyx - самый темный, для header/footer */
     --color-graphite: #353A3E;       /* Graphite - темно-серый, для текста и кнопок */
     --color-platinum: #E0E0E0;       /* Platinum - светло-серый, для фонов */
     --color-jet-black: #1A1A1A;      /* Jet Black - черный, для акцентов */
     --color-ash: #BFBFBF;            /* Ash - серый, для вторичных элементов */
-    --color-white: #ffffff;          /* Белый */
+    --color-white: #ffffff;          
     
     /* Применение цветов */
     --color-primary: var(--color-jet-black);
@@ -63,7 +61,7 @@
     --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Сброс и базовые стили */
+
 * {
     margin: 0;
     padding: 0;
@@ -71,13 +69,13 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: var(--font-family);
     line-height: 1.6;
     color: var(--color-text);
     background: var(--color-background);
 }
 
-/* Типографика */
+
 h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     color: var(--color-text);
@@ -100,7 +98,7 @@ a:hover {
     color: var(--color-text-secondary);
 }
 
-/* Кнопки */
+
 .btn,
 button[type="submit"],
 button[type="button"] {
@@ -143,7 +141,7 @@ button[type="submit"]:hover {
     transform: translateY(-2px);
 }
 
-/* Инпуты */
+
 input[type="text"],
 input[type="email"],
 input[type="tel"],
@@ -177,7 +175,7 @@ select:focus {
     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
 }
 
-/* Заполненные инпуты имеют белый фон */
+
 input[type="text"]:not(:placeholder-shown),
 input[type="email"]:not(:placeholder-shown),
 input[type="tel"]:not(:placeholder-shown),
@@ -220,7 +218,7 @@ textarea::placeholder {
     color: var(--color-ash);
 }
 
-/* Стили валидации */
+
 input:invalid:not(:placeholder-shown),
 textarea:invalid:not(:placeholder-shown),
 select:invalid:not(:placeholder-shown) {

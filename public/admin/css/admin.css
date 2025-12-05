@@ -1,6 +1,11 @@
 /* Современный дизайн админки A2B Logistics */
 
+@import url('../../css/fonts.css');
+
 :root {
+    /* Шрифт - наследуется из design-system.css */
+    --font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    
     /* Основная палитра (как на клиентской части) */
     --color-onyx: #222526;
     --color-graphite: #353A3E;
@@ -37,7 +42,7 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: var(--font-family);
     background: var(--color-background);
     color: var(--color-text);
     line-height: 1.6;
