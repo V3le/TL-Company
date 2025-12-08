@@ -590,7 +590,7 @@ function initPasswordToggle() {
             <circle cx="12" cy="12" r="3"/>
         </svg>`;
         
-        // Добавляем обработчик
+
         toggleBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -613,10 +613,10 @@ function initPasswordToggle() {
         inputGroup.appendChild(toggleBtn);
     };
     
-    // Добавляем глазики ко всем существующим полям
+
     modal.querySelectorAll('input[type="password"]').forEach(addToggleButton);
     
-    // Наблюдаем за появлением новых полей
+
     const observer = new MutationObserver(() => {
         modal.querySelectorAll('input[type="password"]:not([data-toggle-added])').forEach(addToggleButton);
     });
@@ -641,13 +641,13 @@ function checkPasswordMatch() {
         return;
     }
     
-    // Если пароли совпадают - зелёная рамка, текст скрыт
+    // Если пароли совпадают 
     if (password === confirm) {
         confirmInput.classList.remove('error');
         confirmInput.classList.add('success');
         hideValidationMessage('passwordMatchValidation');
     } 
-    // Если не совпадают - красная рамка и текст ошибки
+    // Если не совпадают 
     else {
         confirmInput.classList.remove('success');
         confirmInput.classList.add('error');
@@ -665,31 +665,31 @@ function initPasswordStrength() {
         
         if (!passwordInput) return;
         
-        // Скрываем поле подтверждения пароля и блок надёжности изначально
+
         if (confirmGroup) confirmGroup.style.display = 'none';
         if (passwordMatchValidation) passwordMatchValidation.style.display = 'none';
         if (strengthBlock) strengthBlock.style.display = 'none';
         
-        // Обработчик для основного поля пароля
+
         passwordInput.addEventListener('input', function() {
             const password = this.value;
             const strengthFill = document.getElementById('passwordStrengthFill');
             const strengthText = document.getElementById('passwordStrengthText');
             const passwordConfirmInput = document.getElementById('regPasswordConfirm');
             
-            // Показываем/скрываем блоки
+
             if (password.length > 0) {
                 if (confirmGroup) confirmGroup.style.display = 'block';
                 if (passwordMatchValidation) passwordMatchValidation.style.display = 'block';
                 if (strengthBlock) strengthBlock.style.display = 'block';
                 
-                // Добавляем обработчик для поля подтверждения с небольшой задержкой
+              
                 setTimeout(() => {
                     const confirmInput = document.getElementById('regPasswordConfirm');
                     if (confirmInput && !confirmInput.dataset.listenerAdded) {
                         confirmInput.dataset.listenerAdded = 'true';
                         confirmInput.addEventListener('input', checkPasswordMatch);
-                        // Также проверяем при изменении основного пароля
+             
                         checkPasswordMatch();
                     }
                 }, 100);
@@ -704,7 +704,7 @@ function initPasswordStrength() {
                 return;
             }
             
-            // Проверяем совпадение паролей при изменении основного пароля
+            
             checkPasswordMatch();
             
             // Расчет надёжности пароля
@@ -739,9 +739,8 @@ function initPasswordStrength() {
 
 // Инициализация валидации форм
 function initFormValidation() {
-    // Используем setTimeout чтобы дождаться загрузки модального окна
     setTimeout(() => {
-        // Валидация username
+        // Валидация имени
         const usernameInput = document.getElementById('regUsername');
         if (usernameInput) {
             let usernameTimeout;
@@ -807,7 +806,7 @@ function initFormValidation() {
             });
         }
         
-        // Валидация совпадения паролей теперь в checkPasswordMatch()
+      
         
         // Маска для телефона
         const phoneInput = document.getElementById('regPhone');
@@ -855,10 +854,9 @@ function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-// Функция showNotification теперь определена в toast.js
-// Она автоматически доступна глобально через window.showNotification
 
-// Делаем функции глобальными для доступа из HTML
+
+// глобальные функции
 window.openAuthModal = openAuthModal;
 window.switchToLogin = switchToLogin;
 window.switchToRegister = switchToRegister;

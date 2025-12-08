@@ -1,4 +1,4 @@
-// Данные филиалов (синие маркеры)
+// Данные филиалов 
 const branches = [
     { city: 'Москва', terminals: 10, lat: 55.7558, lng: 37.6173, address: 'г. Москва, ул. Примерная, д. 1', phone: '+7 (499) 460-17-40', email: 'moscow@a2b.ru', type: 'branch', timezone: 'Europe/Moscow', utcOffset: 3 },
     { city: 'Санкт-Петербург', terminals: 4, lat: 59.9343, lng: 30.3351, address: 'г. Санкт-Петербург, пр. Невский, д. 100', phone: '+7 (812) 123-45-67', email: 'spb@a2b.ru', type: 'branch', utcOffset: 3 },
@@ -27,7 +27,7 @@ const branches = [
     { city: 'Ярославль', terminals: 1, lat: 57.6261, lng: 39.8845, address: 'г. Ярославль, пр. Ленина, д. 6', phone: '+7 (4852) 12-34-56', email: 'yar@a2b.ru', type: 'branch', utcOffset: 3 },
 ];
 
-// Города адресной доставки (зеленые маркеры)
+// Города адресной доставки 
 const deliveryCities = [
     { city: 'Абакан', lat: 53.7215, lng: 91.4425, servicedBy: 'Красноярск', phone: '+7 (391) 123-45-67', type: 'delivery' },
     { city: 'Анапа', lat: 44.8951, lng: 37.3167, servicedBy: 'Краснодар', phone: '+7 (861) 123-45-67', type: 'delivery' },
@@ -163,7 +163,7 @@ let activeFilter = 'branches';
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM загружен');
     
-    // Проверяем наличие ymaps
+    
     if (typeof ymaps === 'undefined') {
         console.error('Яндекс.Карты не загружены!');
         return;
@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateBranchCount();
 });
 
-// Инициализация Яндекс.Карты
+
 function initMap() {
     console.log('Инициализация карты...');
     
@@ -195,7 +195,7 @@ function initMap() {
         branchesCollection = new ymaps.GeoObjectCollection();
         deliveryCollection = new ymaps.GeoObjectCollection();
     
-        // Добавляем метки филиалов (синие)
+        // Добавляем метки филиалов 
         branches.forEach(branch => {
             const placemark = new ymaps.Placemark(
                 [branch.lat, branch.lng],
@@ -218,7 +218,7 @@ function initMap() {
             branchesCollection.add(placemark);
         });
 
-        // Добавляем метки городов адресной доставки (зеленые)
+        // Добавляем метки городов адресной доставки 
         deliveryCities.forEach(city => {
             const placemark = new ymaps.Placemark(
                 [city.lat, city.lng],
@@ -284,7 +284,7 @@ function renderCitiesList() {
     citiesList.innerHTML = html;
 }
 
-// Окончание для слова "терминал"
+
 function getTerminalEnding(count) {
     if (count === 1) return '';
     if (count >= 2 && count <= 4) return 'а';
@@ -295,20 +295,20 @@ function getTerminalEnding(count) {
 function selectCity(cityName) {
     const branch = branches.find(b => b.city === cityName);
     if (branch) {
-        // Убираем активный класс со всех городов
+
         document.querySelectorAll('.city-item').forEach(item => {
             item.classList.remove('active');
         });
         
-        // Добавляем активный класс выбранному городу
+
         event.target.closest('.city-item').classList.add('active');
         
-        // Центрируем карту на городе
+
         map.setCenter([branch.lat, branch.lng], 12, {
             duration: 500
         });
         
-        // Показываем детали
+
         showBranchDetails(branch);
     }
 }
@@ -530,7 +530,7 @@ function setupFilters() {
                 map.geoObjects.remove(branchesCollection);
                 map.geoObjects.add(deliveryCollection);
             } else if (filter === 'pickup') {
-                // Пока пусто
+
                 map.geoObjects.remove(branchesCollection);
                 map.geoObjects.remove(deliveryCollection);
             }

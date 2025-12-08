@@ -3,6 +3,70 @@
 document.addEventListener('DOMContentLoaded', function() {
     const menuItems = document.querySelectorAll('.documents-menu-item');
     const documentCards = document.querySelectorAll('.document-card');
+    const sidebar = document.querySelector('.documents-sidebar');
+    const pageTitle = document.querySelector('.page-title');
+    
+    // Функция для управления drawer меню на мобильных
+    function initMobileDrawer() {
+        if (window.innerWidth <= 768 && sidebar && pageTitle) {
+            // Создаем overlay если его нет
+            let overlay = document.querySelector('.documents-drawer-overlay');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.className = 'documents-drawer-overlay';
+                document.body.appendChild(overlay);
+            }
+            
+            // Клик по заголовку для открытия/закрытия
+            pageTitle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const isActive = sidebar.classList.toggle('active');
+                overlay.classList.toggle('active', isActive);
+                document.body.style.overflow = isActive ? 'hidden' : '';
+            });
+            
+            // Закрытие drawer при выборе документа
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        setTimeout(() => {
+                            sidebar.classList.remove('active');
+                            overlay.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }, 300);
+                    }
+                });
+            });
+            
+            // Закрытие при клике на overlay
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        }
+    }
+    
+    // Инициализация drawer
+    initMobileDrawer();
+    
+    // Переинициализация при изменении размера окна
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            if (window.innerWidth > 768) {
+                if (sidebar) {
+                    sidebar.classList.remove('active');
+                }
+                const overlay = document.querySelector('.documents-drawer-overlay');
+                if (overlay) {
+                    overlay.classList.remove('active');
+                }
+                document.body.style.overflow = '';
+            }
+        }, 250);
+    });
 
     // Обработка клика по пункту меню
     menuItems.forEach(item => {

@@ -229,7 +229,31 @@ function initBurgerMenu() {
                 if (window.innerWidth <= 992) {
                     e.preventDefault();
                     e.stopPropagation();
+                    
+                    // Закрываем все другие dropdown
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.classList.remove('active');
+                        }
+                    });
+                    
+                    // Переключаем текущий dropdown
                     dropdown.classList.toggle('active');
+                }
+            });
+        }
+    });
+    
+    // Закрытие меню при клике на обычные ссылки (не dropdown)
+    const regularLinks = document.querySelectorAll('.header-nav .nav-item:not(.dropdown) .nav-link, .dropdown-link');
+    regularLinks.forEach(link => {
+        if (!link.dataset.closeListenerAdded) {
+            link.dataset.closeListenerAdded = 'true';
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 992) {
+                    burgerMenu.classList.remove('active');
+                    headerNav.classList.remove('active');
+                    document.body.style.overflow = '';
                 }
             });
         }
