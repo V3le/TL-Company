@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация - Лабораторная работа</title>
+    <link rel="stylesheet" href="./css/fonts.css">
+    <link rel="stylesheet" href="./css/design-system.css">
+    <link rel="stylesheet" href="./css/auth.css">
+</head>
+<body>
+    <!-- Главная страница -->
+    <div class="main-page">
+        <div class="main-container">
+            <div class="logo-section">
+                <img src="./images/logo.png" alt="Logo" class="main-logo" onerror="this.style.display='none'">
+                <h1 class="main-title">Система авторизации</h1>
+                <p class="main-subtitle">Лабораторная работа</p>
+            </div>
+            
+            <!-- Состояние: не авторизован -->
+            <div id="notAuthorized" class="auth-state">
+                <button class="main-btn" onclick="openAuthModal()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Войти
+                </button>
+            </div>
+            
+            <!-- Состояние: авторизован -->
+            <div id="authorized" class="auth-state" style="display: none;">
+                <div class="user-profile-card">
+                    <div class="user-avatar-main">
+                        <div class="avatar-circle-main" id="mainUserInitials">ПП</div>
+                    </div>
+                    <h2 class="user-name-main" id="mainUserName">Пользователь</h2>
+                    <p class="user-email-main" id="mainUserEmail">user@example.com</p>
+                    
+                    <div class="user-details">
+                        <div class="detail-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                            <span id="mainUserPhone">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span id="mainUserCity">-</span>
+                        </div>
+                    </div>
+                    
+                    <button class="main-btn main-btn-logout" onclick="logout()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        Выйти
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно авторизации -->
+    <div id="authModal" class="auth-modal">
+        <div class="auth-modal-content">
+            <button class="auth-modal-close" onclick="closeAuthModal()">&times;</button>
+            
+            <!-- Форма входа -->
+            <div id="loginForm" class="auth-form active">
+                <div class="auth-logo">
+                    <img src="./images/logo.png" alt="Logo" class="auth-logo-img" onerror="this.style.display='none'">
+                </div>
+                <h2 class="auth-title">С возвращением!</h2>
+                <p class="auth-subtitle">Введите email и пароль для продолжения</p>
+                
+                <form id="loginFormElement">
+                    <div class="auth-input-group">
+                        <input type="text" id="loginInput" placeholder="Введите логин или email" required>
+                    </div>
+                    
+                    <div class="auth-input-group">
+                        <input type="password" id="loginPassword" placeholder="Введите пароль" required>
+                    </div>
+                    
+                    <div class="auth-options">
+                        <label class="auth-checkbox">
+                            <input type="checkbox" id="rememberMe">
+                            <span>Запомнить меня</span>
+                        </label>
+                        <a href="javascript:void(0)" class="auth-link">Забыли пароль?</a>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn auth-btn-primary">Войти</button>
+                </form>
+                
+                <div class="auth-divider">
+                    <span>Или войти через</span>
+                </div>
+                
+                <div class="auth-social">
+                    <button class="auth-social-btn" onclick="alert('Google авторизация в разработке')">
+                        <svg class="auth-social-icon" width="20" height="20" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        <span class="auth-social-text">Google</span>
+                    </button>
+                    <button class="auth-social-btn" onclick="alert('VK авторизация в разработке')">
+                        <svg class="auth-social-icon" width="20" height="20" viewBox="0 0 24 24" fill="#0077FF">
+                            <path d="M12.785 16.241s.288-.032.436-.193c.136-.148.132-.425.132-.425s-.019-1.297.582-1.488c.593-.188 1.354 1.254 2.161 1.808.612.42 1.076.328 1.076.328l2.163-.03s1.13-.07.595-.96c-.044-.073-.313-.659-1.609-1.863-1.356-1.26-1.174-1.056.459-3.235.994-1.326 1.39-2.134 1.266-2.48-.118-.33-.847-.243-.847-.243l-2.434.015s-.18-.025-.314.056c-.13.079-.214.263-.214.263s-.383 1.02-.894 1.888c-1.077 1.828-1.508 1.926-1.684 1.811-.409-.267-.307-1.074-.307-1.647 0-1.791.271-2.537-.529-2.73-.266-.064-.462-.106-1.142-.113-.872-.009-1.609.003-2.026.207-.278.136-.492.439-.361.456.162.022.528.099.722.364.251.342.242 1.11.242 1.11s.144 2.108-.336 2.369c-.33.179-.782-.187-1.753-1.858-.497-.85-.873-1.79-.873-1.79s-.072-.177-.201-.272c-.157-.115-.376-.151-.376-.151l-2.312.015s-.347.01-.474.16c-.113.134-.009.41-.009.41s1.8 4.217 3.838 6.344c1.87 1.95 3.994 1.821 3.994 1.821h.964z"/>
+                        </svg>
+                        <span class="auth-social-text">VK</span>
+                    </button>
+                </div>
+                
+                <p class="auth-footer">
+                    Нет аккаунта? <a href="javascript:void(0)" class="auth-link" onclick="switchToRegister(); return false;">Создать аккаунт</a>
+                </p>
+            </div>
+            
+            <!-- Форма регистрации - Шаг 1 -->
+            <div id="registerForm" class="auth-form">
+                <div class="auth-logo">
+                    <img src="./images/logo.png" alt="Logo" class="auth-logo-img" onerror="this.style.display='none'">
+                </div>
+                <h2 class="auth-title">Создать аккаунт</h2>
+                <p class="auth-subtitle">Шаг 1 из 2: Данные для входа</p>
+                
+                <div class="auth-steps">
+                    <div class="auth-step active">1</div>
+                    <div class="auth-step-line"></div>
+                    <div class="auth-step">2</div>
+                </div>
+                
+                <form id="registerFormStep1">
+                    <div class="auth-input-group">
+                        <input type="text" id="regUsername" placeholder="Логин" required>
+                        <span class="auth-validation-icon"></span>
+                    </div>
+                    <div class="auth-validation-message" id="usernameValidation"></div>
+                    
+                    <div class="auth-input-group">
+                        <input type="email" id="regEmail" placeholder="Email" required>
+                        <span class="auth-validation-icon"></span>
+                    </div>
+                    <div class="auth-validation-message" id="emailValidation"></div>
+                    
+                    <div class="auth-input-group">
+                        <input type="password" id="regPassword" placeholder="Пароль" required>
+                    </div>
+                    
+                    <div class="auth-input-group" id="confirmPasswordGroup">
+                        <input type="password" id="regPasswordConfirm" placeholder="Подтвердите пароль" required>
+                    </div>
+                    <div class="auth-validation-message" id="passwordMatchValidation"></div>
+                    
+                    <div class="password-strength">
+                        <div class="password-strength-label">Надёжность пароля:</div>
+                        <div class="password-strength-bar">
+                            <div class="password-strength-fill" id="passwordStrengthFill"></div>
+                        </div>
+                        <div class="password-strength-text" id="passwordStrengthText">Слабый</div>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn auth-btn-primary">Далее</button>
+                </form>
+                
+                <div class="auth-divider">
+                    <span>Или зарегистрироваться через</span>
+                </div>
+                
+                <div class="auth-social">
+                    <button class="auth-social-btn" onclick="alert('Google регистрация в разработке')">
+                        <svg class="auth-social-icon" width="20" height="20" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        <span class="auth-social-text">Google</span>
+                    </button>
+                    <button class="auth-social-btn" onclick="alert('VK регистрация в разработке')">
+                        <svg class="auth-social-icon" width="20" height="20" viewBox="0 0 24 24" fill="#0077FF">
+                            <path d="M12.785 16.241s.288-.032.436-.193c.136-.148.132-.425.132-.425s-.019-1.297.582-1.488c.593-.188 1.354 1.254 2.161 1.808.612.42 1.076.328 1.076.328l2.163-.03s1.13-.07.595-.96c-.044-.073-.313-.659-1.609-1.863-1.356-1.26-1.174-1.056.459-3.235.994-1.326 1.39-2.134 1.266-2.48-.118-.33-.847-.243-.847-.243l-2.434.015s-.18-.025-.314.056c-.13.079-.214.263-.214.263s-.383 1.02-.894 1.888c-1.077 1.828-1.508 1.926-1.684 1.811-.409-.267-.307-1.074-.307-1.647 0-1.791.271-2.537-.529-2.73-.266-.064-.462-.106-1.142-.113-.872-.009-1.609.003-2.026.207-.278.136-.492.439-.361.456.162.022.528.099.722.364.251.342.242 1.11.242 1.11s.144 2.108-.336 2.369c-.33.179-.782-.187-1.753-1.858-.497-.85-.873-1.79-.873-1.79s-.072-.177-.201-.272c-.157-.115-.376-.151-.376-.151l-2.312.015s-.347.01-.474.16c-.113.134-.009.41-.009.41s1.8 4.217 3.838 6.344c1.87 1.95 3.994 1.821 3.994 1.821h.964z"/>
+                        </svg>
+                        <span class="auth-social-text">VK</span>
+                    </button>
+                </div>
+                
+                <p class="auth-footer">
+                    Уже есть аккаунт? <a href="javascript:void(0)" class="auth-link" onclick="switchToLogin(); return false;">Войти</a>
+                </p>
+            </div>
+            
+            <!-- Форма регистрации - Шаг 2 -->
+            <div id="registerFormStep2" class="auth-form">
+                <div class="auth-logo">
+                    <img src="./images/logo.png" alt="Logo" class="auth-logo-img" onerror="this.style.display='none'">
+                </div>
+                <h2 class="auth-title">Контактные данные</h2>
+                <p class="auth-subtitle">Шаг 2 из 2: Расскажите о себе</p>
+                
+                <div class="auth-steps">
+                    <div class="auth-step completed">✓</div>
+                    <div class="auth-step-line active"></div>
+                    <div class="auth-step active">2</div>
+                </div>
+                
+                <form id="registerFormStep2Element">
+                    <div class="auth-input-group">
+                        <input type="text" id="regLastName" placeholder="Фамилия" required>
+                    </div>
+                    
+                    <div class="auth-input-group">
+                        <input type="text" id="regFirstName" placeholder="Имя" required>
+                    </div>
+                    
+                    <div class="auth-input-group">
+                        <input type="text" id="regMiddleName" placeholder="Отчество (необязательно)">
+                    </div>
+                    
+                    <div class="auth-input-group">
+                        <input type="date" id="regBirthDate" placeholder="Дата рождения" required>
+                    </div>
+                    
+                    <div class="auth-input-group">
+                        <input type="tel" id="regPhone" placeholder="+7 (___) ___-__-__" required>
+                    </div>
+                    
+                    <div class="auth-input-group">
+                        <input type="text" id="regCity" placeholder="Город" required>
+                    </div>
+                    
+                    <div class="auth-privacy-checkbox">
+                        <label class="auth-checkbox">
+                            <input type="checkbox" id="regPrivacy" required>
+                            <span>Я соглашаюсь с <a href="../public/documents.html#consent" target="_blank">политикой обработки персональных данных</a></span>
+                        </label>
+                    </div>
+                    
+                    <div class="auth-btn-group">
+                        <button type="button" class="auth-btn auth-btn-secondary" onclick="backToStep1()">Назад</button>
+                        <button type="submit" class="auth-btn auth-btn-primary">Зарегистрироваться</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Профиль пользователя -->
+            <div id="userProfile" class="auth-form">
+                <div class="auth-logo">
+                    <div class="user-avatar-large">
+                        <div class="avatar-circle-large" id="userInitials">ПП</div>
+                    </div>
+                </div>
+                <h2 class="auth-title" id="userName">Пользователь</h2>
+                <p class="auth-subtitle" id="userEmail">user@example.com</p>
+                
+                <div class="user-info-card">
+                    <div class="info-row">
+                        <span class="info-label">Телефон:</span>
+                        <span class="info-value" id="userPhone">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Город:</span>
+                        <span class="info-value" id="userCity">-</span>
+                    </div>
+                </div>
+                
+                <button type="button" class="auth-btn auth-btn-logout" onclick="logout()">Выйти</button>
+            </div>
+        </div>
+    </div>
+    <div id="toast" class="toast"></div>
+
+    <script src="./js/auth.js"></script>
+</body>
+</html>
+
